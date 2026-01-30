@@ -1,0 +1,820 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  
+  <title>Catálogo de Series | MadSulu GO</title>
+
+  <meta name="description" content="Explora el catálogo completo de series de Countryballs en MadSulu GO. Mira Apocalipsis Universal, Coñaco, Pilas y más. ¡Streaming 100% gratis!">
+  <meta name="keywords" content="Catálogo, Series Countryballs, Ver series gratis, MadSulu GO, Lista de episodios, Animación">
+  <meta name="author" content="MadZalMedia Incorporated">
+  
+  <meta name="theme-color" content="#e50914">
+
+  <meta property="og:title" content="Catálogo de Series | MadSulu GO">
+  <meta property="og:description" content="¡Más de 15 series disponibles! Apocalipsis Universal, Coñaco, Pancho y muchas más. Entra y elige qué ver hoy.">
+  <meta property="og:image" content="https://files.catbox.moe/q8rwdm.png">
+  <meta property="og:type" content="website">
+  
+  <meta property="og:url" content="https://madsulu-go.netlify.app/series.html">
+
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Catálogo Completo | MadSulu GO">
+  <meta name="twitter:description" content="Explora todas las series de Countryballs creadas por la comunidad.">
+  <meta name="twitter:image" content="https://files.catbox.moe/q8rwdm.png">
+
+  <link rel="icon" type="image/png" href="https://files.catbox.moe/q8rwdm.png">
+  <link rel="apple-touch-icon" href="https://files.catbox.moe/q8rwdm.png">
+
+  <style>
+    :root {
+      /* Variables iniciales */
+      --bg-dark: #000000;      
+      --accent-blue: #141414;  
+      --primary: #e50914;      
+      --bg-card: #181818;      
+      --text-main: #ffffff;    
+      --text-muted: #808080;   
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+      background-color: var(--bg-dark); 
+      color: var(--text-main);          
+      width: 100%;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      transition: background-color 10s ease, color 10s ease;
+    }
+
+    /* --- Header --- */
+    header {
+      padding: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(0,0,0,0.8);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid rgba(255,255,255,0.1);
+    }
+
+    .brand-logo {
+      height: 40px;
+    }
+
+    .header-title {
+        font-weight: bold;
+        text-transform: uppercase;
+        font-size: 1.2rem;
+    }
+
+    /* --- Catálogo Grid --- */
+    .catalog-container {
+      padding: 20px;
+      max-width: 1200px;
+      margin: 0 auto;
+      width: 100%;
+      flex: 1; /* Empuja el footer hacia abajo */
+    }
+
+    .grid-title {
+        margin-top: 20px;
+        margin-bottom: 20px;
+        font-size: 1.5rem;
+        border-left: 4px solid var(--primary);
+        padding-left: 15px;
+    }
+
+    .series-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 20px;
+    }
+
+    /* Tarjeta del catálogo (Poster Media) */
+    .series-card {
+      position: relative;
+      background-color: var(--bg-card);
+      border-radius: 8px;
+      overflow: hidden;
+      cursor: pointer;
+      transition: transform 0.3s, box-shadow 0.3s;
+      aspect-ratio: 16/9; /* Formato apaisado/media */
+    }
+
+    .series-card:hover {
+      transform: scale(1.03);
+      box-shadow: 0 10px 20px rgba(0,0,0,0.5);
+      z-index: 2;
+    }
+
+    .card-img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: opacity 0.3s;
+    }
+
+    .card-overlay {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      padding: 20px;
+      background: linear-gradient(to top, rgba(0,0,0,0.9), transparent);
+      opacity: 0;
+      transition: opacity 0.3s;
+    }
+
+    .series-card:hover .card-overlay {
+      opacity: 1;
+    }
+
+    .card-title {
+      font-weight: bold;
+      font-size: 1.1rem;
+      text-shadow: 0 2px 4px black;
+    }
+
+    /* --- MODAL (Panel de Detalles) --- */
+    .modal-overlay {
+        position: fixed;
+        top: 0; left: 0; width: 100%; height: 100%;
+        background: rgba(0,0,0,0.85);
+        backdrop-filter: blur(8px);
+        z-index: 1000;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        opacity: 0;
+        pointer-events: none;
+        transition: opacity 0.3s ease;
+    }
+
+    .modal-overlay.active {
+        opacity: 1;
+        pointer-events: auto;
+    }
+
+    .modal-content {
+        background: var(--bg-card);
+        width: 90%;
+        max-width: 900px;
+        max-height: 90vh;
+        border-radius: 12px;
+        overflow: hidden; /* Importante para bordes */
+        display: flex;
+        position: relative;
+        box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+        border: 1px solid rgba(255,255,255,0.1);
+        transition: background-color 10s ease;
+    }
+
+    .close-btn {
+        position: absolute;
+        top: 15px;
+        right: 15px;
+        background: rgba(0,0,0,0.5);
+        color: white;
+        border: none;
+        width: 35px;
+        height: 35px;
+        border-radius: 50%;
+        font-size: 20px;
+        cursor: pointer;
+        z-index: 10;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    .close-btn:hover { background: var(--primary); }
+
+    /* Layout del Modal: Izq Poster Vertical, Der Info */
+    .modal-poster-container {
+        width: 40%; /* Un poco más ancho para que luzca mejor */
+        flex-shrink: 0;
+        background: #000; /* Fondo negro para rellenar espacios */
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .modal-poster-vertical {
+        width: 100%;
+        height: 100%;
+        object-fit: contain; /* CLAVE: Para que se vea todo el poster vertical sin recortar */
+    }
+
+    .modal-info-container {
+        padding: 40px;
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        /* justify-content: center; Quitamos esto para permitir scroll si es muy largo */
+        overflow-y: auto; /* Scroll en la parte de info si es necesaria */
+    }
+
+    .modal-title {
+        font-size: 2.2rem;
+        font-weight: 800;
+        margin-bottom: 10px;
+        line-height: 1.1;
+    }
+
+    .modal-meta {
+        display: flex;
+        gap: 15px;
+        align-items: center;
+        margin-bottom: 20px;
+        font-size: 0.9rem;
+        color: var(--text-muted);
+    }
+
+    .age-badge {
+        border: 1px solid var(--text-muted);
+        padding: 2px 6px;
+        border-radius: 4px;
+        font-weight: bold;
+        color: var(--text-main);
+    }
+
+    .modal-synopsis {
+        font-size: 1rem;
+        line-height: 1.6;
+        margin-bottom: 25px;
+        color: #ddd;
+    }
+
+    .modal-credits {
+        margin-bottom: 25px;
+        font-size: 0.9rem;
+        color: var(--text-muted);
+        border-bottom: 1px solid rgba(255,255,255,0.1);
+        padding-bottom: 15px;
+    }
+    .modal-credits span { display: block; margin-bottom: 5px; }
+    .modal-credits b { color: var(--text-main); }
+
+    /* --- Lista de Episodios --- */
+    .episodes-container {
+        margin-top: 10px;
+    }
+    
+    .episodes-title-label {
+        font-size: 1.1rem;
+        font-weight: bold;
+        color: var(--primary);
+        margin-bottom: 15px;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+    }
+
+    .episodes-list {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+    }
+
+    .episode-item {
+        background: rgba(255,255,255,0.05);
+        padding: 12px 15px;
+        border-radius: 6px;
+        display: flex;
+        align-items: center;
+        gap: 15px;
+        transition: background 0.2s;
+        border-left: 2px solid transparent;
+    }
+    
+    .episode-item:hover {
+        background: rgba(255,255,255,0.1);
+        border-left: 2px solid var(--primary);
+    }
+
+    .ep-num {
+        font-weight: bold;
+        color: var(--text-muted);
+        min-width: 25px;
+    }
+
+    .ep-name {
+        font-weight: 500;
+        color: var(--text-main);
+    }
+
+    /* --- Footer --- */
+    footer {
+      padding: 40px 20px;
+      background: rgba(0,0,0,0.5);
+      text-align: center;
+      font-size: 0.9rem;
+      color: var(--text-muted);
+      border-top: 1px solid rgba(255,255,255,0.1);
+      margin-top: auto;
+    }
+    footer a { color: var(--text-main); text-decoration: none; margin: 0 10px; }
+    footer a:hover { color: var(--primary); }
+    .footer-links { margin-top: 15px; display: flex; justify-content: center; gap: 20px; }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+        .modal-content { flex-direction: column; height: 100%; width: 100%; border-radius: 0; overflow-y: auto; }
+        .modal-poster-container { 
+            width: 100%; 
+            height: auto; 
+            aspect-ratio: 2/3; /* Formato poster vertical forzado en móvil */
+        }
+        .modal-poster-vertical { object-position: center; }
+        .modal-info-container { padding: 20px; overflow-y: visible; }
+        .modal-title { font-size: 1.8rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+      <div style="display:flex; align-items:center; gap:15px;">
+        <img src="https://files.catbox.moe/q8rwdm.png" alt="Logo" class="brand-logo">
+        <span class="header-title">Explorar</span>
+      </div>
+      <a href="index.html" style="color:white; text-decoration:none;">Inicio</a>
+  </header>
+
+  <div class="catalog-container">
+      
+      <div class="grid-title">Series Destacadas</div>
+      <div class="series-grid" id="seriesGrid">
+          </div>
+
+  </div>
+
+  <div class="modal-overlay" id="seriesModal" onclick="closeModal(event)">
+      <div class="modal-content" onclick="event.stopPropagation()"> 
+          <button class="close-btn" onclick="closeModalForce()">×</button>
+          
+          <div class="modal-poster-container">
+              <img src="" alt="Poster Vertical" class="modal-poster-vertical" id="mPosterV">
+          </div>
+          
+          <div class="modal-info-container">
+              <h2 class="modal-title" id="mTitle">Titulo de la Serie</h2>
+              
+              <div class="modal-meta">
+                  <span class="age-badge" id="mRating">PG</span>
+                  <span id="mProducer">Productora</span>
+              </div>
+
+              <p class="modal-synopsis" id="mSynopsis">
+                  Descripción de la serie...
+              </p>
+
+              <div class="modal-credits">
+                  <span><b>Creador:</b> <span id="mCreator">Nombre</span></span>
+                  <span><b>Productora:</b> <span id="mStudio">Estudio</span></span>
+              </div>
+
+              <div class="episodes-container">
+                  <div class="episodes-title-label">Lista de Episodios</div>
+                  <div class="episodes-list" id="mEpisodesList">
+                      </div>
+              </div>
+
+          </div>
+      </div>
+  </div>
+
+  <footer>
+      <div>© 2026 MadZalMedia</div>
+      <div class="footer-links">
+          <a href="mailto:madsulugo.soporte@gmail.com">Contactar</a>
+          <a href="https://discord.gg/HQTBK8xsyn" target="_blank">Discord</a>
+          <a href="terms.html">Terminos y Condiciones</a>
+      </div>
+  </footer>
+
+  <script>
+    /* --- DATOS COMPLETOS DE LAS SERIES Y EPISODIOS --- */
+    const seriesData = [
+      {
+        id: 1,
+        title: "Apocalipsis Universal",
+        synopsis: "Un rey, obsesionado con reunir los cristales universales, destruye universos en su búsqueda; un grupo de guerreros countryball buscará detenerlo.",
+        rating: "Restringido",
+        creator: "NET",
+        producer: "NET",
+        episodes: [
+            "1. Peace",
+            "2. Hope"
+        ],
+        posterMedia: "https://files.catbox.moe/hjgpjy.jpg",
+        posterVertical: "https://files.catbox.moe/rikcnv.png"
+      },
+      {
+        id: 2,
+        title: "Batalla Countrytuber",
+        synopsis: "Una competencia organizada por Calamardo donde distintos countrytubers forman equipos y superan retos decididos por la comunidad; el último equipo en pie gana.",
+        rating: "Adolescentes",
+        creator: "Mateo el dormilon",
+        producer: "Mateo el dormilon",
+        episodes: [
+            "1. Un nuevo hogar",
+            "2. El suelo es lava",
+            "3. El garaje gallego"
+        ],
+        posterMedia: "https://files.catbox.moe/5ym1pj.png",
+        posterVertical: "https://files.catbox.moe/cxioc7.png"
+      },
+      {
+        id: 3,
+        title: "Las CaliFornias",
+        synopsis: "3 hermanos separados por fronteras y por guerras han decidido reconciliarse pero se van a atravesar con muchos problemas, revelaciones y una horrible pesadilla.",
+        rating: "+10",
+        creator: "Mr. Chulin",
+        producer: "Sulu Studios Corporation",
+        episodes: [
+            "1. Un nuevo plan",
+            "2. Una mala relación",
+            "3. El despertar de una pesadilla"
+        ],
+        posterMedia: "https://files.catbox.moe/0b1zji.png",
+        posterVertical: "https://files.catbox.moe/led0vy.png"
+      },
+      {
+        id: 4,
+        title: "CountrYearly",
+        synopsis: "Evento virtual que da reconocimiento a los countryballers infravalorados y poco conocidos en un resumen anual de la comunidad.",
+        rating: "Evento",
+        creator: "Geométricos Sammy",
+        producer: "Geometric Studios",
+        episodes: [
+            "Edición 2026 (Showcase)",
+            "Countryawards 2025",
+            "Countryawards 2024",
+            "Countryawards 2023"
+        ],
+        posterMedia: "https://files.catbox.moe/pybsao.png",
+        posterVertical: "https://files.catbox.moe/cmr708.png"
+      },
+      {
+        id: 5,
+        title: "Countryverso",
+        synopsis: "Un dios decidido a conquistar todos los universos recorre el COUNTRYVERSO en busca de su hermano traidor; los guardianes y héroes de distintos mundos deben unirse.",
+        rating: "Todos",
+        creator: "Red-Ball",
+        producer: "Red-Ball",
+        episodes: [
+            "1. El inicio del fin",
+            "2. La recluta",
+            "3. La infección"
+        ],
+        posterMedia: "https://files.catbox.moe/nq6stx.png",
+        posterVertical: "https://files.catbox.moe/fzonve.png"
+      },
+      {
+        id: 6,
+        title: "Coñaco",
+        synopsis: "Marlon, un ex trabajador con una gran deuda, acepta entrar a un concurso por 100 millones de pesos con juegos mortales.",
+        rating: "Adolescentes",
+        creator: "MarlonHD",
+        producer: "Sur Studios LTD",
+        episodes: [
+            "1. Muñeca del Coñaco",
+            "2. Sangre azucarada"
+        ],
+        posterMedia: "https://files.catbox.moe/zc0ht2.png",
+        posterVertical: "https://files.catbox.moe/9ko4e6.png"
+      },
+      {
+        id: 7,
+        title: "Demonic Legends Religion Island",
+        synopsis: "Cinco héroes llegan a una isla en guerra entre religiones y demonios. Enfrentarán traiciones, secretos y al peligroso ThugMan.",
+        rating: "Adolescentes",
+        creator: "Don Oroxico",
+        producer: "Don Oroxico",
+        episodes: [
+            "1. El misterio de los portales",
+            "2. Un demonio histórico"
+        ],
+        posterMedia: "https://files.catbox.moe/2qikmp.png",
+        posterVertical: "https://files.catbox.moe/zqyfcc.png"
+      },
+      {
+        id: 8,
+        title: "El bebé dinosaurio",
+        synopsis: "Un grupo de preadolescentes con una hora libre en la escuela, un juguete y una gomaboli deciden traer el contenido más random de todo MadSulu GO.",
+        rating: "Todos",
+        creator: "MmManda, Tobi-Tobillo",
+        producer: "Papas Fritas con Huevo",
+        episodes: [
+            "1. Secretitis",
+            "2. El bebé ataca"
+        ],
+        posterMedia: "https://files.catbox.moe/n4ya12.png",
+        posterVertical: "https://files.catbox.moe/m5ti4i.png"
+      },
+      {
+        id: 9,
+        title: "Guerra Universal",
+        synopsis: "Unos amigos combaten por su mundo para no ser esclavizado por RegnaD, uno de los dioses más peligrosos que quiere liberar su ira contra el universo.",
+        rating: "Adolescentes",
+        creator: "Magic Paraguay",
+        producer: "Magic Productions",
+        episodes: [
+            "1. El invento chino"
+        ],
+        posterMedia: "https://files.catbox.moe/ccgcgf.png",
+        posterVertical: "https://files.catbox.moe/6oqqfu.png"
+      },
+      {
+        id: 10,
+        title: "La Fortuna De Bután",
+        synopsis: "Bután, Birmania y sus amigos encuentran un amuleto que cumple deseos, pero tendrán que enfrentar el precio de sus consecuencias.",
+        rating: "+7 Años",
+        creator: "Countryballs E",
+        producer: "CBE Associations",
+        episodes: [
+            "1. Artefacto Misterioso",
+            "2. La Fiesta",
+            "3. Un deseo no beneficio",
+            "4. Consecuencias Inesperadas"
+        ],
+        posterMedia: "https://files.catbox.moe/u5peyp.png",
+        posterVertical: "https://files.catbox.moe/f5xcdx.png"
+      },
+      {
+        id: 11,
+        title: "Las CaliFornias Classic",
+        synopsis: "La historia original de tres hermanos cuya misión es reconciliarse y volver a ser amigos; versión creada por su autor original.",
+        rating: "Todos",
+        creator: "Mr. Chulin",
+        producer: "Mr. Chulin",
+        episodes: [
+            "1. Presentando a las Californias",
+            "2. Una tonta pelea",
+            "3. Unas feas revelaciones",
+            "4. El llegar de una pesadilla",
+            "5. Revolución en el norte"
+        ],
+        posterMedia: "https://files.catbox.moe/h8cro0.png",
+        posterVertical: "https://files.catbox.moe/iwgkw4.png"
+      },
+      {
+        id: 12,
+        title: "Las Fumadas De Famil",
+        synopsis: "Famil muestra lugares random con humor junto a Incognita, Canadista y otros personajes.",
+        rating: "+10",
+        creator: "FamilOficial",
+        producer: "FamilStudios",
+        episodes: [
+            "1. La casa funable",
+            "2. Bala perdida"
+        ],
+        posterMedia: "https://files.catbox.moe/x43649.webp",
+        posterVertical: "https://files.catbox.moe/l4sqig.png"
+      },
+      {
+        id: 13,
+        title: "Luna y Sol",
+        synopsis: "Drama y comedia familiar sobre dos hermanas gato opuestas que deben aprender a convivir pese a sus diferencias y problemas económicos.",
+        rating: "Adolescentes",
+        creator: "TheGabriel2535",
+        producer: "TheGabriel2535",
+        episodes: [
+            "1. Hechadas",
+            "2. Gato Ladrón"
+        ],
+        posterMedia: "https://files.catbox.moe/0lg09n.png",
+        posterVertical: "https://files.catbox.moe/y01g01.png"
+      },
+      {
+        id: 14,
+        title: "MJaja Series",
+        synopsis: "Cortos para pasar el rato con humor absurdo y situaciones cotidianas extrañas.",
+        rating: "+10",
+        creator: "JoshuaPRO5",
+        producer: "MaJo Associations",
+        episodes: [
+            "1. El aire que habla",
+            "2. Detrás de cámaras"
+        ],
+        posterMedia: "https://files.catbox.moe/77uk74.png",
+        posterVertical: "https://files.catbox.moe/co5qwq.png"
+      },
+      {
+        id: 15,
+        title: "Multiversus Ball",
+        synopsis: "Foxyneón crea una pistola de portales y viaja por universos distintos resolviendo problemas mientras un observador los vigila.",
+        rating: "Adolescentes",
+        creator: "Foxyneón",
+        producer: "Foxyneón",
+        episodes: [
+            "1. Universo C.E", "2. Universo Escalope", "3. Universo Terraplanista", "4. Universo Geométrico", 
+            "5. Universo escuadronero", "6. Universo 1024", "7. Universo Sur", "8. Universo M.H",
+            "9. Universo redondo", "10. Universo B.C", "11. Universo C18", "12. Un universo cualquiera",
+            "13. Por fin en casa", "14. Universo C.R", "15. Universo Eutanasio", "16. Universo Ballero"
+        ],
+        posterMedia: "https://files.catbox.moe/uyq713.webp",
+        posterVertical: "https://files.catbox.moe/2p9t7v.png"
+      },
+      {
+        id: 16,
+        title: "Pancho: La serie",
+        synopsis: "Pancho es un hot dog vegetariano que vive una vida llena de glitches, mundos extraños y banderas rojas.",
+        rating: "+7",
+        creator: "MmManda",
+        producer: "MaJo Associations",
+        episodes: [
+            "1. Como jugar a Pancho",
+            "2. ¿Más banderas?",
+            "3. El verdadero inicio",
+            "4. Multijugador",
+            "5. ¿El nivel final?"
+        ],
+        posterMedia: "https://files.catbox.moe/bg7dhd.png",
+        posterVertical: "https://files.catbox.moe/vzgxrl.png"
+      },
+      {
+        id: 17,
+        title: "Pilas: La serie",
+        synopsis: "Un grupo de pelotudos debe escapar del gobierno en un viaje por carretera enfrentando a la mafia y a un nerd con poderes divinos.",
+        rating: "Adolescentes",
+        creator: "ConoSurYT",
+        producer: "Sur Studios LTD",
+        episodes: [
+            "1. La tienda de pilas", "2. Misión de rescate", "3. Prisión", "4. El motín", "5. Masacre", 
+            "6. Terra Nulius", "7. Cambiocalipsis", "E1. Salvando la Navidad", "S. Swap: Cables", "R. Necesitamos Pilas"
+        ],
+        posterMedia: "https://files.catbox.moe/yza26p.webp",
+        posterVertical: "https://files.catbox.moe/np95i0.png"
+      },
+      {
+        id: 18,
+        title: "SkibidiBalls",
+        synopsis: "Recreación Countryball de la serie Skibidi Toilet donde CameraBalls luchan contra la amenaza Skibidi.",
+        rating: "7+",
+        creator: "Mr. West Macedonia",
+        producer: "Mr. West Macedonia",
+        episodes: [
+            "1. La amenaza en África",
+            "2. Skibidi colosal",
+            "3. Gigantes en Norteamérica",
+            "4. Tecnología al rescate",
+            "5. Trampa mortal",
+            "6. Oscuridad total",
+            "7. El grito que salvó al mundo"
+        ],
+        posterMedia: "https://files.catbox.moe/y901fw.png",
+        posterVertical: "https://files.catbox.moe/klymfm.png"
+      }
+    ];
+
+    /* --- RENDERIZAR CATALOGO --- */
+    const grid = document.getElementById('seriesGrid');
+    
+    seriesData.forEach(serie => {
+        const card = document.createElement('div');
+        card.className = 'series-card';
+        card.onclick = () => openModal(serie);
+        
+        card.innerHTML = `
+            <img src="${serie.posterMedia}" class="card-img" alt="${serie.title}">
+            <div class="card-overlay">
+                <div class="card-title">${serie.title}</div>
+            </div>
+        `;
+        grid.appendChild(card);
+    });
+
+    /* --- LÓGICA DEL MODAL --- */
+    const modal = document.getElementById('seriesModal');
+    
+    // Elementos del modal
+    const mPosterV = document.getElementById('mPosterV');
+    const mTitle = document.getElementById('mTitle');
+    const mRating = document.getElementById('mRating');
+    const mProducer = document.getElementById('mProducer');
+    const mSynopsis = document.getElementById('mSynopsis');
+    const mCreator = document.getElementById('mCreator');
+    const mStudio = document.getElementById('mStudio');
+    const mEpisodesList = document.getElementById('mEpisodesList');
+
+    function openModal(serie) {
+        // Rellenar datos
+        mPosterV.src = serie.posterVertical;
+        mTitle.innerText = serie.title;
+        mRating.innerText = serie.rating;
+        mProducer.innerText = serie.producer;
+        mSynopsis.innerText = serie.synopsis;
+        mCreator.innerText = serie.creator;
+        mStudio.innerText = serie.producer;
+
+        // Limpiar y rellenar lista de episodios
+        mEpisodesList.innerHTML = '';
+        if(serie.episodes && serie.episodes.length > 0) {
+            serie.episodes.forEach((epName) => {
+                const epDiv = document.createElement('div');
+                epDiv.className = 'episode-item';
+                // Si el nombre ya trae el número, lo usamos tal cual
+                epDiv.innerHTML = `<span class="ep-name">${epName}</span>`;
+                mEpisodesList.appendChild(epDiv);
+            });
+        } else {
+            mEpisodesList.innerHTML = '<div style="color:#aaa; font-style:italic;">No hay información de episodios.</div>';
+        }
+
+        // Mostrar
+        modal.classList.add('active');
+    }
+
+    function closeModalForce() {
+        modal.classList.remove('active');
+    }
+
+    function closeModal(event) {
+        if (event.target === modal) {
+            modal.classList.remove('active');
+        }
+    }
+
+    /* --- TEMA DINÁMICO --- */
+    const themes = [
+  { name: "MadSulu Dark", colors: ["#000000", "#141414", "#e50914", "#181818", "#ffffff", "#808080"] },
+  { name: "MadSulu LIGHT", colors: ["#020a1a", "#0540CE", "#7CE600", "#FF6D00", "#ffffff", "#94a3b8"] },
+  { name: "Cyber Hub", colors: ["#0b0f19", "#00f0ff", "#ffee00", "#151a25", "#ffffff", "#a0aab5"] },
+  { name: "Nature Legal", colors: ["#020b14", "#011408", "#00d4a3", "#00b388", "#f0f0f0", "#a0aec0"] },
+  { name: "Steel Sky", colors: ["#121212", "#0072FF", "#606060", "#2a2a2a", "#f5f5f5", "#00c6ff"] },
+  { name: "Aqua Marine", colors: ["#001a1d", "#00FFAA", "#00848F", "#004d55", "#ffffff", "#546e7a"] },
+  { name: "Electric Ocean", colors: ["#0d1b2a", "#03FC8E", "#2578B4", "#1b263b", "#e0e1dd", "#778da9"] },
+  { name: "Cyberpunk Night", colors: ["#0a0a0a", "#ff00ff", "#00ffff", "#1a1a1a", "#ffffff", "#3d003d"] },
+  { name: "Sunset Gold", colors: ["#1a0f00", "#ffcc00", "#ff6600", "#2b1d0e", "#fff5e6", "#8b4513"] },
+  { name: "Royal Amethyst", colors: ["#0f001a", "#9933ff", "#e0b3ff", "#1d0a2d", "#f2e6ff", "#4b0082"] },
+  { name: "Blood Moon", colors: ["#0f0505", "#880808", "#ff4d4d", "#1a0d0d", "#f5f5f5", "#4a0000"] },
+  { name: "Forest Mist", colors: ["#0b120b", "#2d5a27", "#a8dadc", "#162416", "#f1faee", "#457b9d"] },
+  { name: "Space Nebula", colors: ["#02010a", "#5d2e8c", "#ff79c6", "#120e26", "#f8f8f2", "#bd93f9"] },
+  { name: "Desert Sand", colors: ["#1c1917", "#d97706", "#fcd34d", "#292524", "#fffbeb", "#78350f"] },
+  { name: "Ice Castle", colors: ["#0a192f", "#0ea5e9", "#38bdf8", "#112240", "#e0f2fe", "#7dd3fc"] },
+  { name: "Vintage Retro", colors: ["#2b2d42", "#ef233c", "#d90429", "#8d99ae", "#edf2f4", "#1a1c2c"] },
+  { name: "Emerald Peak", colors: ["#061a12", "#10b981", "#34d399", "#064e3b", "#ecfdf5", "#065f46"] },
+  { name: "Vivid Violet", colors: ["#1e1b4b", "#6366f1", "#818cf8", "#312e81", "#eef2ff", "#4338ca"] },
+  { name: "Toxic Waste", colors: ["#050505", "#adff2f", "#32cd32", "#1a1a1a", "#ffffff", "#006400"] },
+  { name: "Luxury Slate", colors: ["#0f172a", "#94a3b8", "#cbd5e1", "#1e293b", "#f8fafc", "#334155"] },
+
+  { name: "Golden Dusk", colors: ["#000014", "#0B0B1A", "#FDDB08", "#FCEAA8", "#FFFFFF", "#8A8A8A"] },
+  { name: "Neo Harbor", colors: ["#000000", "#0F1722", "#6A94BE", "#B72756", "#FFFFFF", "#9BB1C8"] },
+  { name: "Solar Sail", colors: ["#081229", "#0158FF", "#F9E731", "#F1C297", "#FFFFFF", "#807F8A"] },
+  { name: "Tidal Pulse", colors: ["#001428", "#002BFF", "#0084FF", "#00FFA1", "#FFFFFF", "#7FBFFF"] },
+  { name: "Regal Ember", colors: ["#0B0314", "#3C0A90", "#832412", "#C68521", "#F7EFE6", "#9E7B4A"] },
+  { name: "Arcade Breeze", colors: ["#081028", "#558EFF", "#54FFA1", "#FFFF55", "#FFFFFF", "#9DB7EF"] },
+  { name: "Marmalade Drive", colors: ["#120600", "#D36800", "#FF9152", "#FFB814", "#FFFFFF", "#8C4B20"] },
+  { name: "Voltage Sunset", colors: ["#0B0016", "#FF4D03", "#3200FF", "#1A0819", "#FFFFFF", "#A97C6A"] },
+  { name: "Crimson Orange", colors: ["#0F0300", "#FF5A01", "#FE8503", "#E91210", "#FFFFFF", "#B8B8B8"] },
+  { name: "Mariner Teal", colors: ["#021426", "#0076DA", "#0064CE", "#20914E", "#F9FFFF", "#7FB6D9"] },
+
+  { name: "Riot Orchard", colors: ["#120000", "#FF1100", "#734100", "#227300", "#FFFFFF", "#B76A4A"] },
+  { name: "Neon Lemonade", colors: ["#001219", "#00F6FF", "#FFFFFF", "#FFEE00", "#06262A", "#8BDFE6"] },
+  { name: "Tri-Flash", colors: ["#0B0010", "#00D4FF", "#FFDD00", "#FF0000", "#FFFFFF", "#BDB7A3"] },
+  { name: "Carnival Flame", colors: ["#12090A", "#CD112B", "#FFCA00", "#2B0F0F", "#FFF5E6", "#8A3B3B"] },
+  { name: "Atomic Signal", colors: ["#120000", "#FF0800", "#FFFFFF", "#2B0B0B", "#FFDCE0", "#B2342A"] },
+  { name: "Harvest Signal", colors: ["#0F0B08", "#C5332B", "#FFC300", "#48A800", "#F7F7F7", "#8D5A4F"] },
+  { name: "Flagship", colors: ["#031526", "#CF1127", "#003C71", "#EDF1F5", "#FFFFFF", "#7A98B0"] },
+  { name: "Sail Blue", colors: ["#021726", "#0081D5", "#005F9A", "#FFFFFF", "#8FBFE8", "#0B2A3F"] },
+  { name: "Royal Claret", colors: ["#0B0710", "#484779", "#B72A3D", "#1B1830", "#FFFFFF", "#8B8398"] },
+  { name: "Aqua Citrine", colors: ["#041827", "#0081D5", "#A1E5F5", "#CAD823", "#FFFFFF", "#6AA7CF"] }
+];
+
+    function applyTheme(theme) {
+        const root = document.documentElement;
+        if(theme && theme.colors) {
+            root.style.setProperty('--bg-dark', theme.colors[0]);
+            root.style.setProperty('--accent-blue', theme.colors[1]);
+            root.style.setProperty('--primary', theme.colors[2]);
+            root.style.setProperty('--bg-card', theme.colors[3]);
+            root.style.setProperty('--text-main', theme.colors[4]);
+            root.style.setProperty('--text-muted', theme.colors[5]);
+        }
+    }
+
+    function initThemeLogic() {
+        const randomTheme = themes[Math.floor(Math.random() * themes.length)];
+        applyTheme(randomTheme);
+        
+        setInterval(() => {
+            const nextTheme = themes[Math.floor(Math.random() * themes.length)];
+            applyTheme(nextTheme);
+        }, 40000);
+    }
+
+    window.onload = initThemeLogic;
+
+  </script>
+</body>
+</html>

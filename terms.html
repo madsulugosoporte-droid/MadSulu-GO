@@ -1,0 +1,418 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  
+  <title>Términos y Condiciones | MadSulu GO</title>
+
+  <meta name="description" content="Lee los Términos de Servicio, Política de Privacidad y Reglamento de la comunidad de MadSulu GO. Información sobre derechos de autor y normas de uso.">
+  <meta name="keywords" content="Términos y Condiciones, Política de Privacidad, Reglamento, Legal, MadSulu GO, Derechos de Autor, Normas de la comunidad">
+  <meta name="author" content="MadZalMedia Incorporated">
+  
+  <meta name="theme-color" content="#e50914">
+
+  <meta property="og:title" content="Legal y Normativas | MadSulu GO">
+  <meta property="og:description" content="Información importante sobre el uso de la plataforma, privacidad de datos y reglamento para creadores.">
+  <meta property="og:image" content="https://files.catbox.moe/q8rwdm.png">
+  <meta property="og:type" content="website">
+  
+  <meta property="og:url" content="https://madsulu-go.netlify.app/terms.html">
+
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="Términos y Condiciones | MadSulu GO">
+  <meta name="twitter:description" content="Consulta las normas de uso y políticas de privacidad de nuestra plataforma.">
+  <meta name="twitter:image" content="https://files.catbox.moe/q8rwdm.png">
+
+  <link rel="icon" type="image/png" href="https://files.catbox.moe/q8rwdm.png">
+  <link rel="apple-touch-icon" href="https://files.catbox.moe/q8rwdm.png">
+
+  <style>
+    :root {
+      /* Variables iniciales */
+      --bg-dark: #000000;      
+      --accent-blue: #141414;  
+      --primary: #e50914;      
+      --bg-card: #181818;      
+      --text-main: #ffffff;    
+      --text-muted: #808080;   
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+      background-color: var(--bg-dark); 
+      color: var(--text-main);          
+      width: 100%;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      transition: background-color 10s ease, color 10s ease;
+      line-height: 1.6;
+    }
+
+    /* --- Header --- */
+    header {
+      padding: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(0,0,0,0.8);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid rgba(255,255,255,0.1);
+    }
+
+    .brand-logo { height: 40px; }
+    .header-title { font-weight: bold; text-transform: uppercase; font-size: 1.2rem; }
+
+    /* --- Contenido Legal --- */
+    .legal-container {
+      max-width: 900px;
+      margin: 40px auto;
+      padding: 20px;
+      background: var(--bg-card);
+      border-radius: 8px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.5);
+      transition: background-color 10s ease;
+    }
+
+    h1.page-title {
+      font-size: 2.5rem;
+      border-bottom: 3px solid var(--primary);
+      padding-bottom: 15px;
+      margin-bottom: 20px;
+      text-align: center;
+    }
+
+    .update-date {
+        text-align: center;
+        color: var(--text-muted);
+        font-style: italic;
+        margin-bottom: 40px;
+        display: block;
+    }
+
+    .intro-text {
+        font-size: 1.1rem;
+        margin-bottom: 30px;
+        color: var(--text-main);
+    }
+
+    /* Secciones */
+    .legal-section {
+        margin-bottom: 40px;
+        padding-bottom: 20px;
+        border-bottom: 1px solid rgba(255,255,255,0.1);
+    }
+
+    .legal-section:last-child { border-bottom: none; }
+
+    h2 {
+        color: var(--primary);
+        font-size: 1.6rem;
+        margin-bottom: 20px;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+    }
+
+    h3 {
+        color: var(--text-main);
+        font-size: 1.2rem;
+        margin-top: 25px;
+        margin-bottom: 10px;
+        font-weight: 700;
+        border-left: 3px solid var(--primary);
+        padding-left: 10px;
+    }
+
+    p { margin-bottom: 15px; color: #ddd; }
+
+    ul { margin-bottom: 20px; padding-left: 20px; color: #ddd; }
+    li { margin-bottom: 10px; }
+    strong { color: var(--text-main); }
+
+    /* Estilos especiales para el formulario */
+    .form-box {
+        background: rgba(0,0,0,0.2);
+        padding: 20px;
+        border: 1px dashed var(--text-muted);
+        border-radius: 5px;
+        font-family: monospace;
+        font-size: 0.95rem;
+        white-space: pre-line;
+        color: #ccc;
+    }
+
+    .contact-list a {
+        color: var(--primary);
+        text-decoration: none;
+        display: block;
+        margin: 5px 0;
+    }
+    .contact-list a:hover { text-decoration: underline; }
+
+    /* --- Footer --- */
+    footer {
+      padding: 40px 20px;
+      background: rgba(0,0,0,0.5);
+      text-align: center;
+      font-size: 0.9rem;
+      color: var(--text-muted);
+      border-top: 1px solid rgba(255,255,255,0.1);
+      margin-top: auto;
+    }
+    footer a { color: var(--text-main); text-decoration: none; margin: 0 10px; }
+    footer a:hover { color: var(--primary); }
+
+  </style>
+</head>
+<body>
+
+  <header>
+      <div style="display:flex; align-items:center; gap:15px;">
+        <img src="https://files.catbox.moe/q8rwdm.png" alt="Logo" class="brand-logo">
+        <span class="header-title">Legal</span>
+      </div>
+      <a href="index.html" style="color:white; text-decoration:none;">Volver</a>
+  </header>
+
+  <div class="legal-container">
+      <h1 class="page-title">Términos y Condiciones</h1>
+      <span class="update-date">Fecha de última actualización: 16 de diciembre de 2025</span>
+
+      <p class="intro-text">
+          En <strong>MaJo Associations</strong>, junto con nuestras afiliadas y subsidiarias, valoramos su privacidad y nos comprometemos a proteger sus datos personales. Esta Política de Privacidad y Términos de Servicio aplica al uso de nuestros servicios, incluyendo, pero no limitado a, la plataforma <strong>“MadSulu GO!”</strong>, operada por <strong>Sulu Studios Corporation</strong> y <strong>The #MadZal Corporation</strong>, así como al servicio de publicación de videos <strong>“Dimoxtube”</strong>.
+      </p>
+      <p>
+          Al acceder o utilizar cualquiera de nuestros servicios, usted acepta y se compromete a cumplir con todos los puntos de este documento.
+      </p>
+
+      <div class="legal-section">
+          <h2>I. 🔒 Política de Privacidad</h2>
+          
+          <h3>1. Recolección de Información</h3>
+          <p>Podemos recopilar información personal que usted nos proporcione directamente, como su nombre, dirección de correo electrónico, preferencias de contenido y actividad dentro de nuestras plataformas. Asimismo, podemos recopilar información técnica automáticamente, como dirección IP, tipo de dispositivo, navegador y datos de uso, mediante cookies u otras tecnologías similares.</p>
+
+          <h3>2. Uso de la Información</h3>
+          <p>La información recopilada se utiliza para:</p>
+          <ul>
+              <li>Proveer y personalizar nuestros servicios.</li>
+              <li>Mejorar la experiencia del usuario.</li>
+              <li>Enviar notificaciones y comunicaciones relevantes.</li>
+              <li>Garantizar el cumplimiento de nuestras políticas y condiciones de uso.</li>
+          </ul>
+
+          <h3>6. Protección de Datos Personales</h3>
+          <p>Nos comprometemos a proteger su información personal. No vendemos, alquilamos ni compartimos sus datos con terceros para fines comerciales sin su consentimiento explícito. Contamos con medidas de seguridad físicas, administrativas y tecnológicas diseñadas para evitar accesos no autorizados, usos indebidos o divulgaciones indebidas de su información.</p>
+
+          <h3>8. Modificaciones a la Política de Privacidad</h3>
+          <p>Nos reservamos el derecho de actualizar esta política en cualquier momento. Si realizamos cambios sustanciales, se lo notificaremos a través de nuestros canales oficiales. Le recomendamos revisar esta página periódicamente para mantenerse informado. Esta política fue modificada por última vez el martes, 16 de diciembre de 2025.</p>
+      </div>
+
+      <div class="legal-section">
+          <h2>II. 💻 Condiciones Generales de Uso</h2>
+
+          <h3>1. Prohibición de Modificaciones No Autorizadas (Exploits)</h3>
+          <p>Está estrictamente prohibido intentar o realizar cualquier forma de ingeniería inversa, modificación, alteración, o la creación y uso de exploits, cheats, bots o cualquier software no oficial diseñado para modificar la experiencia de usuario, manipular el servicio, o alterar el código fuente de la aplicación MadSulu GO! o Dimoxtube. La detección de tales actividades resultará en la suspensión inmediata y permanente de su cuenta y el veto de su dispositivo o dirección IP de la plataforma.</p>
+
+          <h3>2. Uso de la Inteligencia Artificial (MadSulu Assistant)</h3>
+          <p>El asistente de IA (MadSulu Assistant) se proporciona como una herramienta de ayuda y entretenimiento. Su uso está sujeto a las siguientes restricciones:</p>
+          <ul>
+              <li><strong>Contenido Prohibido:</strong> No utilice el asistente para generar, solicitar, o promover contenido que sea ilegal, difamatorio, obsceno, odioso, acosador, o que infrinja derechos de autor de terceros.</li>
+              <li><strong>Dato Personal:</strong> No comparta información personal sensible a través del asistente.</li>
+          </ul>
+
+          <h3>3. Contenido y Clasificación por Edad</h3>
+          <p>Todo el contenido disponible en nuestras plataformas es verificado y clasificado por edad conforme a nuestras políticas internas. No obstante, la supervisión del contenido visualizado por menores es responsabilidad exclusiva de los padres, madres, tutores o responsables legales. No asumimos responsabilidad alguna por el acceso de menores a contenido no apropiado para su edad.</p>
+
+          <h3>9. Monetización de la Aplicación</h3>
+          <p>Los creadores y desarrolladores de esta aplicación no obtienen ingresos económicos por su uso, descarga ni por ningún otro medio relacionado con la plataforma. Cualquier publicidad o monetización que aparezca en la app es gestionada únicamente por los desarrolladores del programa con el que fue creada la aplicación (AppCreator24), sin intervención ni beneficio por parte del equipo de MadSulu GO o sus creadores asociados.</p>
+      </div>
+
+      <div class="legal-section">
+          <h2>III. 🎥 Publicación de Contenido y Derechos de Autor</h2>
+
+          <h3>4. Publicación de Contenido por el Usuario (Dimoxtube)</h3>
+          <p>“Dimoxtube” es un servicio que permite a los usuarios subir y compartir contenido audiovisual. Está estrictamente prohibido publicar material que infrinja nuestras normas comunitarias o las disposiciones legales vigentes. Nuestro equipo de moderación se reserva el derecho de eliminar cualquier contenido que no cumpla con estas directrices sin previo aviso.</p>
+
+          <h3>5. Música y Efectos en Contenidos de Terceros</h3>
+          <p>Las corporaciones de MaJo Associations no se hacen cargo de la música o efectos utilizados en sus series a menos que sean originales o exclusivas de la plataforma. Es responsabilidad de los creadores garantizar que su contenido cumpla con las normativas de derechos de autor, incluyendo entre las que no se hacen responsables series del catálogo oficial de la app.</p>
+
+          <h3>11. Reglamento para FanSeries (MSG Creator)</h3>
+          <p>MSG Creator permite a los usuarios desarrollar contenido no oficial (FanSeries).</p>
+          <ul>
+              <li><strong>Propiedad Intelectual de la Corporación:</strong> Al crear contenido en MSG Creator, usted acepta que no puede registrar derechos de autor sobre personajes, diseños de interfaz o elementos gráficos originales de la plataforma MadSulu GO! o sus series oficiales.</li>
+              <li><strong>Exención de Responsabilidad:</strong> La Corporación no se responsabiliza por el contenido o las disputas de derechos de autor que surjan de las FanSeries creadas por los usuarios. La responsabilidad legal recae únicamente en el creador.</li>
+          </ul>
+      </div>
+
+      <div class="legal-section">
+          <h2>IV. 🎬 Términos para la Publicación Oficial de Series</h2>
+          <p>Estos términos son de aceptación obligatoria para cualquier creador que aspire a publicar una serie en el catálogo oficial de MadSulu GO! La Corporación se adhiere a la política de Tolerancia Cero ante la falsificación de datos y la infracción de derechos de autor.</p>
+
+          <h3>1. Verificación de Afiliación y Créditos</h3>
+          <ul>
+              <li><strong>Prohibición de Falsificación:</strong> El creador garantiza que toda mención de empresas productoras, estudios, o personalidades en los créditos es legalmente verificable y autorizada por la entidad o persona mencionada. La falsificación o el uso no autorizado de nombres de estudios es una violación grave que resultará en el rechazo permanente e irrevocable del proyecto y el veto permanente del creador.</li>
+              <li><strong>Derechos de Personajes:</strong> El creador debe poseer los derechos de uso o contar con el consentimiento explícito por escrito del creador original para el uso de personajes o conceptos que no sean de dominio público.</li>
+          </ul>
+
+          <h3>2. Requisitos de Contenido Sensible</h3>
+          <p>El creador debe cumplir con los siguientes avisos obligatorios en la sinopsis o en los datos de la serie:</p>
+          <ul>
+              <li><strong>Advertencia para Epilépticos:</strong> Si la serie incluye destellos de luz rápidos, flashes intensos o patrones visuales repetitivos, debe incluir la advertencia <em>"[ADVERTENCIA: Contenido no apto para epilépticos]"</em> al inicio de la sinopsis.</li>
+              <li><strong>Contenido Sangriento/Sexual Excesivo:</strong> Si la serie incluye representaciones gráficas y excesivas de gore o contenido sexual explícito, esto debe ser detallado en la sinopsis y justificado para su clasificación de edad. La Corporación se reserva el derecho de rechazar este contenido.</li>
+          </ul>
+
+          <h3>3. Formulario de Presentación Obligatorio</h3>
+          <p>El creador debe responder al formulario de manera estricta, completa y veraz. Cualquier desviación o información incompleta puede causar el rechazo.</p>
+
+          <div class="form-box">
+              <strong>FORMULARIO OFICIAL DE ACEPTACIÓN DE CONTENIDO</strong><br><br>
+              <strong>A. Información de la serie:</strong><br>
+              Nombre: (Título completo de la serie)<br>
+              Sinopsis: (Resumen conciso y coherente de la trama. Incluir aquí las advertencias sensibles si aplican.)<br>
+              Material Visual: Poster con logo (470x304), Poster sin logo (983×1438), PNG transparente del logo solo (1390×908)<br>
+              Creador: (Nombre oficial o artístico)<br>
+              Empresa productora (si aplica): (Nombre legalmente afiliado. Dejar en blanco si no hay afiliación externa.)<br><br>
+
+              <strong>B. Información POR CADA CAPÍTULO:</strong><br>
+              Nombre del capítulo, Sinopsis, Foto (muestra), Número.<br><br>
+
+              <strong>C. Información para la Calificación de Edad (Señalar SÍ o NO):</strong><br>
+              - Tu aplicación/serie/juego contiene violencia o escenas de lucha.<br>
+              - Tu aplicación/serie/juego contiene humor negro o temas maduros.<br>
+              - Tu aplicación/serie/juego contiene contenido sexual o sugestivo.<br>
+              - Tu aplicación/serie/juego contiene lenguaje profano o insultos.<br>
+              - Tu aplicación/serie/juego contiene escenas de miedo o terror.<br><br>
+
+              <strong>D. Elenco:</strong><br>
+              Personaje | Rol (Protagonista/Principal/Secundario/Antagonista/etc) | Actor (o voz artificial)<br><br>
+
+              <strong>E. Información de Creador (Sección Extra):</strong><br>
+              Foto en redes, Enlace de red social, Enlace de wiki (opcional), Descripción formal.
+          </div>
+      </div>
+
+      <div class="legal-section">
+          <h2>V. 💬 Reglamento de DimoxChat</h2>
+          <p>El DimoxChat es un servicio de comunicación para la comunidad y debe mantenerse respetuoso y constructivo.</p>
+
+          <h3>1. Conducta Prohibida</h3>
+          <ul>
+              <li><strong>Acoso y Discriminación:</strong> Prohibido el acoso, el bullying, la difamación, y cualquier lenguaje que promueva la discriminación por raza, género, religión, orientación sexual o nacionalidad.</li>
+              <li><strong>Contenido Explícito/Violento:</strong> Prohibido compartir o solicitar contenido sexualmente explícito, pornográfico, o extremadamente violento/gore.</li>
+              <li><strong>Spam y Fraude:</strong> Prohibido el spam, la promoción masiva de enlaces externos no relacionados, y cualquier intento de fraude o phishing.</li>
+          </ul>
+
+          <h3>2. Moderación</h3>
+          <p>La Corporación se reserva el derecho de monitorear, editar, o eliminar cualquier mensaje que incumpla estas reglas y de suspender o vetar a los usuarios que violen repetidamente el reglamento del DimoxChat.</p>
+      </div>
+
+      <div class="legal-section">
+          <h2>VI. 🤝 Aceptación y Contacto</h2>
+
+          <h3>7. Aceptación de Términos al Visualizar Contenido</h3>
+          <p>Al acceder y visualizar cualquier contenido audiovisual, ya sea publicado por usuarios en Dimoxtube o incluido en el catálogo oficial de “MadSulu GO!”, usted declara haber leído, comprendido y aceptado expresamente esta Política de Privacidad y nuestros Términos y Condiciones. En caso de no estar de acuerdo con ellos, le recomendamos abstenerse de utilizar nuestros servicios.</p>
+
+          <h3>10. Contacto</h3>
+          <p>Si tiene alguna pregunta, comentario o desea ejercer sus derechos de protección de datos, puede comunicarse con nosotros a través de los siguientes medios:</p>
+          <div class="contact-list">
+              <a href="mailto:themzcorporation@gmail.com">themzcorporation@gmail.com</a>
+              <a href="mailto:mandaxjoshuaunited@gmail.com">mandaxjoshuaunited@gmail.com</a>
+              <a href="mailto:mexiball.inc@gmail.com">mexiball.inc@gmail.com</a>
+              <a href="mailto:madsulugo.soporte@gmail.com">madsulugo.soporte@gmail.com</a>
+          </div>
+      </div>
+
+  </div>
+
+  <footer>
+      <div>© 2026 MadZalMedia</div>
+      <div class="footer-links">
+          <a href="mailto:madsulugo.soporte@gmail.com">Contactar</a>
+          <a href="https://discord.gg/HQTBK8xsyn" target="_blank">Discord</a>
+      </div>
+  </footer>
+
+  <script>
+    /* --- LÓGICA DE TEMAS (Copiada para consistencia) --- */
+    const themes = [
+  { name: "MadSulu Dark", colors: ["#000000", "#141414", "#e50914", "#181818", "#ffffff", "#808080"] },
+  { name: "MadSulu LIGHT", colors: ["#020a1a", "#0540CE", "#7CE600", "#FF6D00", "#ffffff", "#94a3b8"] },
+  { name: "Cyber Hub", colors: ["#0b0f19", "#00f0ff", "#ffee00", "#151a25", "#ffffff", "#a0aab5"] },
+  { name: "Nature Legal", colors: ["#020b14", "#011408", "#00d4a3", "#00b388", "#f0f0f0", "#a0aec0"] },
+  { name: "Steel Sky", colors: ["#121212", "#0072FF", "#606060", "#2a2a2a", "#f5f5f5", "#00c6ff"] },
+  { name: "Aqua Marine", colors: ["#001a1d", "#00FFAA", "#00848F", "#004d55", "#ffffff", "#546e7a"] },
+  { name: "Electric Ocean", colors: ["#0d1b2a", "#03FC8E", "#2578B4", "#1b263b", "#e0e1dd", "#778da9"] },
+  { name: "Cyberpunk Night", colors: ["#0a0a0a", "#ff00ff", "#00ffff", "#1a1a1a", "#ffffff", "#3d003d"] },
+  { name: "Sunset Gold", colors: ["#1a0f00", "#ffcc00", "#ff6600", "#2b1d0e", "#fff5e6", "#8b4513"] },
+  { name: "Royal Amethyst", colors: ["#0f001a", "#9933ff", "#e0b3ff", "#1d0a2d", "#f2e6ff", "#4b0082"] },
+  { name: "Blood Moon", colors: ["#0f0505", "#880808", "#ff4d4d", "#1a0d0d", "#f5f5f5", "#4a0000"] },
+  { name: "Forest Mist", colors: ["#0b120b", "#2d5a27", "#a8dadc", "#162416", "#f1faee", "#457b9d"] },
+  { name: "Space Nebula", colors: ["#02010a", "#5d2e8c", "#ff79c6", "#120e26", "#f8f8f2", "#bd93f9"] },
+  { name: "Desert Sand", colors: ["#1c1917", "#d97706", "#fcd34d", "#292524", "#fffbeb", "#78350f"] },
+  { name: "Ice Castle", colors: ["#0a192f", "#0ea5e9", "#38bdf8", "#112240", "#e0f2fe", "#7dd3fc"] },
+  { name: "Vintage Retro", colors: ["#2b2d42", "#ef233c", "#d90429", "#8d99ae", "#edf2f4", "#1a1c2c"] },
+  { name: "Emerald Peak", colors: ["#061a12", "#10b981", "#34d399", "#064e3b", "#ecfdf5", "#065f46"] },
+  { name: "Vivid Violet", colors: ["#1e1b4b", "#6366f1", "#818cf8", "#312e81", "#eef2ff", "#4338ca"] },
+  { name: "Toxic Waste", colors: ["#050505", "#adff2f", "#32cd32", "#1a1a1a", "#ffffff", "#006400"] },
+  { name: "Luxury Slate", colors: ["#0f172a", "#94a3b8", "#cbd5e1", "#1e293b", "#f8fafc", "#334155"] },
+
+  { name: "Golden Dusk", colors: ["#000014", "#0B0B1A", "#FDDB08", "#FCEAA8", "#FFFFFF", "#8A8A8A"] },
+  { name: "Neo Harbor", colors: ["#000000", "#0F1722", "#6A94BE", "#B72756", "#FFFFFF", "#9BB1C8"] },
+  { name: "Solar Sail", colors: ["#081229", "#0158FF", "#F9E731", "#F1C297", "#FFFFFF", "#807F8A"] },
+  { name: "Tidal Pulse", colors: ["#001428", "#002BFF", "#0084FF", "#00FFA1", "#FFFFFF", "#7FBFFF"] },
+  { name: "Regal Ember", colors: ["#0B0314", "#3C0A90", "#832412", "#C68521", "#F7EFE6", "#9E7B4A"] },
+  { name: "Arcade Breeze", colors: ["#081028", "#558EFF", "#54FFA1", "#FFFF55", "#FFFFFF", "#9DB7EF"] },
+  { name: "Marmalade Drive", colors: ["#120600", "#D36800", "#FF9152", "#FFB814", "#FFFFFF", "#8C4B20"] },
+  { name: "Voltage Sunset", colors: ["#0B0016", "#FF4D03", "#3200FF", "#1A0819", "#FFFFFF", "#A97C6A"] },
+  { name: "Crimson Orange", colors: ["#0F0300", "#FF5A01", "#FE8503", "#E91210", "#FFFFFF", "#B8B8B8"] },
+  { name: "Mariner Teal", colors: ["#021426", "#0076DA", "#0064CE", "#20914E", "#F9FFFF", "#7FB6D9"] },
+
+  { name: "Riot Orchard", colors: ["#120000", "#FF1100", "#734100", "#227300", "#FFFFFF", "#B76A4A"] },
+  { name: "Neon Lemonade", colors: ["#001219", "#00F6FF", "#FFFFFF", "#FFEE00", "#06262A", "#8BDFE6"] },
+  { name: "Tri-Flash", colors: ["#0B0010", "#00D4FF", "#FFDD00", "#FF0000", "#FFFFFF", "#BDB7A3"] },
+  { name: "Carnival Flame", colors: ["#12090A", "#CD112B", "#FFCA00", "#2B0F0F", "#FFF5E6", "#8A3B3B"] },
+  { name: "Atomic Signal", colors: ["#120000", "#FF0800", "#FFFFFF", "#2B0B0B", "#FFDCE0", "#B2342A"] },
+  { name: "Harvest Signal", colors: ["#0F0B08", "#C5332B", "#FFC300", "#48A800", "#F7F7F7", "#8D5A4F"] },
+  { name: "Flagship", colors: ["#031526", "#CF1127", "#003C71", "#EDF1F5", "#FFFFFF", "#7A98B0"] },
+  { name: "Sail Blue", colors: ["#021726", "#0081D5", "#005F9A", "#FFFFFF", "#8FBFE8", "#0B2A3F"] },
+  { name: "Royal Claret", colors: ["#0B0710", "#484779", "#B72A3D", "#1B1830", "#FFFFFF", "#8B8398"] },
+  { name: "Aqua Citrine", colors: ["#041827", "#0081D5", "#A1E5F5", "#CAD823", "#FFFFFF", "#6AA7CF"] }
+];
+
+    function applyTheme(theme) {
+        const root = document.documentElement;
+        if(theme && theme.colors) {
+            root.style.setProperty('--bg-dark', theme.colors[0]);
+            root.style.setProperty('--accent-blue', theme.colors[1]);
+            root.style.setProperty('--primary', theme.colors[2]);
+            root.style.setProperty('--bg-card', theme.colors[3]);
+            root.style.setProperty('--text-main', theme.colors[4]);
+            root.style.setProperty('--text-muted', theme.colors[5]);
+        }
+    }
+
+    function initThemeLogic() {
+        // Tema aleatorio inicial
+        const randomTheme = themes[Math.floor(Math.random() * themes.length)];
+        applyTheme(randomTheme);
+        
+        // Cambio cada 40s con transición de 10s
+        setInterval(() => {
+            const nextTheme = themes[Math.floor(Math.random() * themes.length)];
+            applyTheme(nextTheme);
+        }, 40000);
+    }
+
+    window.onload = initThemeLogic;
+  </script>
+
+</body>
+</html>
