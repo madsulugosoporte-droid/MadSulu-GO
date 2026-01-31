@@ -9,36 +9,29 @@
   <meta name="description" content="MadSulu GO: La primera plataforma de streaming de Countryballs y para Countrytubers. Mira series exclusivas, vota e interactúa totalmente gratis.">
   <meta name="keywords" content="Countryballs, Polandball, Streaming, Series, Countrytubers, MadSulu, Gratis, Animación">
   <meta name="author" content="MadZalMedia Incorporated">
-  
   <meta name="theme-color" content="#e50914">
 
   <meta property="og:title" content="MadSulu GO | El Streaming de las Countryballs">
-  
-  <meta property="og:description" content="Descubre series de Countrytubers grandes y pequeños. Funciones interactivas, temas personalizados y 100% gratis. ¡Entra ya!">
-  
-  <meta property="og:image" content="https://files.catbox.moe/q8rwdm.png">
-  
-  <meta property="og:type" content="website">
-  
-  <meta property="og:url" content="https://madsulu-go.netlify.app/"> 
+  <meta property="og:description" content="Descubre series de Countrytubers grandes y pequeños. Funciones interactivas, temas personalizados y 100% gratis.">
+  <meta property="og:image" content="logo_madsulu.png"> <meta property="og:type" content="website">
+  <meta property="og:url" content="https://madsulugosoporte-droid.github.io/MadSulu-GO/"> 
 
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="MadSulu GO | Streaming Countryballs">
   <meta name="twitter:description" content="La app definitiva para fans de Polandball y Countryballs. Series gratis y comunidad.">
-  <meta name="twitter:image" content="https://files.catbox.moe/q8rwdm.png">
-
-  <link rel="icon" type="image/png" href="https://files.catbox.moe/q8rwdm.png">
-  <link rel="apple-touch-icon" href="https://files.catbox.moe/q8rwdm.png">
+  <meta name="twitter:image" content="logo_madsulu.png"> <link rel="icon" type="image/png" href="logo_madsulu.png"> <link rel="apple-touch-icon" href="logo_madsulu.png"> <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700;900&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
 
   <style>
     :root {
-      /* Variables iniciales (se sobrescribirán por JS) */
+      /* Variables iniciales (controladas por JS) */
       --bg-dark: #000000;      
       --accent-blue: #141414;  
       --primary: #e50914;      
       --bg-card: #181818;      
       --text-main: #ffffff;    
-      --text-muted: #808080;   
+      --text-muted: #aaaaaa;   
     }
 
     * { box-sizing: border-box; }
@@ -46,13 +39,17 @@
     body {
       margin: 0;
       padding: 0;
-      font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+      font-family: 'Open Sans', Helvetica, Arial, sans-serif;
       background-color: var(--bg-dark); 
       color: var(--text-main);          
       width: 100%;
       overflow-x: hidden;
-      /* Transición suave de 10 segundos para los temas */
-      transition: background-color 10s ease, color 10s ease;
+      /* Mantenemos la transición lenta de temas como característica distintiva */
+      transition: background-color 10s ease, color 5s ease;
+    }
+
+    h1, h2, h3, .btn-cta, .section-title {
+        font-family: 'Montserrat', sans-serif;
     }
 
     /* --- Fondo y Carrusel --- */
@@ -85,18 +82,20 @@
       background-size: cover;
       background-position: center;
       opacity: 0;
-      transition: opacity 1.5s ease-in-out;
+      transform: scale(1.1);
+      transition: opacity 2s ease-in-out, transform 10s ease;
     }
-    .series-poster.active { opacity: 0.4; }
+    .series-poster.active { 
+        opacity: 0.35; 
+        transform: scale(1);
+    }
 
-    /* Overlay dinámico que usa el color de fondo del tema para tintar la imagen */
+    /* Overlay con gradiente más cinematográfico */
     .hero-overlay {
       position: absolute;
       inset: 0;
-      background: linear-gradient(to bottom, 
-        var(--bg-dark) 0%, 
-        rgba(0,0,0,0.2) 50%, 
-        var(--bg-dark) 100%);
+      background: radial-gradient(circle at center, rgba(0,0,0,0) 0%, var(--bg-dark) 90%),
+                  linear-gradient(to bottom, var(--bg-dark) 0%, rgba(0,0,0,0.4) 50%, var(--bg-dark) 100%);
       z-index: -1;
       transition: background 10s ease;
     }
@@ -106,204 +105,272 @@
       z-index: 10;
       text-align: center;
       padding: 20px;
-      max-width: 800px;
+      max-width: 1000px;
       width: 100%;
-      padding-top: 60px; /* Espacio para no pegar al techo */
+      padding-top: 80px;
     }
 
     .brand-logo {
-      width: 180px;
-      max-width: 40vw;
+      width: 220px;
+      max-width: 50vw;
       height: auto;
-      margin-bottom: 20px;
-      filter: drop-shadow(0 4px 10px rgba(0,0,0,0.5));
-      animation: fadeInUp 1s ease;
+      margin-bottom: 25px;
+      filter: drop-shadow(0 10px 20px rgba(0,0,0,0.6));
+      animation: fadeInUp 1.2s cubic-bezier(0.2, 0.8, 0.2, 1);
     }
 
     .hero-title {
-      font-size: 1.8rem;
-      font-weight: 800;
+      font-size: 2.5rem;
+      font-weight: 900;
       text-transform: uppercase;
-      letter-spacing: 1px;
-      margin-bottom: 20px;
-      text-shadow: 0 2px 4px rgba(0,0,0,0.8);
-      line-height: 1.2;
+      letter-spacing: -1px;
+      margin-bottom: 25px;
+      line-height: 1.1;
+      background: linear-gradient(to right, var(--text-main), var(--primary));
+      -webkit-background-clip: text;
+      background-clip: text;
+      /* Fallback para color si el gradiente falla o para mejor contraste */
+      color: var(--text-main);
+      text-shadow: 0 4px 10px rgba(0,0,0,0.8);
+      animation: fadeInUp 1.4s cubic-bezier(0.2, 0.8, 0.2, 1);
     }
 
     .hero-text {
-      font-size: 1rem;
-      line-height: 1.5;
-      margin-bottom: 40px;
+      font-size: 1.1rem;
+      line-height: 1.6;
+      margin-bottom: 50px;
       color: var(--text-main);
-      opacity: 0.9;
-      text-shadow: 0 1px 2px rgba(0,0,0,0.8);
+      opacity: 0.95;
+      max-width: 700px;
+      margin-left: auto;
+      margin-right: auto;
+      text-shadow: 0 2px 4px rgba(0,0,0,0.9);
+      animation: fadeInUp 1.6s cubic-bezier(0.2, 0.8, 0.2, 1);
     }
 
-    /* Botones CTA */
+    /* Botones CTA Modernizados */
     .cta-container {
       display: flex;
       flex-wrap: wrap;
       justify-content: center;
       gap: 20px;
-      margin-bottom: 60px;
+      margin-bottom: 80px;
+      animation: fadeInUp 1.8s cubic-bezier(0.2, 0.8, 0.2, 1);
     }
 
     .btn-cta {
-      display: inline-block;
-      padding: 15px 30px;
-      border-radius: 4px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 16px 35px;
+      border-radius: 50px; /* Estilo píldora */
       text-decoration: none;
-      font-weight: bold;
+      font-weight: 700;
       text-transform: uppercase;
-      font-size: 1rem;
-      transition: transform 0.2s, box-shadow 0.2s;
+      font-size: 0.95rem;
+      transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
       border: none;
       cursor: pointer;
-      min-width: 250px;
-      text-align: center;
+      min-width: 220px;
+      letter-spacing: 0.5px;
+      position: relative;
+      overflow: hidden;
     }
 
     .btn-playstore {
-      background-color: #00e676; /* Verde Play Store */
-      color: #000;
-      box-shadow: 0 4px 15px rgba(0, 230, 118, 0.4);
+      background: linear-gradient(135deg, #00e676 0%, #00c853 100%);
+      color: #003314;
+      box-shadow: 0 10px 25px rgba(0, 230, 118, 0.3);
     }
 
     .btn-itch {
-      background-color: #fa5c5c; /* Rojo Itch */
+      background: linear-gradient(135deg, #ff6b6b 0%, #fa5c5c 100%);
       color: #fff;
-      box-shadow: 0 4px 15px rgba(250, 92, 92, 0.4);
+      box-shadow: 0 10px 25px rgba(250, 92, 92, 0.3);
     }
 
     .btn-cta:hover {
-      transform: translateY(-3px);
+      transform: translateY(-5px) scale(1.02);
       filter: brightness(1.1);
+      box-shadow: 0 15px 30px rgba(0,0,0,0.4);
     }
 
-    /* --- Secciones de Información --- */
-    .info-section {
-      background: var(--bg-card);
-      padding: 40px 20px;
-      margin-top: 20px;
-      border-radius: 8px;
-      box-shadow: 0 10px 30px rgba(0,0,0,0.3);
-      text-align: left;
-      transition: background-color 10s ease;
+    /* --- Secciones de Información (Grid Moderno) --- */
+    .info-container {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        gap: 25px;
+        margin-top: 40px;
+        text-align: left;
     }
 
-    .section-title {
-      font-size: 1.5rem;
-      color: var(--primary);
-      margin-bottom: 30px;
-      text-align: center;
-      text-transform: uppercase;
-      font-weight: bold;
+    /* Tarjetas estilo Glassmorphism */
+    .feature-card {
+      background: var(--bg-card); /* Color base del tema */
+      padding: 30px;
+      border-radius: 16px;
+      border: 1px solid rgba(255,255,255,0.05);
+      box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+      transition: transform 0.3s ease, background-color 10s ease, box-shadow 0.3s ease;
+      display: flex;
+      flex-direction: column;
+      height: 100%;
+      position: relative;
+      overflow: hidden;
     }
 
-    .feature-item {
-      margin-bottom: 30px;
-      border-left: 3px solid var(--primary);
-      padding-left: 15px;
+    /* Brillo sutil en hover */
+    .feature-card::before {
+        content: '';
+        position: absolute;
+        top: 0; left: 0; width: 100%; height: 5px;
+        background: var(--primary);
+        opacity: 0.7;
+    }
+
+    .feature-card:hover {
+        transform: translateY(-8px);
+        box-shadow: 0 20px 40px rgba(0,0,0,0.4);
+    }
+
+    .feature-icon {
+        font-size: 2rem;
+        margin-bottom: 15px;
+        display: block;
     }
 
     .feature-title {
-      font-weight: bold;
-      font-size: 1.1rem;
-      margin-bottom: 5px;
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 800;
+      font-size: 1.2rem;
+      margin-bottom: 12px;
       color: var(--text-main);
+      text-transform: uppercase;
     }
 
     .feature-desc {
       color: var(--text-muted);
       font-size: 0.95rem;
-      line-height: 1.4;
+      line-height: 1.6;
       transition: color 10s ease;
     }
 
-    /* --- Reseñas --- */
+    /* --- Reseñas Modernas --- */
     .reviews-section {
-      margin-top: 40px;
+      margin-top: 100px;
+      margin-bottom: 60px;
       text-align: center;
     }
 
+    .rating-badge {
+        display: inline-block;
+        background: rgba(255, 204, 0, 0.1);
+        border: 1px solid rgba(255, 204, 0, 0.4);
+        padding: 10px 25px;
+        border-radius: 50px;
+        margin-bottom: 30px;
+    }
+    
     .rating-header {
-      font-size: 3rem;
-      font-weight: bold;
-      color: #ffcc00; /* Dorado estrella */
-      margin-bottom: 10px;
-      text-shadow: 0 2px 10px rgba(0,0,0,0.5);
+      font-size: 2.5rem;
+      font-weight: 900;
+      color: #ffcc00;
+      line-height: 1;
+    }
+    
+    .rating-label {
+        color: #ffcc00;
+        font-weight: 600;
+        font-size: 0.9rem;
+        text-transform: uppercase;
+        letter-spacing: 1px;
     }
 
     .reviews-grid {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      gap: 20px;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 25px;
       margin-top: 30px;
     }
 
     .review-card {
-      background: rgba(255,255,255,0.05);
-      border: 1px solid rgba(255,255,255,0.1);
-      border-radius: 8px;
-      padding: 20px;
-      width: 100%;
-      max-width: 300px;
+      background: linear-gradient(145deg, rgba(255,255,255,0.03) 0%, rgba(255,255,255,0.01) 100%);
+      backdrop-filter: blur(5px);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 16px;
+      padding: 30px 25px;
       text-align: center;
-      transition: transform 0.3s;
+      transition: all 0.3s ease;
     }
-    .review-card:hover { transform: translateY(-5px); background: rgba(255,255,255,0.1); }
+    .review-card:hover { 
+        transform: translateY(-5px); 
+        border-color: var(--primary);
+        background: rgba(255,255,255,0.05);
+    }
 
     .reviewer-avatar {
-      width: 60px;
-      height: 60px;
+      width: 70px;
+      height: 70px;
       border-radius: 50%;
       object-fit: cover;
-      margin-bottom: 10px;
-      border: 2px solid var(--primary);
+      margin-bottom: 15px;
+      border: 3px solid var(--primary);
+      box-shadow: 0 5px 15px rgba(0,0,0,0.3);
     }
 
-    .reviewer-name { font-weight: bold; color: var(--text-main); margin-bottom: 5px; }
-    .review-stars { color: #ffcc00; font-size: 0.9rem; margin-bottom: 10px; }
-    .review-text { font-size: 0.9rem; color: var(--text-muted); font-style: italic; }
+    .reviewer-name { font-weight: 700; color: var(--text-main); margin-bottom: 5px; font-size: 1.1rem; }
+    .review-stars { color: #ffcc00; font-size: 1rem; margin-bottom: 15px; letter-spacing: 2px;}
+    .review-text { font-size: 0.95rem; color: var(--text-muted); font-style: italic; line-height: 1.5; }
 
     /* --- Botón Catálogo --- */
-    .catalog-btn-wrapper { margin-top: 50px; margin-bottom: 50px; }
+    .catalog-btn-wrapper { margin-top: 80px; margin-bottom: 50px; }
     .btn-catalog {
       background: transparent;
       border: 2px solid var(--text-main);
       color: var(--text-main);
-      padding: 12px 40px;
-      font-size: 1.2rem;
+      padding: 15px 50px;
+      font-size: 1rem;
       text-transform: uppercase;
-      font-weight: bold;
+      font-weight: 900;
       cursor: pointer;
-      transition: 0.3s;
+      transition: all 0.3s ease;
       text-decoration: none;
       display: inline-block;
+      letter-spacing: 2px;
+      border-radius: 4px;
     }
-    .btn-catalog:hover { background: var(--text-main); color: var(--bg-dark); }
+    .btn-catalog:hover { 
+        background: var(--text-main); 
+        color: var(--bg-dark); 
+        box-shadow: 0 0 20px rgba(255,255,255,0.4);
+    }
 
     /* --- Footer --- */
     footer {
-      padding: 40px 20px;
-      background: rgba(0,0,0,0.5);
+      padding: 50px 20px;
+      background: rgba(0,0,0,0.8);
       text-align: center;
       font-size: 0.9rem;
       color: var(--text-muted);
-      border-top: 1px solid rgba(255,255,255,0.1);
+      border-top: 1px solid rgba(255,255,255,0.05);
     }
-    footer a { color: var(--text-main); text-decoration: none; margin: 0 10px; }
+    footer a { color: var(--text-main); text-decoration: none; margin: 0 15px; transition: color 0.3s; }
     footer a:hover { color: var(--primary); }
-    .footer-links { margin-top: 15px; display: flex; justify-content: center; gap: 20px; }
+    .footer-links { margin-top: 20px; display: flex; justify-content: center; gap: 10px; flex-wrap: wrap; }
+    .copyright { opacity: 0.6; margin-bottom: 10px; display: block;}
 
-    @keyframes fadeInUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+    @keyframes fadeInUp { 
+        from { opacity: 0; transform: translateY(30px); } 
+        to { opacity: 1; transform: translateY(0); } 
+    }
 
-    /* Media Query Mobile */
-    @media (max-width: 600px) {
-        .hero-title { font-size: 1.4rem; }
-        .btn-cta { width: 100%; }
-        .reviews-grid { flex-direction: column; align-items: center; }
+    /* Media Queries */
+    @media (max-width: 768px) {
+        .hero-title { font-size: 1.8rem; }
+        .hero-text { font-size: 1rem; padding: 0 10px; }
+        .btn-cta { width: 100%; min-width: unset; }
+        .info-container { grid-template-columns: 1fr; }
+        .feature-card { padding: 25px; }
     }
   </style>
 </head>
@@ -317,7 +384,7 @@
     <div class="hero-overlay"></div>
 
     <div class="main-content">
-      <img src="https://files.catbox.moe/q8rwdm.png" alt="MadSulu GO Logo" class="brand-logo">
+      <img src="logo_madsulu.png" alt="MadSulu GO Logo" class="brand-logo">
       
       <h1 class="hero-title">DESCUBRE EL ENTRETENIMIENTO COUNTRYBALLER EN MADSULU GO</h1>
       
@@ -329,57 +396,64 @@
 
       <div class="cta-container">
         <a href="https://play.google.com/store/apps/details?id=flux.mandajoshua" class="btn-cta btn-playstore" target="_blank">
-            Descargar en Play Store
+            <span style="margin-right: 8px;">▶</span> Google Play
         </a>
         <a href="https://mandajoshua.itch.io/madsulugo" class="btn-cta btn-itch" target="_blank">
-            Descargar en Itch.io
+            <span style="margin-right: 8px;">⚡</span> Itch.io
         </a>
       </div>
 
-      <div class="info-section">
-          <div class="feature-item">
-              <div class="feature-title">1. 📺 Series de COUNTRYTUBERS GRANDES y PEQUEÑOS</div>
-              <div class="feature-desc">Contamos con mas de 10 series, algunas de Countrytubers conocidos como Pilas y Coñaco; como también otras de countrytubers pequeños como Apocalipsis Universal y Pancho La serie.</div>
+      <div class="info-container">
+          <div class="feature-card">
+              <span class="feature-icon">📺</span>
+              <div class="feature-title">Series de Countrytubers</div>
+              <div class="feature-desc">Contamos con más de 10 series, algunas de Countrytubers conocidos como Pilas y Coñaco; como también otras de countrytubers pequeños como Apocalipsis Universal y Pancho La serie.</div>
           </div>
-          <div class="feature-item">
-              <div class="feature-title">2. ⭐ Funciones únicas e interactivas</div>
+          <div class="feature-card">
+              <span class="feature-icon">⭐</span>
+              <div class="feature-title">Funciones Interactivas</div>
               <div class="feature-desc">Contamos con funciones para satisfacer a la comunidad que ninguna otra plataforma tiene, como la interacción de comunidad Dimox y más de 35 TEMAS para toda la aplicación.</div>
           </div>
-          <div class="feature-item">
-              <div class="feature-title">3. 🇵🇱 Nuestra especialidad: Countryballs</div>
-              <div class="feature-desc">Countryballs, también conocido como Polandball, es un meme de Internet que se creó en la sección /int/ del foro alemán de Krautchan. 20 años mas tarde, usamos esta idea y la globalizamos para que la comunidad hispana pueda compartir sus proyectos audiovisuales como unos cracks en nuestra aplicación.</div>
+          <div class="feature-card">
+              <span class="feature-icon">🇵🇱</span>
+              <div class="feature-title">Especialidad: Countryballs</div>
+              <div class="feature-desc">Countryballs (Polandball) es nuestra pasión. Globalizamos este meme para que la comunidad hispana comparta sus proyectos audiovisuales como unos cracks en nuestra aplicación.</div>
           </div>
-          <div class="feature-item">
-              <div class="feature-title">4. 🆓 100% gratis</div>
-              <div class="feature-desc">La aplicación es 100% gratis y esta hecha en AppCreator24, por lo que es completamente gratuita y con DEMASIADOS POCOS anuncios.</div>
+          <div class="feature-card">
+              <span class="feature-icon">🆓</span>
+              <div class="feature-title">100% Gratis</div>
+              <div class="feature-desc">La aplicación es completamente gratuita, hecha con pasión y con DEMASIADOS POCOS anuncios para una experiencia fluida.</div>
           </div>
-          <div class="feature-item">
-              <div class="feature-title">5. 🔜 Estamos en constante actualización</div>
-              <div class="feature-desc">A diferencia de otras aplicaciones, que añaden pocas funciones y cada muchísimo tiempo, MadSulu GO se actualiza constantemente añadiendo funciones nuevas siempre.</div>
+          <div class="feature-card">
+              <span class="feature-icon">🚀</span>
+              <div class="feature-title">Actualizaciones Constantes</div>
+              <div class="feature-desc">A diferencia de otras aplicaciones, MadSulu GO se actualiza constantemente añadiendo funciones nuevas siempre.</div>
           </div>
       </div>
 
       <div class="reviews-section">
-          <div class="rating-header">4.6 ★</div>
-          <p style="color:var(--text-muted)">Basado en reseñas de usuarios</p>
+          <div class="rating-badge">
+              <div class="rating-header">4.6 ★</div>
+              <span class="rating-label">Basado en reseñas de usuarios</span>
+          </div>
 
           <div class="reviews-grid">
               <div class="review-card">
-                  <img src="https://files.catbox.moe/zgs8aa.webp" alt="Yan" class="reviewer-avatar">
+                  <img src="avatar_yan.webp" alt="Yan" class="reviewer-avatar">
                   <div class="reviewer-name">Yan Jueguea</div>
                   <div class="review-stars">★★★★★</div>
                   <div class="review-text">"App god, 1000000/10 MadSulu GO >> N******. Ya enserio, tiene buenas series."</div>
               </div>
 
               <div class="review-card">
-                  <img src="https://files.catbox.moe/bm58ak.webp" alt="Franco" class="reviewer-avatar">
+                  <img src="avatar_franco.webp" alt="Franco" class="reviewer-avatar">
                   <div class="reviewer-name">Franco (Chileno Ball)</div>
                   <div class="review-stars">★★★★★</div>
                   <div class="review-text">"La forma en como se organizan las series y la variedad que tienen hace que sea una app muy buena: 10/10"</div>
               </div>
 
               <div class="review-card">
-                  <img src="https://files.catbox.moe/t44xdr.webp" alt="Amongzuela" class="reviewer-avatar">
+                  <img src="avatar_amongzuela.webp" alt="Amongzuela" class="reviewer-avatar">
                   <div class="reviewer-name">Amongzuela</div>
                   <div class="review-stars">★★★★★</div>
                   <div class="review-text">"¡Aplicación muy buena y bien hecha!"</div>
@@ -388,23 +462,23 @@
       </div>
 
       <div class="catalog-btn-wrapper">
-          <a href="series.html" class="btn-catalog">Ver catálogo</a>
+          <a href="series.html" class="btn-catalog">Ver catálogo completo</a>
       </div>
 
     </div>
   </div>
 
   <footer>
-      <div>© 2026 MadZalMedia</div>
+      <span class="copyright">© 2026 MadZalMedia Incorporated</span>
       <div class="footer-links">
-          <a href="mailto:madsulugo.soporte@gmail.com">Contactar</a>
-          <a href="https://discord.gg/HQTBK8xsyn" target="_blank">Discord</a>
-          <a href="terms.html">Terminos y Condiciones</a>
+          <a href="mailto:madsulugo.soporte@gmail.com">Contactar Soporte</a>
+          <a href="https://discord.gg/HQTBK8xsyn" target="_blank">Comunidad Discord</a>
+          <a href="terms.html">Términos y Condiciones</a>
       </div>
   </footer>
 
   <script>
-    /* --- LISTA COMPLETA DE TEMAS --- */
+    /* --- LISTA COMPLETA DE TEMAS (INTACTA) --- */
     const themes = [
       { name: "MadSulu Dark", colors: ["#000000", "#141414", "#e50914", "#181818", "#ffffff", "#808080"] },
       { name: "MadSulu LIGHT", colors: ["#020a1a", "#0540CE", "#7CE600", "#FF6D00", "#ffffff", "#94a3b8"] },
@@ -468,33 +542,25 @@
     }
 
     function initThemeLogic() {
-        // 1. Al entrar: Dark (0) o Light (1) aleatorio
         const initialIndex = Math.random() > 0.5 ? 0 : 1;
         applyTheme(themes[initialIndex]);
 
-        // 2. Esperar 30 segundos y cambiar (tarda 10s en transición CSS)
         setTimeout(() => {
             changeToRandomTheme();
-
-            // 3. Después del primer cambio, cambiar cada 40 segundos
             setInterval(() => {
                 changeToRandomTheme();
             }, 40000); 
-
         }, 30000);
     }
 
-    /* --- CARRUSEL DE IMÁGENES --- */
+    /* --- CARRUSEL DE IMÁGENES (LOCAL) --- */
+    // Array actualizado con nombres locales
     const posters = [
-        "https://files.catbox.moe/vzgxrl.png", "https://files.catbox.moe/led0vy.png", 
-        "https://files.catbox.moe/9ko4e6.png", "https://files.catbox.moe/iwgkw4.png", 
-        "https://files.catbox.moe/f2skyt.png", "https://files.catbox.moe/m5ti4i.png", 
-        "https://files.catbox.moe/co5qwq.png", "https://files.catbox.moe/l4sqig.png", 
-        "https://files.catbox.moe/klymfm.png", "https://files.catbox.moe/y01g01.png", 
-        "https://files.catbox.moe/zqyfcc.png", "https://files.catbox.moe/rikcnv.png", 
-        "https://files.catbox.moe/np95i0.png", "https://files.catbox.moe/2p9t7v.png", 
-        "https://files.catbox.moe/fzonve.png", "https://files.catbox.moe/6sru0w.png", 
-        "https://files.catbox.moe/6oqqfu.png", "https://files.catbox.moe/f5xcdx.png"
+        "poster_01.png", "poster_02.png", "poster_03.png", "poster_04.png", 
+        "poster_05.png", "poster_06.png", "poster_07.png", "poster_08.png", 
+        "poster_09.png", "poster_10.png", "poster_11.png", "poster_12.png", 
+        "poster_13.png", "poster_14.png", "poster_15.png", "poster_16.png", 
+        "poster_17.png", "poster_18.png"
     ];
 
     let currentPosterIndex = 0;
@@ -503,7 +569,6 @@
         const container = document.getElementById('carousel');
         const divs = container.querySelectorAll('.series-poster');
         
-        // Cargar imágenes iniciales
         divs[0].style.backgroundImage = `url('${posters[0]}')`;
         
         setInterval(() => {
@@ -511,15 +576,13 @@
             const activeDiv = container.querySelector('.series-poster.active');
             const inactiveDiv = container.querySelector('.series-poster:not(.active)');
             
-            // Preparar el div inactivo con la siguiente imagen
             inactiveDiv.style.backgroundImage = `url('${posters[nextIndex]}')`;
             
-            // Intercambiar clases para fade
             activeDiv.classList.remove('active');
             inactiveDiv.classList.add('active');
             
             currentPosterIndex = nextIndex;
-        }, 5000); // Cambio de imagen cada 5s
+        }, 5000);
     }
 
     /* --- INICIALIZACIÓN --- */
