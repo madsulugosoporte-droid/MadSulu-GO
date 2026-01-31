@@ -9,23 +9,25 @@
   <meta name="description" content="Explora el catálogo completo de series de Countryballs en MadSulu GO. Mira Apocalipsis Universal, Coñaco, Pilas y más. ¡Streaming 100% gratis!">
   <meta name="keywords" content="Catálogo, Series Countryballs, Ver series gratis, MadSulu GO, Lista de episodios, Animación">
   <meta name="author" content="MadZalMedia Incorporated">
-  
   <meta name="theme-color" content="#e50914">
 
   <meta property="og:title" content="Catálogo de Series | MadSulu GO">
-  <meta property="og:description" content="¡Más de 15 series disponibles! Apocalipsis Universal, Coñaco, Pancho y muchas más. Entra y elige qué ver hoy.">
-  <meta property="og:image" content="https://files.catbox.moe/q8rwdm.png">
+  <meta property="og:description" content="¡Más de 15 series disponibles! Apocalipsis Universal, Coñaco, Pancho y muchas más.">
+  <meta property="og:image" content="logo_madsulu.png">
   <meta property="og:type" content="website">
-  
-  <meta property="og:url" content="https://madsulu-go.netlify.app/series.html">
+  <meta property="og:url" content="https://madsulugosoporte-droid.github.io/MadSulu-GO/series.html">
 
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="Catálogo Completo | MadSulu GO">
   <meta name="twitter:description" content="Explora todas las series de Countryballs creadas por la comunidad.">
-  <meta name="twitter:image" content="https://files.catbox.moe/q8rwdm.png">
+  <meta name="twitter:image" content="logo_madsulu.png">
 
-  <link rel="icon" type="image/png" href="https://files.catbox.moe/q8rwdm.png">
-  <link rel="apple-touch-icon" href="https://files.catbox.moe/q8rwdm.png">
+  <link rel="icon" type="image/png" href="logo_madsulu.png">
+  <link rel="apple-touch-icon" href="logo_madsulu.png">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;800;900&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
 
   <style>
     :root {
@@ -35,7 +37,7 @@
       --primary: #e50914;      
       --bg-card: #181818;      
       --text-main: #ffffff;    
-      --text-muted: #808080;   
+      --text-muted: #a3a3a3;   
     }
 
     * { box-sizing: border-box; }
@@ -43,121 +45,163 @@
     body {
       margin: 0;
       padding: 0;
-      font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+      font-family: 'Open Sans', sans-serif;
       background-color: var(--bg-dark); 
       color: var(--text-main);          
       width: 100%;
       min-height: 100vh;
       display: flex;
       flex-direction: column;
-      transition: background-color 10s ease, color 10s ease;
+      transition: background-color 10s ease, color 5s ease;
     }
 
-    /* --- Header --- */
+    h1, h2, h3, .header-title, .grid-title, .modal-title, .episodes-title-label {
+        font-family: 'Montserrat', sans-serif;
+    }
+
+    /* --- Header Glassmorphism --- */
     header {
-      padding: 20px;
+      padding: 15px 30px;
       display: flex;
       align-items: center;
       justify-content: space-between;
       position: sticky;
       top: 0;
       z-index: 100;
-      background: rgba(0,0,0,0.8);
-      backdrop-filter: blur(10px);
-      border-bottom: 1px solid rgba(255,255,255,0.1);
+      background: rgba(0,0,0,0.7);
+      backdrop-filter: blur(15px);
+      -webkit-backdrop-filter: blur(15px);
+      border-bottom: 1px solid rgba(255,255,255,0.05);
+      transition: all 0.3s ease;
     }
 
     .brand-logo {
-      height: 40px;
+      height: 45px;
+      filter: drop-shadow(0 2px 4px rgba(0,0,0,0.5));
+    }
+
+    .header-nav {
+        display: flex;
+        align-items: center;
+        gap: 20px;
     }
 
     .header-title {
-        font-weight: bold;
+        font-weight: 800;
         text-transform: uppercase;
-        font-size: 1.2rem;
+        font-size: 1.1rem;
+        letter-spacing: 1px;
+        display: none; /* Oculto en móviles muy pequeños */
+    }
+    @media(min-width: 600px) { .header-title { display: block; } }
+
+    .btn-home {
+        color: var(--text-main);
+        text-decoration: none;
+        font-weight: 600;
+        padding: 8px 20px;
+        border: 1px solid rgba(255,255,255,0.2);
+        border-radius: 50px;
+        transition: all 0.3s ease;
+        font-size: 0.9rem;
+    }
+    .btn-home:hover {
+        background: var(--text-main);
+        color: var(--bg-dark);
+        border-color: var(--text-main);
     }
 
     /* --- Catálogo Grid --- */
     .catalog-container {
-      padding: 20px;
-      max-width: 1200px;
+      padding: 40px 20px;
+      max-width: 1300px;
       margin: 0 auto;
       width: 100%;
-      flex: 1; /* Empuja el footer hacia abajo */
+      flex: 1;
+      animation: fadeIn 1s ease;
     }
 
     .grid-title {
-        margin-top: 20px;
-        margin-bottom: 20px;
-        font-size: 1.5rem;
-        border-left: 4px solid var(--primary);
-        padding-left: 15px;
+        margin-top: 10px;
+        margin-bottom: 30px;
+        font-size: 1.8rem;
+        font-weight: 800;
+        border-left: 5px solid var(--primary);
+        padding-left: 20px;
+        text-transform: uppercase;
+        letter-spacing: -0.5px;
     }
 
     .series-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-      gap: 20px;
+      grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+      gap: 25px;
     }
 
-    /* Tarjeta del catálogo (Poster Media) */
+    /* Tarjeta del catálogo */
     .series-card {
       position: relative;
       background-color: var(--bg-card);
-      border-radius: 8px;
+      border-radius: 12px;
       overflow: hidden;
       cursor: pointer;
-      transition: transform 0.3s, box-shadow 0.3s;
-      aspect-ratio: 16/9; /* Formato apaisado/media */
+      transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+      aspect-ratio: 16/9;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+      border: 1px solid rgba(255,255,255,0.05);
     }
 
     .series-card:hover {
-      transform: scale(1.03);
-      box-shadow: 0 10px 20px rgba(0,0,0,0.5);
+      transform: scale(1.05) translateY(-5px);
+      box-shadow: 0 15px 30px rgba(0,0,0,0.6);
       z-index: 2;
+      border-color: var(--primary);
     }
 
     .card-img {
       width: 100%;
       height: 100%;
       object-fit: cover;
-      transition: opacity 0.3s;
+      transition: transform 0.5s ease;
     }
+    .series-card:hover .card-img { transform: scale(1.1); }
 
     .card-overlay {
       position: absolute;
-      bottom: 0;
-      left: 0;
-      right: 0;
-      padding: 20px;
-      background: linear-gradient(to top, rgba(0,0,0,0.9), transparent);
+      inset: 0;
+      background: linear-gradient(to top, rgba(0,0,0,0.95) 0%, rgba(0,0,0,0.4) 50%, transparent 100%);
       opacity: 0;
-      transition: opacity 0.3s;
+      display: flex;
+      align-items: flex-end;
+      padding: 20px;
+      transition: opacity 0.3s ease;
     }
 
-    .series-card:hover .card-overlay {
-      opacity: 1;
-    }
+    .series-card:hover .card-overlay { opacity: 1; }
 
     .card-title {
-      font-weight: bold;
+      font-weight: 700;
       font-size: 1.1rem;
       text-shadow: 0 2px 4px black;
+      transform: translateY(10px);
+      transition: transform 0.3s ease;
     }
+    .series-card:hover .card-title { transform: translateY(0); }
 
-    /* --- MODAL (Panel de Detalles) --- */
+    /* --- MODAL DE LUJO --- */
     .modal-overlay {
         position: fixed;
         top: 0; left: 0; width: 100%; height: 100%;
-        background: rgba(0,0,0,0.85);
-        backdrop-filter: blur(8px);
+        background: rgba(0,0,0,0.9);
+        backdrop-filter: blur(10px);
+        -webkit-backdrop-filter: blur(10px);
         z-index: 1000;
         display: flex;
         align-items: center;
         justify-content: center;
         opacity: 0;
         pointer-events: none;
-        transition: opacity 0.3s ease;
+        transition: opacity 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
     }
 
     .modal-overlay.active {
@@ -167,175 +211,217 @@
 
     .modal-content {
         background: var(--bg-card);
-        width: 90%;
-        max-width: 900px;
+        width: 95%;
+        max-width: 1100px;
         max-height: 90vh;
-        border-radius: 12px;
-        overflow: hidden; /* Importante para bordes */
+        border-radius: 20px;
+        overflow: hidden;
         display: flex;
         position: relative;
-        box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+        box-shadow: 0 25px 50px -12px rgba(0,0,0,0.7);
         border: 1px solid rgba(255,255,255,0.1);
-        transition: background-color 10s ease;
+        transform: scale(0.95);
+        transition: transform 0.4s cubic-bezier(0.25, 0.8, 0.25, 1), background-color 10s ease;
     }
+
+    .modal-overlay.active .modal-content { transform: scale(1); }
 
     .close-btn {
         position: absolute;
-        top: 15px;
-        right: 15px;
-        background: rgba(0,0,0,0.5);
+        top: 20px;
+        right: 20px;
+        background: rgba(0,0,0,0.6);
         color: white;
         border: none;
-        width: 35px;
-        height: 35px;
+        width: 40px;
+        height: 40px;
         border-radius: 50%;
-        font-size: 20px;
+        font-size: 24px;
         cursor: pointer;
-        z-index: 10;
+        z-index: 20;
         display: flex;
         align-items: center;
         justify-content: center;
+        transition: all 0.2s;
     }
-    .close-btn:hover { background: var(--primary); }
+    .close-btn:hover { background: var(--primary); transform: rotate(90deg); }
 
-    /* Layout del Modal: Izq Poster Vertical, Der Info */
+    /* Poster Vertical en Modal */
     .modal-poster-container {
-        width: 40%; /* Un poco más ancho para que luzca mejor */
+        width: 35%;
         flex-shrink: 0;
-        background: #000; /* Fondo negro para rellenar espacios */
-        display: flex;
-        align-items: center;
-        justify-content: center;
+        position: relative;
     }
-
-    .modal-poster-vertical {
+    
+    .modal-poster-bg {
         width: 100%;
         height: 100%;
-        object-fit: contain; /* CLAVE: Para que se vea todo el poster vertical sin recortar */
+        background-size: cover;
+        background-position: center;
+        position: relative;
+    }
+    /* Sombra interna para unir poster con contenido */
+    .modal-poster-bg::after {
+        content: '';
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(to right, transparent 70%, var(--bg-card) 100%);
     }
 
     .modal-info-container {
-        padding: 40px;
+        padding: 50px;
         flex: 1;
         display: flex;
         flex-direction: column;
-        /* justify-content: center; Quitamos esto para permitir scroll si es muy largo */
-        overflow-y: auto; /* Scroll en la parte de info si es necesaria */
+        overflow-y: auto;
     }
 
+    /* Scrollbar personalizado */
+    .modal-info-container::-webkit-scrollbar { width: 8px; }
+    .modal-info-container::-webkit-scrollbar-track { background: rgba(0,0,0,0.1); }
+    .modal-info-container::-webkit-scrollbar-thumb { background: var(--primary); border-radius: 4px; }
+
     .modal-title {
-        font-size: 2.2rem;
-        font-weight: 800;
-        margin-bottom: 10px;
-        line-height: 1.1;
+        font-size: 2.8rem;
+        font-weight: 900;
+        margin-bottom: 15px;
+        line-height: 1;
+        letter-spacing: -1px;
+        background: linear-gradient(to right, #fff, #ccc);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
     }
 
     .modal-meta {
         display: flex;
         gap: 15px;
         align-items: center;
-        margin-bottom: 20px;
+        margin-bottom: 25px;
         font-size: 0.9rem;
         color: var(--text-muted);
+        font-weight: 600;
     }
 
     .age-badge {
-        border: 1px solid var(--text-muted);
-        padding: 2px 6px;
+        border: 2px solid var(--text-muted);
+        padding: 2px 8px;
         border-radius: 4px;
-        font-weight: bold;
+        font-weight: 800;
         color: var(--text-main);
+        font-size: 0.8rem;
     }
 
     .modal-synopsis {
-        font-size: 1rem;
-        line-height: 1.6;
-        margin-bottom: 25px;
-        color: #ddd;
+        font-size: 1.05rem;
+        line-height: 1.7;
+        margin-bottom: 30px;
+        color: #e0e0e0;
+        max-width: 90%;
     }
 
     .modal-credits {
-        margin-bottom: 25px;
+        margin-bottom: 30px;
         font-size: 0.9rem;
         color: var(--text-muted);
         border-bottom: 1px solid rgba(255,255,255,0.1);
-        padding-bottom: 15px;
+        padding-bottom: 20px;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 10px;
     }
-    .modal-credits span { display: block; margin-bottom: 5px; }
-    .modal-credits b { color: var(--text-main); }
+    .modal-credits span { display: block; }
+    .modal-credits b { color: var(--text-main); font-weight: 700; }
 
-    /* --- Lista de Episodios --- */
+    /* --- Lista de Episodios Estilizada --- */
     .episodes-container {
         margin-top: 10px;
+        background: rgba(0,0,0,0.2);
+        padding: 20px;
+        border-radius: 12px;
     }
     
     .episodes-title-label {
-        font-size: 1.1rem;
-        font-weight: bold;
-        color: var(--primary);
-        margin-bottom: 15px;
-        text-transform: uppercase;
-        letter-spacing: 1px;
+        font-size: 1.2rem;
+        font-weight: 700;
+        color: var(--text-main);
+        margin-bottom: 20px;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+    }
+    .episodes-title-label::before {
+        content: '';
+        display: block;
+        width: 4px;
+        height: 20px;
+        background: var(--primary);
+        border-radius: 2px;
     }
 
     .episodes-list {
         display: flex;
         flex-direction: column;
-        gap: 8px;
+        gap: 10px;
     }
 
     .episode-item {
-        background: rgba(255,255,255,0.05);
-        padding: 12px 15px;
-        border-radius: 6px;
+        background: rgba(255,255,255,0.03);
+        padding: 15px 20px;
+        border-radius: 8px;
         display: flex;
         align-items: center;
-        gap: 15px;
-        transition: background 0.2s;
-        border-left: 2px solid transparent;
+        gap: 20px;
+        transition: all 0.2s ease;
+        border: 1px solid transparent;
+        cursor: default;
     }
     
     .episode-item:hover {
-        background: rgba(255,255,255,0.1);
-        border-left: 2px solid var(--primary);
+        background: rgba(255,255,255,0.08);
+        border-color: rgba(255,255,255,0.1);
+        transform: translateX(5px);
     }
 
-    .ep-num {
-        font-weight: bold;
+    .play-icon {
         color: var(--text-muted);
-        min-width: 25px;
+        font-size: 0.8rem;
     }
+    .episode-item:hover .play-icon { color: var(--primary); }
 
     .ep-name {
-        font-weight: 500;
+        font-weight: 600;
         color: var(--text-main);
+        font-size: 0.95rem;
     }
 
     /* --- Footer --- */
     footer {
-      padding: 40px 20px;
-      background: rgba(0,0,0,0.5);
+      padding: 50px 20px;
+      background: rgba(0,0,0,0.8);
       text-align: center;
       font-size: 0.9rem;
       color: var(--text-muted);
-      border-top: 1px solid rgba(255,255,255,0.1);
+      border-top: 1px solid rgba(255,255,255,0.05);
       margin-top: auto;
     }
-    footer a { color: var(--text-main); text-decoration: none; margin: 0 10px; }
+    footer a { color: var(--text-main); text-decoration: none; margin: 0 15px; transition: color 0.3s; }
     footer a:hover { color: var(--primary); }
-    .footer-links { margin-top: 15px; display: flex; justify-content: center; gap: 20px; }
+    .copyright { opacity: 0.6; margin-bottom: 15px; display: block; }
+
+    @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
 
     /* Responsive */
-    @media (max-width: 768px) {
-        .modal-content { flex-direction: column; height: 100%; width: 100%; border-radius: 0; overflow-y: auto; }
+    @media (max-width: 900px) {
+        .modal-content { flex-direction: column; height: 100%; width: 100%; border-radius: 0; overflow-y: auto; max-height: unset; }
         .modal-poster-container { 
             width: 100%; 
-            height: auto; 
-            aspect-ratio: 2/3; /* Formato poster vertical forzado en móvil */
+            height: 40vh; /* Altura controlada en móvil */
         }
-        .modal-poster-vertical { object-position: center; }
-        .modal-info-container { padding: 20px; overflow-y: visible; }
-        .modal-title { font-size: 1.8rem; }
+        .modal-poster-bg::after {
+            background: linear-gradient(to bottom, transparent 60%, var(--bg-card) 100%);
+        }
+        .modal-info-container { padding: 30px 20px; overflow-y: visible; }
+        .modal-title { font-size: 2rem; }
     }
   </style>
 </head>
@@ -343,15 +429,17 @@
 
   <header>
       <div style="display:flex; align-items:center; gap:15px;">
-        <img src="https://files.catbox.moe/q8rwdm.png" alt="Logo" class="brand-logo">
-        <span class="header-title">Explorar</span>
+        <img src="logo_madsulu.png" alt="Logo" class="brand-logo">
+        <span class="header-title">MadSulu GO</span>
       </div>
-      <a href="index.html" style="color:white; text-decoration:none;">Inicio</a>
+      <nav class="header-nav">
+          <a href="index.html" class="btn-home">Volver al Inicio</a>
+      </nav>
   </header>
 
   <div class="catalog-container">
       
-      <div class="grid-title">Series Destacadas</div>
+      <div class="grid-title">Catálogo Completo</div>
       <div class="series-grid" id="seriesGrid">
           </div>
 
@@ -362,11 +450,11 @@
           <button class="close-btn" onclick="closeModalForce()">×</button>
           
           <div class="modal-poster-container">
-              <img src="" alt="Poster Vertical" class="modal-poster-vertical" id="mPosterV">
+              <div id="mPosterBg" class="modal-poster-bg"></div>
           </div>
           
           <div class="modal-info-container">
-              <h2 class="modal-title" id="mTitle">Titulo de la Serie</h2>
+              <h2 class="modal-title" id="mTitle">Titulo</h2>
               
               <div class="modal-meta">
                   <span class="age-badge" id="mRating">PG</span>
@@ -374,16 +462,16 @@
               </div>
 
               <p class="modal-synopsis" id="mSynopsis">
-                  Descripción de la serie...
+                  Descripción...
               </p>
 
               <div class="modal-credits">
                   <span><b>Creador:</b> <span id="mCreator">Nombre</span></span>
-                  <span><b>Productora:</b> <span id="mStudio">Estudio</span></span>
+                  <span><b>Estudio:</b> <span id="mStudio">Estudio</span></span>
               </div>
 
               <div class="episodes-container">
-                  <div class="episodes-title-label">Lista de Episodios</div>
+                  <div class="episodes-title-label">Episodios Disponibles</div>
                   <div class="episodes-list" id="mEpisodesList">
                       </div>
               </div>
@@ -393,16 +481,16 @@
   </div>
 
   <footer>
-      <div>© 2026 MadZalMedia</div>
+      <span class="copyright">© 2026 MadZalMedia Incorporated</span>
       <div class="footer-links">
-          <a href="mailto:madsulugo.soporte@gmail.com">Contactar</a>
+          <a href="mailto:madsulugo.soporte@gmail.com">Soporte</a>
           <a href="https://discord.gg/HQTBK8xsyn" target="_blank">Discord</a>
-          <a href="terms.html">Terminos y Condiciones</a>
+          <a href="terms.html">Términos</a>
       </div>
   </footer>
 
   <script>
-    /* --- DATOS COMPLETOS DE LAS SERIES Y EPISODIOS --- */
+    /* --- DATOS COMPLETOS DE LAS SERIES Y EPISODIOS (ARCHIVOS LOCALES) --- */
     const seriesData = [
       {
         id: 1,
@@ -411,12 +499,9 @@
         rating: "Restringido",
         creator: "NET",
         producer: "NET",
-        episodes: [
-            "1. Peace",
-            "2. Hope"
-        ],
-        posterMedia: "https://files.catbox.moe/hjgpjy.jpg",
-        posterVertical: "https://files.catbox.moe/rikcnv.png"
+        episodes: ["1. Peace", "2. Hope"],
+        posterMedia: "thumb_apocalipsis.jpg",
+        posterVertical: "poster_12.png"
       },
       {
         id: 2,
@@ -425,13 +510,9 @@
         rating: "Adolescentes",
         creator: "Mateo el dormilon",
         producer: "Mateo el dormilon",
-        episodes: [
-            "1. Un nuevo hogar",
-            "2. El suelo es lava",
-            "3. El garaje gallego"
-        ],
-        posterMedia: "https://files.catbox.moe/5ym1pj.png",
-        posterVertical: "https://files.catbox.moe/cxioc7.png"
+        episodes: ["1. Un nuevo hogar", "2. El suelo es lava", "3. El garaje gallego"],
+        posterMedia: "thumb_batalla.jpg",
+        posterVertical: "poster_batalla.png"
       },
       {
         id: 3,
@@ -440,13 +521,9 @@
         rating: "+10",
         creator: "Mr. Chulin",
         producer: "Sulu Studios Corporation",
-        episodes: [
-            "1. Un nuevo plan",
-            "2. Una mala relación",
-            "3. El despertar de una pesadilla"
-        ],
-        posterMedia: "https://files.catbox.moe/0b1zji.png",
-        posterVertical: "https://files.catbox.moe/led0vy.png"
+        episodes: ["1. Un nuevo plan", "2. Una mala relación", "3. El despertar de una pesadilla"],
+        posterMedia: "thumb_californias.png",
+        posterVertical: "poster_02.png"
       },
       {
         id: 4,
@@ -455,14 +532,9 @@
         rating: "Evento",
         creator: "Geométricos Sammy",
         producer: "Geometric Studios",
-        episodes: [
-            "Edición 2026 (Showcase)",
-            "Countryawards 2025",
-            "Countryawards 2024",
-            "Countryawards 2023"
-        ],
-        posterMedia: "https://files.catbox.moe/pybsao.png",
-        posterVertical: "https://files.catbox.moe/cmr708.png"
+        episodes: ["Edición 2026 (Showcase)", "Countryawards 2025", "Countryawards 2024", "Countryawards 2023"],
+        posterMedia: "thumb_countryearly.png",
+        posterVertical: "poster_countryearly.png"
       },
       {
         id: 5,
@@ -471,13 +543,9 @@
         rating: "Todos",
         creator: "Red-Ball",
         producer: "Red-Ball",
-        episodes: [
-            "1. El inicio del fin",
-            "2. La recluta",
-            "3. La infección"
-        ],
-        posterMedia: "https://files.catbox.moe/nq6stx.png",
-        posterVertical: "https://files.catbox.moe/fzonve.png"
+        episodes: ["1. El inicio del fin", "2. La recluta", "3. La infección"],
+        posterMedia: "thumb_countryverso.png",
+        posterVertical: "poster_15.png"
       },
       {
         id: 6,
@@ -486,12 +554,9 @@
         rating: "Adolescentes",
         creator: "MarlonHD",
         producer: "Sur Studios LTD",
-        episodes: [
-            "1. Muñeca del Coñaco",
-            "2. Sangre azucarada"
-        ],
-        posterMedia: "https://files.catbox.moe/zc0ht2.png",
-        posterVertical: "https://files.catbox.moe/9ko4e6.png"
+        episodes: ["1. Muñeca del Coñaco", "2. Sangre azucarada"],
+        posterMedia: "thumb_conaco.png",
+        posterVertical: "poster_03.png"
       },
       {
         id: 7,
@@ -500,12 +565,9 @@
         rating: "Adolescentes",
         creator: "Don Oroxico",
         producer: "Don Oroxico",
-        episodes: [
-            "1. El misterio de los portales",
-            "2. Un demonio histórico"
-        ],
-        posterMedia: "https://files.catbox.moe/2qikmp.png",
-        posterVertical: "https://files.catbox.moe/zqyfcc.png"
+        episodes: ["1. El misterio de los portales", "2. Un demonio histórico"],
+        posterMedia: "thumb_demonic.png",
+        posterVertical: "poster_11.png"
       },
       {
         id: 8,
@@ -514,12 +576,9 @@
         rating: "Todos",
         creator: "MmManda, Tobi-Tobillo",
         producer: "Papas Fritas con Huevo",
-        episodes: [
-            "1. Secretitis",
-            "2. El bebé ataca"
-        ],
-        posterMedia: "https://files.catbox.moe/n4ya12.png",
-        posterVertical: "https://files.catbox.moe/m5ti4i.png"
+        episodes: ["1. Secretitis", "2. El bebé ataca"],
+        posterMedia: "thumb_bebe.png",
+        posterVertical: "poster_06.png"
       },
       {
         id: 9,
@@ -528,11 +587,9 @@
         rating: "Adolescentes",
         creator: "Magic Paraguay",
         producer: "Magic Productions",
-        episodes: [
-            "1. El invento chino"
-        ],
-        posterMedia: "https://files.catbox.moe/ccgcgf.png",
-        posterVertical: "https://files.catbox.moe/6oqqfu.png"
+        episodes: ["1. El invento chino"],
+        posterMedia: "thumb_guerra.png",
+        posterVertical: "poster_17.png"
       },
       {
         id: 10,
@@ -541,14 +598,9 @@
         rating: "+7 Años",
         creator: "Countryballs E",
         producer: "CBE Associations",
-        episodes: [
-            "1. Artefacto Misterioso",
-            "2. La Fiesta",
-            "3. Un deseo no beneficio",
-            "4. Consecuencias Inesperadas"
-        ],
-        posterMedia: "https://files.catbox.moe/u5peyp.png",
-        posterVertical: "https://files.catbox.moe/f5xcdx.png"
+        episodes: ["1. Artefacto Misterioso", "2. La Fiesta", "3. Un deseo no beneficio", "4. Consecuencias Inesperadas"],
+        posterMedia: "thumb_butan.png",
+        posterVertical: "poster_18.png"
       },
       {
         id: 11,
@@ -557,15 +609,9 @@
         rating: "Todos",
         creator: "Mr. Chulin",
         producer: "Mr. Chulin",
-        episodes: [
-            "1. Presentando a las Californias",
-            "2. Una tonta pelea",
-            "3. Unas feas revelaciones",
-            "4. El llegar de una pesadilla",
-            "5. Revolución en el norte"
-        ],
-        posterMedia: "https://files.catbox.moe/h8cro0.png",
-        posterVertical: "https://files.catbox.moe/iwgkw4.png"
+        episodes: ["1. Presentando a las Californias", "2. Una tonta pelea", "3. Unas feas revelaciones", "4. El llegar de una pesadilla", "5. Revolución en el norte"],
+        posterMedia: "thumb_cali_classic.png",
+        posterVertical: "poster_04.png"
       },
       {
         id: 12,
@@ -574,12 +620,9 @@
         rating: "+10",
         creator: "FamilOficial",
         producer: "FamilStudios",
-        episodes: [
-            "1. La casa funable",
-            "2. Bala perdida"
-        ],
-        posterMedia: "https://files.catbox.moe/x43649.webp",
-        posterVertical: "https://files.catbox.moe/l4sqig.png"
+        episodes: ["1. La casa funable", "2. Bala perdida"],
+        posterMedia: "thumb_famil.webp",
+        posterVertical: "poster_08.png"
       },
       {
         id: 13,
@@ -588,12 +631,9 @@
         rating: "Adolescentes",
         creator: "TheGabriel2535",
         producer: "TheGabriel2535",
-        episodes: [
-            "1. Hechadas",
-            "2. Gato Ladrón"
-        ],
-        posterMedia: "https://files.catbox.moe/0lg09n.png",
-        posterVertical: "https://files.catbox.moe/y01g01.png"
+        episodes: ["1. Hechadas", "2. Gato Ladrón"],
+        posterMedia: "thumb_luna.png",
+        posterVertical: "poster_10.png"
       },
       {
         id: 14,
@@ -602,12 +642,9 @@
         rating: "+10",
         creator: "JoshuaPRO5",
         producer: "MaJo Associations",
-        episodes: [
-            "1. El aire que habla",
-            "2. Detrás de cámaras"
-        ],
-        posterMedia: "https://files.catbox.moe/77uk74.png",
-        posterVertical: "https://files.catbox.moe/co5qwq.png"
+        episodes: ["1. El aire que habla", "2. Detrás de cámaras"],
+        posterMedia: "thumb_mjaja.png",
+        posterVertical: "poster_07.png"
       },
       {
         id: 15,
@@ -622,8 +659,8 @@
             "9. Universo redondo", "10. Universo B.C", "11. Universo C18", "12. Un universo cualquiera",
             "13. Por fin en casa", "14. Universo C.R", "15. Universo Eutanasio", "16. Universo Ballero"
         ],
-        posterMedia: "https://files.catbox.moe/uyq713.webp",
-        posterVertical: "https://files.catbox.moe/2p9t7v.png"
+        posterMedia: "thumb_multiversus.webp",
+        posterVertical: "poster_14.png"
       },
       {
         id: 16,
@@ -632,15 +669,9 @@
         rating: "+7",
         creator: "MmManda",
         producer: "MaJo Associations",
-        episodes: [
-            "1. Como jugar a Pancho",
-            "2. ¿Más banderas?",
-            "3. El verdadero inicio",
-            "4. Multijugador",
-            "5. ¿El nivel final?"
-        ],
-        posterMedia: "https://files.catbox.moe/bg7dhd.png",
-        posterVertical: "https://files.catbox.moe/vzgxrl.png"
+        episodes: ["1. Como jugar a Pancho", "2. ¿Más banderas?", "3. El verdadero inicio", "4. Multijugador", "5. ¿El nivel final?"],
+        posterMedia: "thumb_pancho.png",
+        posterVertical: "poster_01.png"
       },
       {
         id: 17,
@@ -653,8 +684,8 @@
             "1. La tienda de pilas", "2. Misión de rescate", "3. Prisión", "4. El motín", "5. Masacre", 
             "6. Terra Nulius", "7. Cambiocalipsis", "E1. Salvando la Navidad", "S. Swap: Cables", "R. Necesitamos Pilas"
         ],
-        posterMedia: "https://files.catbox.moe/yza26p.webp",
-        posterVertical: "https://files.catbox.moe/np95i0.png"
+        posterMedia: "thumb_pilas.webp",
+        posterVertical: "poster_13.png"
       },
       {
         id: 18,
@@ -664,16 +695,11 @@
         creator: "Mr. West Macedonia",
         producer: "Mr. West Macedonia",
         episodes: [
-            "1. La amenaza en África",
-            "2. Skibidi colosal",
-            "3. Gigantes en Norteamérica",
-            "4. Tecnología al rescate",
-            "5. Trampa mortal",
-            "6. Oscuridad total",
-            "7. El grito que salvó al mundo"
+            "1. La amenaza en África", "2. Skibidi colosal", "3. Gigantes en Norteamérica", "4. Tecnología al rescate",
+            "5. Trampa mortal", "6. Oscuridad total", "7. El grito que salvó al mundo"
         ],
-        posterMedia: "https://files.catbox.moe/y901fw.png",
-        posterVertical: "https://files.catbox.moe/klymfm.png"
+        posterMedia: "thumb_skibidi.png",
+        posterVertical: "poster_09.png"
       }
     ];
 
@@ -686,7 +712,7 @@
         card.onclick = () => openModal(serie);
         
         card.innerHTML = `
-            <img src="${serie.posterMedia}" class="card-img" alt="${serie.title}">
+            <img src="${serie.posterMedia}" class="card-img" alt="${serie.title}" loading="lazy">
             <div class="card-overlay">
                 <div class="card-title">${serie.title}</div>
             </div>
@@ -696,9 +722,7 @@
 
     /* --- LÓGICA DEL MODAL --- */
     const modal = document.getElementById('seriesModal');
-    
-    // Elementos del modal
-    const mPosterV = document.getElementById('mPosterV');
+    const mPosterBg = document.getElementById('mPosterBg');
     const mTitle = document.getElementById('mTitle');
     const mRating = document.getElementById('mRating');
     const mProducer = document.getElementById('mProducer');
@@ -708,8 +732,9 @@
     const mEpisodesList = document.getElementById('mEpisodesList');
 
     function openModal(serie) {
-        // Rellenar datos
-        mPosterV.src = serie.posterVertical;
+        // Usamos background-image para mejor control del cover vertical
+        mPosterBg.style.backgroundImage = `url('${serie.posterVertical}')`;
+        
         mTitle.innerText = serie.title;
         mRating.innerText = serie.rating;
         mProducer.innerText = serie.producer;
@@ -717,79 +742,77 @@
         mCreator.innerText = serie.creator;
         mStudio.innerText = serie.producer;
 
-        // Limpiar y rellenar lista de episodios
         mEpisodesList.innerHTML = '';
         if(serie.episodes && serie.episodes.length > 0) {
             serie.episodes.forEach((epName) => {
                 const epDiv = document.createElement('div');
                 epDiv.className = 'episode-item';
-                // Si el nombre ya trae el número, lo usamos tal cual
-                epDiv.innerHTML = `<span class="ep-name">${epName}</span>`;
+                // Añadir icono de play decorativo
+                epDiv.innerHTML = `<span class="play-icon">▶</span> <span class="ep-name">${epName}</span>`;
                 mEpisodesList.appendChild(epDiv);
             });
         } else {
-            mEpisodesList.innerHTML = '<div style="color:#aaa; font-style:italic;">No hay información de episodios.</div>';
+            mEpisodesList.innerHTML = '<div style="color:var(--text-muted); font-style:italic;">No hay información de episodios.</div>';
         }
 
-        // Mostrar
         modal.classList.add('active');
+        document.body.style.overflow = 'hidden'; // Evitar scroll de fondo
     }
 
     function closeModalForce() {
         modal.classList.remove('active');
+        document.body.style.overflow = 'auto';
     }
 
     function closeModal(event) {
         if (event.target === modal) {
-            modal.classList.remove('active');
+            closeModalForce();
         }
     }
 
-    /* --- TEMA DINÁMICO --- */
+    /* --- TEMA DINÁMICO (Sincronizado con index) --- */
     const themes = [
-  { name: "MadSulu Dark", colors: ["#000000", "#141414", "#e50914", "#181818", "#ffffff", "#808080"] },
-  { name: "MadSulu LIGHT", colors: ["#020a1a", "#0540CE", "#7CE600", "#FF6D00", "#ffffff", "#94a3b8"] },
-  { name: "Cyber Hub", colors: ["#0b0f19", "#00f0ff", "#ffee00", "#151a25", "#ffffff", "#a0aab5"] },
-  { name: "Nature Legal", colors: ["#020b14", "#011408", "#00d4a3", "#00b388", "#f0f0f0", "#a0aec0"] },
-  { name: "Steel Sky", colors: ["#121212", "#0072FF", "#606060", "#2a2a2a", "#f5f5f5", "#00c6ff"] },
-  { name: "Aqua Marine", colors: ["#001a1d", "#00FFAA", "#00848F", "#004d55", "#ffffff", "#546e7a"] },
-  { name: "Electric Ocean", colors: ["#0d1b2a", "#03FC8E", "#2578B4", "#1b263b", "#e0e1dd", "#778da9"] },
-  { name: "Cyberpunk Night", colors: ["#0a0a0a", "#ff00ff", "#00ffff", "#1a1a1a", "#ffffff", "#3d003d"] },
-  { name: "Sunset Gold", colors: ["#1a0f00", "#ffcc00", "#ff6600", "#2b1d0e", "#fff5e6", "#8b4513"] },
-  { name: "Royal Amethyst", colors: ["#0f001a", "#9933ff", "#e0b3ff", "#1d0a2d", "#f2e6ff", "#4b0082"] },
-  { name: "Blood Moon", colors: ["#0f0505", "#880808", "#ff4d4d", "#1a0d0d", "#f5f5f5", "#4a0000"] },
-  { name: "Forest Mist", colors: ["#0b120b", "#2d5a27", "#a8dadc", "#162416", "#f1faee", "#457b9d"] },
-  { name: "Space Nebula", colors: ["#02010a", "#5d2e8c", "#ff79c6", "#120e26", "#f8f8f2", "#bd93f9"] },
-  { name: "Desert Sand", colors: ["#1c1917", "#d97706", "#fcd34d", "#292524", "#fffbeb", "#78350f"] },
-  { name: "Ice Castle", colors: ["#0a192f", "#0ea5e9", "#38bdf8", "#112240", "#e0f2fe", "#7dd3fc"] },
-  { name: "Vintage Retro", colors: ["#2b2d42", "#ef233c", "#d90429", "#8d99ae", "#edf2f4", "#1a1c2c"] },
-  { name: "Emerald Peak", colors: ["#061a12", "#10b981", "#34d399", "#064e3b", "#ecfdf5", "#065f46"] },
-  { name: "Vivid Violet", colors: ["#1e1b4b", "#6366f1", "#818cf8", "#312e81", "#eef2ff", "#4338ca"] },
-  { name: "Toxic Waste", colors: ["#050505", "#adff2f", "#32cd32", "#1a1a1a", "#ffffff", "#006400"] },
-  { name: "Luxury Slate", colors: ["#0f172a", "#94a3b8", "#cbd5e1", "#1e293b", "#f8fafc", "#334155"] },
-
-  { name: "Golden Dusk", colors: ["#000014", "#0B0B1A", "#FDDB08", "#FCEAA8", "#FFFFFF", "#8A8A8A"] },
-  { name: "Neo Harbor", colors: ["#000000", "#0F1722", "#6A94BE", "#B72756", "#FFFFFF", "#9BB1C8"] },
-  { name: "Solar Sail", colors: ["#081229", "#0158FF", "#F9E731", "#F1C297", "#FFFFFF", "#807F8A"] },
-  { name: "Tidal Pulse", colors: ["#001428", "#002BFF", "#0084FF", "#00FFA1", "#FFFFFF", "#7FBFFF"] },
-  { name: "Regal Ember", colors: ["#0B0314", "#3C0A90", "#832412", "#C68521", "#F7EFE6", "#9E7B4A"] },
-  { name: "Arcade Breeze", colors: ["#081028", "#558EFF", "#54FFA1", "#FFFF55", "#FFFFFF", "#9DB7EF"] },
-  { name: "Marmalade Drive", colors: ["#120600", "#D36800", "#FF9152", "#FFB814", "#FFFFFF", "#8C4B20"] },
-  { name: "Voltage Sunset", colors: ["#0B0016", "#FF4D03", "#3200FF", "#1A0819", "#FFFFFF", "#A97C6A"] },
-  { name: "Crimson Orange", colors: ["#0F0300", "#FF5A01", "#FE8503", "#E91210", "#FFFFFF", "#B8B8B8"] },
-  { name: "Mariner Teal", colors: ["#021426", "#0076DA", "#0064CE", "#20914E", "#F9FFFF", "#7FB6D9"] },
-
-  { name: "Riot Orchard", colors: ["#120000", "#FF1100", "#734100", "#227300", "#FFFFFF", "#B76A4A"] },
-  { name: "Neon Lemonade", colors: ["#001219", "#00F6FF", "#FFFFFF", "#FFEE00", "#06262A", "#8BDFE6"] },
-  { name: "Tri-Flash", colors: ["#0B0010", "#00D4FF", "#FFDD00", "#FF0000", "#FFFFFF", "#BDB7A3"] },
-  { name: "Carnival Flame", colors: ["#12090A", "#CD112B", "#FFCA00", "#2B0F0F", "#FFF5E6", "#8A3B3B"] },
-  { name: "Atomic Signal", colors: ["#120000", "#FF0800", "#FFFFFF", "#2B0B0B", "#FFDCE0", "#B2342A"] },
-  { name: "Harvest Signal", colors: ["#0F0B08", "#C5332B", "#FFC300", "#48A800", "#F7F7F7", "#8D5A4F"] },
-  { name: "Flagship", colors: ["#031526", "#CF1127", "#003C71", "#EDF1F5", "#FFFFFF", "#7A98B0"] },
-  { name: "Sail Blue", colors: ["#021726", "#0081D5", "#005F9A", "#FFFFFF", "#8FBFE8", "#0B2A3F"] },
-  { name: "Royal Claret", colors: ["#0B0710", "#484779", "#B72A3D", "#1B1830", "#FFFFFF", "#8B8398"] },
-  { name: "Aqua Citrine", colors: ["#041827", "#0081D5", "#A1E5F5", "#CAD823", "#FFFFFF", "#6AA7CF"] }
-];
+      { name: "MadSulu Dark", colors: ["#000000", "#141414", "#e50914", "#181818", "#ffffff", "#a3a3a3"] },
+      { name: "MadSulu LIGHT", colors: ["#020a1a", "#0540CE", "#7CE600", "#FF6D00", "#ffffff", "#94a3b8"] },
+      { name: "Cyber Hub", colors: ["#0b0f19", "#00f0ff", "#ffee00", "#151a25", "#ffffff", "#a0aab5"] },
+      { name: "Nature Legal", colors: ["#020b14", "#011408", "#00d4a3", "#00b388", "#f0f0f0", "#a0aec0"] },
+      { name: "Steel Sky", colors: ["#121212", "#0072FF", "#606060", "#2a2a2a", "#f5f5f5", "#00c6ff"] },
+      { name: "Aqua Marine", colors: ["#001a1d", "#00FFAA", "#00848F", "#004d55", "#ffffff", "#546e7a"] },
+      { name: "Electric Ocean", colors: ["#0d1b2a", "#03FC8E", "#2578B4", "#1b263b", "#e0e1dd", "#778da9"] },
+      { name: "Cyberpunk Night", colors: ["#0a0a0a", "#ff00ff", "#00ffff", "#1a1a1a", "#ffffff", "#3d003d"] },
+      { name: "Sunset Gold", colors: ["#1a0f00", "#ffcc00", "#ff6600", "#2b1d0e", "#fff5e6", "#8b4513"] },
+      { name: "Royal Amethyst", colors: ["#0f001a", "#9933ff", "#e0b3ff", "#1d0a2d", "#f2e6ff", "#4b0082"] },
+      { name: "Blood Moon", colors: ["#0f0505", "#880808", "#ff4d4d", "#1a0d0d", "#f5f5f5", "#4a0000"] },
+      { name: "Forest Mist", colors: ["#0b120b", "#2d5a27", "#a8dadc", "#162416", "#f1faee", "#457b9d"] },
+      { name: "Space Nebula", colors: ["#02010a", "#5d2e8c", "#ff79c6", "#120e26", "#f8f8f2", "#bd93f9"] },
+      { name: "Desert Sand", colors: ["#1c1917", "#d97706", "#fcd34d", "#292524", "#fffbeb", "#78350f"] },
+      { name: "Ice Castle", colors: ["#0a192f", "#0ea5e9", "#38bdf8", "#112240", "#e0f2fe", "#7dd3fc"] },
+      { name: "Vintage Retro", colors: ["#2b2d42", "#ef233c", "#d90429", "#8d99ae", "#edf2f4", "#1a1c2c"] },
+      { name: "Emerald Peak", colors: ["#061a12", "#10b981", "#34d399", "#064e3b", "#ecfdf5", "#065f46"] },
+      { name: "Vivid Violet", colors: ["#1e1b4b", "#6366f1", "#818cf8", "#312e81", "#eef2ff", "#4338ca"] },
+      { name: "Toxic Waste", colors: ["#050505", "#adff2f", "#32cd32", "#1a1a1a", "#ffffff", "#006400"] },
+      { name: "Luxury Slate", colors: ["#0f172a", "#94a3b8", "#cbd5e1", "#1e293b", "#f8fafc", "#334155"] },
+      { name: "Golden Dusk", colors: ["#000014", "#0B0B1A", "#FDDB08", "#FCEAA8", "#FFFFFF", "#8A8A8A"] },
+      { name: "Neo Harbor", colors: ["#000000", "#0F1722", "#6A94BE", "#B72756", "#FFFFFF", "#9BB1C8"] },
+      { name: "Solar Sail", colors: ["#081229", "#0158FF", "#F9E731", "#F1C297", "#FFFFFF", "#807F8A"] },
+      { name: "Tidal Pulse", colors: ["#001428", "#002BFF", "#0084FF", "#00FFA1", "#FFFFFF", "#7FBFFF"] },
+      { name: "Regal Ember", colors: ["#0B0314", "#3C0A90", "#832412", "#C68521", "#F7EFE6", "#9E7B4A"] },
+      { name: "Arcade Breeze", colors: ["#081028", "#558EFF", "#54FFA1", "#FFFF55", "#FFFFFF", "#9DB7EF"] },
+      { name: "Marmalade Drive", colors: ["#120600", "#D36800", "#FF9152", "#FFB814", "#FFFFFF", "#8C4B20"] },
+      { name: "Voltage Sunset", colors: ["#0B0016", "#FF4D03", "#3200FF", "#1A0819", "#FFFFFF", "#A97C6A"] },
+      { name: "Crimson Orange", colors: ["#0F0300", "#FF5A01", "#FE8503", "#E91210", "#FFFFFF", "#B8B8B8"] },
+      { name: "Mariner Teal", colors: ["#021426", "#0076DA", "#0064CE", "#20914E", "#F9FFFF", "#7FB6D9"] },
+      { name: "Riot Orchard", colors: ["#120000", "#FF1100", "#734100", "#227300", "#FFFFFF", "#B76A4A"] },
+      { name: "Neon Lemonade", colors: ["#001219", "#00F6FF", "#FFFFFF", "#FFEE00", "#06262A", "#8BDFE6"] },
+      { name: "Tri-Flash", colors: ["#0B0010", "#00D4FF", "#FFDD00", "#FF0000", "#FFFFFF", "#BDB7A3"] },
+      { name: "Carnival Flame", colors: ["#12090A", "#CD112B", "#FFCA00", "#2B0F0F", "#FFF5E6", "#8A3B3B"] },
+      { name: "Atomic Signal", colors: ["#120000", "#FF0800", "#FFFFFF", "#2B0B0B", "#FFDCE0", "#B2342A"] },
+      { name: "Harvest Signal", colors: ["#0F0B08", "#C5332B", "#FFC300", "#48A800", "#F7F7F7", "#8D5A4F"] },
+      { name: "Flagship", colors: ["#031526", "#CF1127", "#003C71", "#EDF1F5", "#FFFFFF", "#7A98B0"] },
+      { name: "Sail Blue", colors: ["#021726", "#0081D5", "#005F9A", "#FFFFFF", "#8FBFE8", "#0B2A3F"] },
+      { name: "Royal Claret", colors: ["#0B0710", "#484779", "#B72A3D", "#1B1830", "#FFFFFF", "#8B8398"] },
+      { name: "Aqua Citrine", colors: ["#041827", "#0081D5", "#A1E5F5", "#CAD823", "#FFFFFF", "#6AA7CF"] }
+    ];
 
     function applyTheme(theme) {
         const root = document.documentElement;
@@ -804,8 +827,8 @@
     }
 
     function initThemeLogic() {
-        const randomTheme = themes[Math.floor(Math.random() * themes.length)];
-        applyTheme(randomTheme);
+        const initialIndex = Math.random() > 0.5 ? 0 : 1;
+        applyTheme(themes[initialIndex]);
         
         setInterval(() => {
             const nextTheme = themes[Math.floor(Math.random() * themes.length)];
