@@ -419,6 +419,90 @@
     footer a:hover { color: var(--primary); }
     .copyright { opacity: 0.6; margin-bottom: 15px; display: block; }
 
+    /* --- Barra de Búsqueda --- */
+    .search-bar-wrapper {
+        margin-bottom: 30px;
+        display: flex;
+        align-items: center;
+        gap: 16px;
+    }
+    .search-bar {
+        flex: 1;
+        max-width: 480px;
+        position: relative;
+        display: flex;
+        align-items: center;
+        background: rgba(255,255,255,0.06);
+        border: 1px solid rgba(255,255,255,0.12);
+        border-radius: 50px;
+        padding: 0 20px;
+        transition: border-color 0.3s, background 0.3s, box-shadow 0.3s;
+    }
+    .search-bar:focus-within {
+        border-color: var(--primary);
+        background: rgba(255,255,255,0.09);
+        box-shadow: 0 0 14px rgba(229,9,20,0.25);
+    }
+    .search-icon {
+        font-size: 1rem;
+        margin-right: 10px;
+        pointer-events: none;
+        opacity: 0.6;
+    }
+    .search-input {
+        flex: 1;
+        background: transparent;
+        border: none;
+        outline: none;
+        color: var(--text-main);
+        font-family: 'Open Sans', sans-serif;
+        font-size: 0.95rem;
+        padding: 12px 0;
+        caret-color: var(--primary);
+    }
+    .search-input::placeholder { color: var(--text-muted); opacity: 0.7; }
+    .search-clear-btn {
+        background: none;
+        border: none;
+        color: var(--text-muted);
+        font-size: 0.85rem;
+        cursor: pointer;
+        padding: 4px 6px;
+        border-radius: 50%;
+        opacity: 0;
+        transition: opacity 0.2s, color 0.2s;
+        pointer-events: none;
+    }
+    .search-clear-btn.visible { opacity: 1; pointer-events: auto; }
+    .search-clear-btn:hover { color: var(--primary); background: rgba(255,255,255,0.08); }
+    .search-results-count {
+        font-size: 0.82rem;
+        color: var(--text-muted);
+        white-space: nowrap;
+        min-width: 80px;
+        text-align: left;
+        opacity: 0;
+        transition: opacity 0.3s;
+    }
+    .search-results-count.visible { opacity: 1; }
+
+    /* Card oculta por búsqueda */
+    .series-card.hidden {
+        display: none;
+    }
+
+    /* Mensaje "sin resultados" */
+    .no-results-msg {
+        grid-column: 1 / -1;
+        text-align: center;
+        color: var(--text-muted);
+        font-size: 1.05rem;
+        padding: 60px 20px;
+        font-style: italic;
+        display: none;
+    }
+    .no-results-msg.visible { display: block; }
+
     @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
 
     /* Responsive */
@@ -451,7 +535,19 @@
   <div class="catalog-container">
       
       <div class="grid-title">Catálogo Completo</div>
+
+      <!-- Barra de búsqueda -->
+      <div class="search-bar-wrapper">
+          <div class="search-bar">
+              <span class="search-icon">🔍</span>
+              <input type="text" id="searchInput" class="search-input" placeholder="Buscar serie…" autocomplete="off" spellcheck="false">
+              <button class="search-clear-btn" id="searchClearBtn" title="Limpiar">✕</button>
+          </div>
+          <div class="search-results-count" id="searchCount"></div>
+      </div>
+
       <div class="series-grid" id="seriesGrid">
+          <div class="no-results-msg" id="noResultsMsg">No se encontraron series que coincidan con tu búsqueda.</div>
           </div>
 
   </div>
@@ -469,16 +565,16 @@
               
               <div class="modal-meta">
                   <span class="age-badge" id="mRating">PG</span>
-                  <span id="mProducer">Productora</span>
+                  <span id="mTagline" style="font-style:italic; color:var(--text-muted);">Tagline…</span>
               </div>
 
               <p class="modal-synopsis" id="mSynopsis">
                   Descripción...
               </p>
 
-              <div class="modal-credits">
+              <div class="modal-credits" id="mCreditsContainer">
                   <span><b>Creador:</b> <span id="mCreator">Nombre</span></span>
-                  <span><b>Estudio:</b> <span id="mStudio">Estudio</span></span>
+                  <span id="mStudioWrapper"><b>Estudio:</b> <span id="mStudio">Estudio</span></span>
               </div>
 
               <div class="episodes-container">
@@ -494,19 +590,20 @@
   <footer>
       <span class="copyright">© 2026 MadZalMedia Incorporated</span>
       <div class="footer-links">
-          <a href="mailto:madsulugo.soporte@gmail.com">Soporte</a>
+          <a href="/cdn-cgi/l/email-protection#0f626e6b7c7a637a6860217c607f607d7b6a4f68626e6663216c6062">Soporte</a>
           <a href="https://discord.gg/HQTBK8xsyn" target="_blank">Discord</a>
           <a href="terms.html">Términos</a>
       </div>
   </footer>
 
-  <script>
+  <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
     /* --- DATOS COMPLETOS DE LAS SERIES Y EPISODIOS (ARCHIVOS LOCALES) --- */
     const seriesData = [
       {
         id: 1,
         title: "Apocalipsis Universal",
         synopsis: "Un rey, obsesionado con reunir los cristales universales, destruye universos en su búsqueda; un grupo de guerreros countryball buscará detenerlo.",
+        tagline: "Un rey busca los cristales, un grupo de guerreros busca salvar los universos.",
         rating: "Restringido",
         creator: "NET",
         producer: "NET",
@@ -518,6 +615,7 @@
         id: 2,
         title: "Batalla Countrytuber",
         synopsis: "Una competencia organizada por Calamardo donde distintos countrytubers forman equipos y superan retos decididos por la comunidad; el último equipo en pie gana.",
+        tagline: "Calamardo pone las reglas, la comunidad decide quién sobrevive.",
         rating: "Adolescentes",
         creator: "Mateo el dormilon",
         producer: "Mateo el dormilon",
@@ -529,6 +627,7 @@
         id: 3,
         title: "Las CaliFornias",
         synopsis: "3 hermanos separados por fronteras y por guerras han decidido reconciliarse pero se van a atravesar con muchos problemas, revelaciones y una horrible pesadilla.",
+        tagline: "Tres hermanos separados por fronteras intentan reconciliarse entre pesadillas y problemas.",
         rating: "+10",
         creator: "Mr. Chulin",
         producer: "Sulu Studios Corporation",
@@ -540,6 +639,7 @@
         id: 4,
         title: "CountrYearly",
         synopsis: "Evento virtual que da reconocimiento a los countryballers infravalorados y poco conocidos en un resumen anual de la comunidad.",
+        tagline: "Celebrando la historia y el talento oculto de la comunidad Countryball.",
         rating: "Evento",
         creator: "Geométricos Sammy",
         producer: "Geometric Studios",
@@ -551,6 +651,7 @@
         id: 5,
         title: "Countryverso",
         synopsis: "Un dios decidido a conquistar todos los universos recorre el COUNTRYVERSO en busca de su hermano traidor; los guardianes y héroes de distintos mundos deben unirse.",
+        tagline: "Un dios conquista mundos, los guardianes de distintos universos deben unirse para detenerlo.",
         rating: "Todos",
         creator: "Red-Ball",
         producer: "Red-Ball",
@@ -562,6 +663,7 @@
         id: 6,
         title: "Coñaco",
         synopsis: "Marlon, un ex trabajador con una gran deuda, acepta entrar a un concurso por 100 millones de pesos con juegos mortales.",
+        tagline: "Juegos infantiles, deudas millonarias y un concurso mortal.",
         rating: "Adolescentes",
         creator: "MarlonHD",
         producer: "Sur Studios LTD",
@@ -573,6 +675,7 @@
         id: 7,
         title: "Demonic Legends Religion Island",
         synopsis: "Cinco héroes llegan a una isla en guerra entre religiones y demonios. Enfrentarán traiciones, secretos y al peligroso ThugMan.",
+        tagline: "Cinco héroes, una isla en guerra y poderes místicos contra demonios.",
         rating: "Adolescentes",
         creator: "Don Oroxico",
         producer: "Don Oroxico",
@@ -584,6 +687,7 @@
         id: 8,
         title: "El bebé dinosaurio",
         synopsis: "Un grupo de preadolescentes con una hora libre en la escuela, un juguete y una gomaboli deciden traer el contenido más random de todo MadSulu GO.",
+        tagline: "El contenido más random creado en una hora libre escolar.",
         rating: "Todos",
         creator: "MmManda, Tobi-Tobillo",
         producer: "Papas Fritas con Huevo",
@@ -595,6 +699,7 @@
         id: 9,
         title: "Guerra Universal",
         synopsis: "Unos amigos combaten por su mundo para no ser esclavizado por RegnaD, uno de los dioses más peligrosos que quiere liberar su ira contra el universo.",
+        tagline: "Un grupo de amigos defiende su mundo de la ira de un dios con un pasado oscuro.",
         rating: "Adolescentes",
         creator: "Magic Paraguay",
         producer: "Magic Productions",
@@ -606,6 +711,7 @@
         id: 10,
         title: "La Fortuna De Bután",
         synopsis: "Bután, Birmania y sus amigos encuentran un amuleto que cumple deseos, pero tendrán que enfrentar el precio de sus consecuencias.",
+        tagline: "Un amuleto cumple deseos, pero el precio a pagar puede ser terrible.",
         rating: "+7 Años",
         creator: "Countryballs E",
         producer: "CBE Associations",
@@ -617,6 +723,7 @@
         id: 11,
         title: "Las CaliFornias Classic",
         synopsis: "La historia original de tres hermanos cuya misión es reconciliarse y volver a ser amigos; versión creada por su autor original.",
+        tagline: "La historia original de tres hermanos buscando volver a ser amigos.",
         rating: "Todos",
         creator: "Mr. Chulin",
         producer: "Mr. Chulin",
@@ -628,6 +735,7 @@
         id: 12,
         title: "Las Fumadas De Famil",
         synopsis: "Famil muestra lugares random con humor junto a Incognita, Canadista y otros personajes.",
+        tagline: "Lugares random y humor absurdo con Famil.",
         rating: "+10",
         creator: "FamilOficial",
         producer: "FamilStudios",
@@ -639,6 +747,7 @@
         id: 13,
         title: "Luna y Sol",
         synopsis: "Drama y comedia familiar sobre dos hermanas gato opuestas que deben aprender a convivir pese a sus diferencias y problemas económicos.",
+        tagline: "Dos hermanas opuestas aprendiendo a convivir entre desalojos y robos.",
         rating: "Adolescentes",
         creator: "TheGabriel2535",
         producer: "TheGabriel2535",
@@ -650,6 +759,7 @@
         id: 14,
         title: "MJaja Series",
         synopsis: "Cortos para pasar el rato con humor absurdo y situaciones cotidianas extrañas.",
+        tagline: "Cortos absurdos para pasar el rato.",
         rating: "+10",
         creator: "JoshuaPRO5",
         producer: "MaJo Associations",
@@ -661,6 +771,7 @@
         id: 15,
         title: "Multiversus Ball",
         synopsis: "Foxyneón crea una pistola de portales y viaja por universos distintos resolviendo problemas mientras un observador los vigila.",
+        tagline: "Viajes entre universos y problemas locales bajo la mirada de un observador misterioso.",
         rating: "Adolescentes",
         creator: "Foxyneón",
         producer: "Foxyneón",
@@ -677,6 +788,7 @@
         id: 16,
         title: "Pancho: La serie",
         synopsis: "Pancho es un hot dog vegetariano que vive una vida llena de glitches, mundos extraños y banderas rojas.",
+        tagline: "Un hot dog vegetariano en una aventura llena de glitches y mundos extraños.",
         rating: "+7",
         creator: "MmManda",
         producer: "MaJo Associations",
@@ -688,6 +800,7 @@
         id: 17,
         title: "Pilas: La serie",
         synopsis: "Un grupo de pelotudos debe escapar del gobierno en un viaje por carretera enfrentando a la mafia y a un nerd con poderes divinos.",
+        tagline: "Un viaje por carretera escapando de la mafia, el gobierno y poderes divinos.",
         rating: "Adolescentes",
         creator: "ConoSurYT",
         producer: "Sur Studios LTD",
@@ -699,9 +812,24 @@
         posterVertical: "poster_13.png"
       },
       {
+        id: 19,
+        title: "Pilas: Temporada 2",
+        synopsis: "Los Pilas se mudan a Verdeluz para vivir una vida tranquila, excepto que no. Diferentes adversidades hacen que la vida se complique, y lleguen a un punto bajo. Adicciones a las apuestas, una mafia que les viene comiendo los talones desde hace rato, e incluso un reto tan fácil como pagar el alquiler.",
+        tagline: "Buscaban una vida tranquila en Verdeluz, pero encontraron mafias, apuestas y el terror de pagar el alquiler.",
+        rating: "Adolescentes",
+        creator: "ConoSurYT",
+        producer: "Sur Studios LTD",
+        episodes: [
+            "1. Terror de Alquiler"
+        ],
+        posterMedia: "thumb_pilas2.png",
+        posterVertical: "poster_19.png"
+      },
+      {
         id: 18,
         title: "SkibidiBalls",
         synopsis: "Recreación Countryball de la serie Skibidi Toilet donde CameraBalls luchan contra la amenaza Skibidi.",
+        tagline: "La recreación Countryball de la guerra entre Cámaras y Skibidis.",
         rating: "7+",
         creator: "Mr. West Macedonia",
         producer: "Mr. West Macedonia",
@@ -722,6 +850,7 @@
         card.className = 'series-card';
         card.onclick = () => openModal(serie);
         
+        card.setAttribute('data-title', serie.title.toLowerCase());
         card.innerHTML = `
             <img src="${serie.posterMedia}" class="card-img" alt="${serie.title}" loading="lazy">
             <div class="card-overlay">
@@ -736,22 +865,30 @@
     const mPosterBg = document.getElementById('mPosterBg');
     const mTitle = document.getElementById('mTitle');
     const mRating = document.getElementById('mRating');
-    const mProducer = document.getElementById('mProducer');
+    const mTagline = document.getElementById('mTagline');
     const mSynopsis = document.getElementById('mSynopsis');
     const mCreator = document.getElementById('mCreator');
     const mStudio = document.getElementById('mStudio');
+    const mStudioWrapper = document.getElementById('mStudioWrapper');
     const mEpisodesList = document.getElementById('mEpisodesList');
 
     function openModal(serie) {
-        // Usamos background-image para mejor control del cover vertical
         mPosterBg.style.backgroundImage = `url('${serie.posterVertical}')`;
         
         mTitle.innerText = serie.title;
         mRating.innerText = serie.rating;
-        mProducer.innerText = serie.producer;
+        mTagline.innerText = serie.tagline || '';
         mSynopsis.innerText = serie.synopsis;
         mCreator.innerText = serie.creator;
-        mStudio.innerText = serie.producer;
+
+        // Ocultar "Estudio:" si creador y productor son el mismo
+        if (serie.producer && serie.producer !== serie.creator) {
+            mStudio.innerText = serie.producer;
+            mStudioWrapper.style.display = 'block';
+        } else {
+            mStudio.innerText = '';
+            mStudioWrapper.style.display = 'none';
+        }
 
         mEpisodesList.innerHTML = '';
         if(serie.episodes && serie.episodes.length > 0) {
@@ -844,11 +981,73 @@
         setInterval(() => {
             const nextTheme = themes[Math.floor(Math.random() * themes.length)];
             applyTheme(nextTheme);
-        }, 40000);
+        }, 30000);
     }
 
-    window.onload = initThemeLogic;
+    initThemeLogic();
 
+    /* --- BÚSQUEDA DE SERIES --- */
+    const searchInput = document.getElementById('searchInput');
+    const searchClearBtn = document.getElementById('searchClearBtn');
+    const searchCount = document.getElementById('searchCount');
+    const allCards = document.querySelectorAll('.series-card');
+    const totalSeries = allCards.length;
+
+    function filterSeries() {
+        const query = searchInput.value.trim().toLowerCase();
+
+        // Botón limpiar: visible si hay texto
+        if (query.length > 0) {
+            searchClearBtn.classList.add('visible');
+        } else {
+            searchClearBtn.classList.remove('visible');
+        }
+
+        let visibleCount = 0;
+
+        allCards.forEach(card => {
+            const title = card.getAttribute('data-title') || '';
+            if (title.includes(query)) {
+                card.classList.remove('hidden');
+                visibleCount++;
+            } else {
+                card.classList.add('hidden');
+            }
+        });
+
+        // Contador de resultados
+        if (query.length > 0) {
+            searchCount.textContent = visibleCount + ' serie' + (visibleCount !== 1 ? 's' : '') + ' encontrada' + (visibleCount !== 1 ? 's' : '');
+            searchCount.classList.add('visible');
+        } else {
+            searchCount.textContent = '';
+            searchCount.classList.remove('visible');
+        }
+
+        // Mensaje sin resultados
+        const existing = document.getElementById('noResultsMsg');
+        if (visibleCount === 0 && query.length > 0) {
+            if (!existing) {
+                const msg = document.createElement('div');
+                msg.id = 'noResultsMsg';
+                msg.className = 'no-results-msg';
+                msg.textContent = 'No se encontraron series que coincidan con "' + searchInput.value.trim() + '"';
+                grid.appendChild(msg);
+            } else {
+                existing.textContent = 'No se encontraron series que coincidan con "' + searchInput.value.trim() + '"';
+            }
+        } else {
+            if (existing) existing.remove();
+        }
+    }
+
+    searchInput.addEventListener('input', filterSeries);
+
+    searchClearBtn.addEventListener('click', () => {
+        searchInput.value = '';
+        filterSeries();
+        searchInput.focus();
+    });
   </script>
 </body>
 </html>
