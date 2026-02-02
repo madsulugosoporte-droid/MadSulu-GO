@@ -4,14 +4,14 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   
-  <title>Catálogo de Series | MadSulu GO</title>
+  <title>MadSulu GO - El Universo Countryballer en Streaming</title>
 
-  <meta name="description" content="Explora el catálogo completo de series de Countryballs en MadSulu GO. Mira Apocalipsis Universal, Coñaco, Pilas y más. ¡Streaming 100% gratis!">
-  <meta name="keywords" content="Catálogo, Series Countryballs, Ver series gratis, MadSulu GO, Lista de episodios, Animación">
+  <meta name="description" content="MadSulu GO: La primera plataforma de streaming de Countryballs y para Countrytubers. Mira series exclusivas, vota e interactúa totalmente gratis.">
+  <meta name="keywords" content="Countryballs, Polandball, Streaming, Series, Countrytubers, MadSulu, Gratis, Animación">
   <meta name="author" content="MadZalMedia Incorporated">
   <meta name="theme-color" content="#e50914">
 
-<meta property="og:site_name" content="MadSulu GO web">
+  <meta property="og:site_name" content="MadSulu GO web">
   
   <script type="application/ld+json">
     {
@@ -22,33 +22,33 @@
     }
   </script>
 
-  <meta property="og:title" content="Catálogo de MadSulu GO">
-  <meta property="og:description" content="¡Más de 15 series disponibles! Apocalipsis Universal, Coñaco, Pancho y muchas más.">
-  <meta property="og:image" content="series_madsulu.png">
+  <meta property="og:image" content="madsulu_promo.png">
+  <meta property="og:title" content="MadSulu GO">
+  <meta property="og:description" content="Descubre series de Countrytubers grandes y pequeños. Funciones interactivas, temas personalizados y 100% gratis.">
   <meta property="og:type" content="website">
-  <meta property="og:url" content="https://madsulugosoporte-droid.github.io/MadSulu-GO/series.html">
+  <meta property="og:url" content="https://madsulugosoporte-droid.github.io/MadSulu-GO/"> 
 
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="Catálogo de MadSulu GO">
-  <meta name="twitter:description" content="Explora todas las series de Countryballs creadas por la comunidad.">
-  <meta name="twitter:image" content="series_madsulu.png">
+  <meta name="twitter:title" content="MadSulu GO">
+  <meta name="twitter:image" content="madsulu_promo.png">
+  <meta name="twitter:description" content="La app definitiva para fans de Polandball y Countrytubers.">
 
-  <link rel="icon" type="image/png" href="logo_madsulu.png">
-  <link rel="apple-touch-icon" href="logo_madsulu.png">
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Lucide Icons -->
+  <script src="https://unpkg.com/lucide@latest"></script>
 
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;800;900&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
+<style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&family=Montserrat:wght@700;900&display=swap');
 
-  <style>
     :root {
-      /* Variables iniciales */
+      /* Variables de temas dinámicos (controladas por JS) */
       --bg-dark: #000000;      
       --accent-blue: #141414;  
       --primary: #e50914;      
       --bg-card: #181818;      
       --text-main: #ffffff;    
-      --text-muted: #a3a3a3;   
+      --text-muted: #aaaaaa;   
     }
 
     * { box-sizing: border-box; }
@@ -56,871 +56,474 @@
     body {
       margin: 0;
       padding: 0;
-      font-family: 'Open Sans', sans-serif;
+      font-family: 'Inter', sans-serif;
       background-color: var(--bg-dark); 
-      color: var(--text-main);          
+      color: var(--text-main);
+      width: 100%;
+      overflow-x: hidden;
+      scroll-behavior: smooth;
+      /* Transición suave de temas */
+      transition: background-color 10s ease, color 5s ease;
+    }
+
+    h1, h2, h3, .font-montserrat {
+        font-family: 'Montserrat', sans-serif;
+    }
+
+    /* === HEADER FIJO === */
+    header {
+        background-color: rgba(0, 0, 0, 0.9);
+        backdrop-filter: blur(10px);
+        transition: background-color 0.3s ease;
+    }
+
+    /* === HERO CON CARRUSEL === */
+    .hero-wrapper {
+      position: relative;
       width: 100%;
       min-height: 100vh;
       display: flex;
       flex-direction: column;
-      transition: background-color 10s ease, color 5s ease;
-    }
-
-    h1, h2, h3, .header-title, .grid-title, .modal-title, .episodes-title-label {
-        font-family: 'Montserrat', sans-serif;
-    }
-
-    /* --- Header Glassmorphism --- */
-    header {
-      padding: 15px 30px;
-      display: flex;
       align-items: center;
-      justify-content: space-between;
-      position: sticky;
+      justify-content: center;
+      overflow: hidden;
+      padding-top: 64px;
+    }
+
+    .carousel-container {
+      position: absolute;
       top: 0;
-      z-index: 100;
-      background: rgba(0,0,0,0.7);
-      backdrop-filter: blur(15px);
-      -webkit-backdrop-filter: blur(15px);
-      border-bottom: 1px solid rgba(255,255,255,0.05);
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 0;
+    }
+
+    .series-poster {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-size: cover;
+      background-position: center;
+      opacity: 0;
+      transform: scale(1.1);
+      transition: opacity 2s ease-in-out, transform 10s ease;
+    }
+    .series-poster.active { 
+        opacity: 0.35; 
+        transform: scale(1);
+    }
+
+    .hero-overlay {
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(circle at center, rgba(0,0,0,0) 0%, var(--bg-dark) 90%),
+                  linear-gradient(to bottom, var(--bg-dark) 0%, rgba(0,0,0,0.4) 50%, var(--bg-dark) 100%);
+      z-index: 1;
+      transition: background 10s ease;
+      pointer-events: none;
+    }
+
+    .main-content {
+      z-index: 10;
+      text-align: center;
+      padding: 20px;
+      max-width: 1200px;
+      width: 100%;
+      position: relative;
+    }
+
+    /* === ANIMACIONES === */
+    .fade-in-up {
+        opacity: 0;
+        transform: translateY(20px);
+        transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+    }
+
+    .fade-in-up.visible {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+    @keyframes fadeInUp {
+      from { 
+        opacity: 0; 
+        transform: translateY(40px); 
+      }
+      to { 
+        opacity: 1; 
+        transform: translateY(0); 
+      }
+    }
+
+    /* === CARDS DE CARACTERÍSTICAS === */
+    .feature-card {
+      background: var(--bg-card);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 16px;
+      padding: 2rem;
+      text-align: center;
       transition: all 0.3s ease;
     }
 
-    .brand-logo {
-      height: 45px;
-      filter: drop-shadow(0 2px 4px rgba(0,0,0,0.5));
+    .feature-card:hover {
+      transform: translateY(-8px);
+      border-color: var(--primary);
+      box-shadow: 0 10px 30px rgba(229, 9, 20, 0.3);
     }
 
-    .header-nav {
-        display: flex;
-        align-items: center;
-        gap: 20px;
+    .feature-icon {
+      font-size: 3rem;
+      margin-bottom: 1rem;
+      display: block;
     }
 
-    .header-title {
-        font-weight: 800;
-        text-transform: uppercase;
-        font-size: 1.1rem;
-        letter-spacing: 1px;
-        display: none; /* Oculto en móviles muy pequeños */
-    }
-    @media(min-width: 600px) { .header-title { display: block; } }
-
-    .btn-home {
-        color: var(--text-main);
-        text-decoration: none;
-        font-weight: 600;
-        padding: 8px 20px;
-        border: 1px solid rgba(255,255,255,0.2);
-        border-radius: 50px;
-        transition: all 0.3s ease;
-        font-size: 0.9rem;
-    }
-    .btn-home:hover {
-        background: var(--text-main);
-        color: var(--bg-dark);
-        border-color: var(--text-main);
+    .feature-title {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 1.25rem;
+      font-weight: 700;
+      margin-bottom: 0.75rem;
+      color: var(--text-main);
     }
 
-    /* --- Catálogo Grid --- */
-    .catalog-container {
-      padding: 40px 20px;
-      max-width: 1300px;
-      margin: 0 auto;
-      width: 100%;
-      flex: 1;
-      animation: fadeIn 1s ease;
+    .feature-desc {
+      color: var(--text-muted);
+      line-height: 1.6;
     }
 
-    .grid-title {
-        margin-top: 10px;
-        margin-bottom: 30px;
-        font-size: 1.8rem;
-        font-weight: 800;
-        border-left: 5px solid var(--primary);
-        padding-left: 20px;
-        text-transform: uppercase;
-        letter-spacing: -0.5px;
+    /* === CARDS DE RESEÑAS === */
+    .review-card {
+      background: var(--bg-card);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 16px;
+      padding: 2rem;
+      text-align: center;
+      transition: all 0.3s ease;
     }
 
-    .series-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-      gap: 25px;
-    }
-
-    /* Tarjeta del catálogo */
-    .series-card {
-      position: relative;
-      background-color: var(--bg-card);
-      border-radius: 12px;
-      overflow: hidden;
-      cursor: pointer;
-      transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
-      aspect-ratio: 16/9;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.3);
-      border: 1px solid rgba(255,255,255,0.05);
-    }
-
-    .series-card:hover {
-      transform: scale(1.05) translateY(-5px);
-      box-shadow: 0 15px 30px rgba(0,0,0,0.6);
-      z-index: 2;
+    .review-card:hover {
+      transform: translateY(-5px);
       border-color: var(--primary);
     }
 
-    .card-img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      transition: transform 0.5s ease;
-    }
-    .series-card:hover .card-img { transform: scale(1.1); }
-
-    .card-overlay {
-      position: absolute;
-      inset: 0;
-      background: linear-gradient(to top, rgba(0,0,0,0.95) 0%, rgba(0,0,0,0.4) 50%, transparent 100%);
-      opacity: 0;
-      display: flex;
-      align-items: flex-end;
-      padding: 20px;
-      transition: opacity 0.3s ease;
+    .reviewer-avatar {
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
+      margin: 0 auto 1rem;
+      border: 3px solid var(--primary);
     }
 
-    .series-card:hover .card-overlay { opacity: 1; }
-
-    .card-title {
+    .reviewer-name {
       font-weight: 700;
       font-size: 1.1rem;
-      text-shadow: 0 2px 4px black;
-      transform: translateY(10px);
-      transition: transform 0.3s ease;
-    }
-    .series-card:hover .card-title { transform: translateY(0); }
-
-    /* --- MODAL DE LUJO --- */
-    .modal-overlay {
-        position: fixed;
-        top: 0; left: 0; width: 100%; height: 100%;
-        background: rgba(0,0,0,0.9);
-        backdrop-filter: blur(10px);
-        -webkit-backdrop-filter: blur(10px);
-        z-index: 1000;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        opacity: 0;
-        pointer-events: none;
-        transition: opacity 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+      margin-bottom: 0.5rem;
     }
 
-    .modal-overlay.active {
-        opacity: 1;
-        pointer-events: auto;
+    .review-stars {
+      color: #fbbf24;
+      font-size: 1.25rem;
+      margin-bottom: 1rem;
     }
 
-    .modal-content {
-        background: var(--bg-card);
-        width: 95%;
-        max-width: 1100px;
-        max-height: 90vh;
-        border-radius: 20px;
-        overflow: hidden;
-        display: flex;
-        position: relative;
-        box-shadow: 0 25px 50px -12px rgba(0,0,0,0.7);
-        border: 1px solid rgba(255,255,255,0.1);
-        transform: scale(0.95);
-        transition: transform 0.4s cubic-bezier(0.25, 0.8, 0.25, 1), background-color 10s ease;
-    }
-
-    .modal-overlay.active .modal-content { transform: scale(1); }
-
-    .close-btn {
-        position: absolute;
-        top: 20px;
-        right: 20px;
-        background: rgba(0,0,0,0.6);
-        color: white;
-        border: none;
-        width: 40px;
-        height: 40px;
-        border-radius: 50%;
-        font-size: 24px;
-        cursor: pointer;
-        z-index: 20;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        transition: all 0.2s;
-    }
-    .close-btn:hover { background: var(--primary); transform: rotate(90deg); }
-
-    /* Poster Vertical en Modal */
-    .modal-poster-container {
-        width: 35%;
-        flex-shrink: 0;
-        position: relative;
-    }
-    
-    .modal-poster-bg {
-        width: 100%;
-        height: 100%;
-        background-size: cover;
-        background-position: center;
-        position: relative;
-    }
-    /* Sombra interna para unir poster con contenido */
-    .modal-poster-bg::after {
-        content: '';
-        position: absolute;
-        inset: 0;
-        background: linear-gradient(to right, transparent 70%, var(--bg-card) 100%);
-    }
-
-    .modal-info-container {
-        padding: 50px;
-        flex: 1;
-        display: flex;
-        flex-direction: column;
-        overflow-y: auto;
-    }
-
-    /* Scrollbar personalizado */
-    .modal-info-container::-webkit-scrollbar { width: 8px; }
-    .modal-info-container::-webkit-scrollbar-track { background: rgba(0,0,0,0.1); }
-    .modal-info-container::-webkit-scrollbar-thumb { background: var(--primary); border-radius: 4px; }
-
-    .modal-title {
-        font-size: 2.8rem;
-        font-weight: 900;
-        margin-bottom: 15px;
-        line-height: 1;
-        letter-spacing: -1px;
-        background: linear-gradient(to right, #fff, #ccc);
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
-    }
-
-    .modal-meta {
-        display: flex;
-        gap: 15px;
-        align-items: center;
-        margin-bottom: 25px;
-        font-size: 0.9rem;
-        color: var(--text-muted);
-        font-weight: 600;
-    }
-
-    .age-badge {
-        border: 2px solid var(--text-muted);
-        padding: 2px 8px;
-        border-radius: 4px;
-        font-weight: 800;
-        color: var(--text-main);
-        font-size: 0.8rem;
-    }
-
-    .modal-synopsis {
-        font-size: 1.05rem;
-        line-height: 1.7;
-        margin-bottom: 30px;
-        color: #e0e0e0;
-        max-width: 90%;
-    }
-
-    .modal-credits {
-        margin-bottom: 30px;
-        font-size: 0.9rem;
-        color: var(--text-muted);
-        border-bottom: 1px solid rgba(255,255,255,0.1);
-        padding-bottom: 20px;
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        gap: 10px;
-    }
-    .modal-credits span { display: block; }
-    .modal-credits b { color: var(--text-main); font-weight: 700; }
-
-    /* --- Lista de Episodios Estilizada --- */
-    .episodes-container {
-        margin-top: 10px;
-        background: rgba(0,0,0,0.2);
-        padding: 20px;
-        border-radius: 12px;
-    }
-    
-    .episodes-title-label {
-        font-size: 1.2rem;
-        font-weight: 700;
-        color: var(--text-main);
-        margin-bottom: 20px;
-        display: flex;
-        align-items: center;
-        gap: 10px;
-    }
-    .episodes-title-label::before {
-        content: '';
-        display: block;
-        width: 4px;
-        height: 20px;
-        background: var(--primary);
-        border-radius: 2px;
-    }
-
-    .episodes-list {
-        display: flex;
-        flex-direction: column;
-        gap: 10px;
-    }
-
-    .episode-item {
-        background: rgba(255,255,255,0.03);
-        padding: 15px 20px;
-        border-radius: 8px;
-        display: flex;
-        align-items: center;
-        gap: 20px;
-        transition: all 0.2s ease;
-        border: 1px solid transparent;
-        cursor: default;
-    }
-    
-    .episode-item:hover {
-        background: rgba(255,255,255,0.08);
-        border-color: rgba(255,255,255,0.1);
-        transform: translateX(5px);
-    }
-
-    .play-icon {
-        color: var(--text-muted);
-        font-size: 0.8rem;
-    }
-    .episode-item:hover .play-icon { color: var(--primary); }
-
-    .ep-name {
-        font-weight: 600;
-        color: var(--text-main);
-        font-size: 0.95rem;
-    }
-
-    /* --- Footer --- */
-    footer {
-      padding: 50px 20px;
-      background: rgba(0,0,0,0.8);
-      text-align: center;
-      font-size: 0.9rem;
+    .review-text {
       color: var(--text-muted);
-      border-top: 1px solid rgba(255,255,255,0.05);
-      margin-top: auto;
-    }
-    footer a { color: var(--text-main); text-decoration: none; margin: 0 15px; transition: color 0.3s; }
-    footer a:hover { color: var(--primary); }
-    .copyright { opacity: 0.6; margin-bottom: 15px; display: block; }
-
-    /* --- Barra de Búsqueda --- */
-    .search-bar-wrapper {
-        margin-bottom: 30px;
-        display: flex;
-        align-items: center;
-        gap: 16px;
-    }
-    .search-bar {
-        flex: 1;
-        max-width: 480px;
-        position: relative;
-        display: flex;
-        align-items: center;
-        background: rgba(255,255,255,0.06);
-        border: 1px solid rgba(255,255,255,0.12);
-        border-radius: 50px;
-        padding: 0 20px;
-        transition: border-color 0.3s, background 0.3s, box-shadow 0.3s;
-    }
-    .search-bar:focus-within {
-        border-color: var(--primary);
-        background: rgba(255,255,255,0.09);
-        box-shadow: 0 0 14px rgba(229,9,20,0.25);
-    }
-    .search-icon {
-        font-size: 1rem;
-        margin-right: 10px;
-        pointer-events: none;
-        opacity: 0.6;
-    }
-    .search-input {
-        flex: 1;
-        background: transparent;
-        border: none;
-        outline: none;
-        color: var(--text-main);
-        font-family: 'Open Sans', sans-serif;
-        font-size: 0.95rem;
-        padding: 12px 0;
-        caret-color: var(--primary);
-    }
-    .search-input::placeholder { color: var(--text-muted); opacity: 0.7; }
-    .search-clear-btn {
-        background: none;
-        border: none;
-        color: var(--text-muted);
-        font-size: 0.85rem;
-        cursor: pointer;
-        padding: 4px 6px;
-        border-radius: 50%;
-        opacity: 0;
-        transition: opacity 0.2s, color 0.2s;
-        pointer-events: none;
-    }
-    .search-clear-btn.visible { opacity: 1; pointer-events: auto; }
-    .search-clear-btn:hover { color: var(--primary); background: rgba(255,255,255,0.08); }
-    .search-results-count {
-        font-size: 0.82rem;
-        color: var(--text-muted);
-        white-space: nowrap;
-        min-width: 80px;
-        text-align: left;
-        opacity: 0;
-        transition: opacity 0.3s;
-    }
-    .search-results-count.visible { opacity: 1; }
-
-    /* Card oculta por búsqueda */
-    .series-card.hidden {
-        display: none;
+      line-height: 1.6;
+      font-style: italic;
     }
 
-    /* Mensaje "sin resultados" */
-    .no-results-msg {
-        grid-column: 1 / -1;
-        text-align: center;
-        color: var(--text-muted);
-        font-size: 1.05rem;
-        padding: 60px 20px;
-        font-style: italic;
-        display: none;
+    /* === RATING BADGE === */
+    .rating-badge {
+      display: inline-flex;
+      flex-direction: column;
+      align-items: center;
+      background: var(--bg-card);
+      border: 2px solid var(--primary);
+      border-radius: 20px;
+      padding: 1.5rem 2.5rem;
+      margin-bottom: 3rem;
     }
-    .no-results-msg.visible { display: block; }
 
-    @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
-
-    /* Responsive */
-    @media (max-width: 900px) {
-        .modal-content { flex-direction: column; height: 100%; width: 100%; border-radius: 0; overflow-y: auto; max-height: unset; }
-        .modal-poster-container { 
-            width: 100%; 
-            height: 40vh; /* Altura controlada en móvil */
-        }
-        .modal-poster-bg::after {
-            background: linear-gradient(to bottom, transparent 60%, var(--bg-card) 100%);
-        }
-        .modal-info-container { padding: 30px 20px; overflow-y: visible; }
-        .modal-title { font-size: 2rem; }
+    .rating-header {
+      font-size: 3rem;
+      font-weight: 900;
+      color: #fbbf24;
+      font-family: 'Montserrat', sans-serif;
     }
-  </style>
+
+    .rating-label {
+      color: var(--text-muted);
+      font-size: 0.9rem;
+      margin-top: 0.5rem;
+    }
+
+    /* === FOOTER === */
+    footer {
+      background: var(--accent-blue);
+      padding: 3rem 1.5rem;
+      text-align: center;
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+      transition: background-color 10s ease;
+    }
+
+    footer a {
+      color: var(--text-muted);
+      text-decoration: none;
+      transition: color 0.3s ease;
+    }
+
+    footer a:hover {
+      color: var(--primary);
+    }
+
+    .footer-links {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 2rem;
+      margin-top: 1.5rem;
+    }
+
+    /* === RESPONSIVE === */
+    @media (max-width: 768px) {
+      .hero-wrapper {
+        min-height: auto;
+        padding-top: 80px;
+        padding-bottom: 40px;
+      }
+    }
+</style>
 </head>
 <body>
 
-  <header>
-      <div style="display:flex; align-items:center; gap:15px;">
-        <img src="logo_madsulu.png" alt="Logo" class="brand-logo">
-        <span class="header-title">MadSulu GO</span>
+  <!-- HEADER FIJO -->
+  <header class="fixed top-0 left-0 w-full shadow-lg z-40">
+    <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex items-center justify-between h-16">
+        
+        <a href="#hero" class="h-10 flex items-center" aria-label="MadSulu GO Inicio">
+          <img src="logo.png" 
+               alt="Logo de MadSulu GO" 
+               class="h-10 w-auto"
+               onerror="this.onerror=null;this.src='https://placehold.co/120x40/FFFFFF/000000?text=MadSulu+GO';">
+        </a>
+
+        <!-- Navegación Desktop -->
+        <nav class="hidden md:flex space-x-4 font-medium items-center">
+          <a href="#caracteristicas" class="hover:text-gray-300 transition duration-300">Características</a>
+          <a href="#series" class="hover:text-gray-300 transition duration-300">Series</a>
+          <a href="#opiniones" class="hover:text-gray-300 transition duration-300">Opiniones</a>
+          <a href="#comunidad" class="hover:text-gray-300 transition duration-300">Comunidad</a>
+          <a href="terms.html" class="hover:text-gray-300 transition duration-300">Términos</a>
+        </nav>
+
+        <!-- Botón menú móvil -->
+        <button id="menu-button" class="md:hidden text-white p-2 rounded-full hover:bg-gray-800 transition duration-200" aria-label="Abrir Menú">
+          <i id="menu-icon-closed" data-lucide="menu" class="w-6 h-6"></i>
+          <i id="menu-icon-open" data-lucide="x" class="w-6 h-6 hidden"></i>
+        </button>
       </div>
-      <nav class="header-nav">
-          <a href="index.html" class="btn-home">Volver al Inicio</a>
-      </nav>
+    </div>
+
+    <!-- Menú móvil -->
+    <div id="mobile-menu" class="hidden md:hidden fixed inset-0 bg-gray-900/95 backdrop-blur-lg z-30 pt-16 transition-opacity duration-300 ease-in-out opacity-0">
+      <div class="flex flex-col space-y-4 p-4 text-center">
+        <a href="#caracteristicas" class="text-2xl py-3 hover:text-gray-300 transition duration-300 mobile-link">Características</a>
+        <a href="#series" class="text-2xl py-3 hover:text-gray-300 transition duration-300 mobile-link">Series</a>
+        <a href="#opiniones" class="text-2xl py-3 hover:text-gray-300 transition duration-300 mobile-link">Opiniones</a>
+        <a href="#comunidad" class="text-2xl py-3 hover:text-gray-300 transition duration-300 mobile-link">Comunidad</a>
+        <a href="terms.html" class="text-2xl py-3 hover:text-gray-300 transition duration-300 mobile-link">Términos</a>
+        <button id="close-menu-btn" class="mt-6 px-6 py-4 text-xl bg-white hover:bg-gray-200 text-gray-900 font-bold rounded-lg transition duration-300 mobile-link transform hover:scale-105">Cerrar</button>
+      </div>
+    </div>
   </header>
 
-  <div class="catalog-container">
-      
-      <div class="grid-title">Catálogo Completo</div>
+  <!-- SECCIÓN HERO CON CARRUSEL -->
+  <section id="hero" class="hero-wrapper">
+    <!-- Carrusel de fondos -->
+    <div id="carousel" class="carousel-container">
+      <div class="series-poster active"></div>
+      <div class="series-poster"></div>
+    </div>
+    
+    <!-- Overlay degradado -->
+    <div class="hero-overlay"></div>
 
-      <!-- Barra de búsqueda -->
-      <div class="search-bar-wrapper">
-          <div class="search-bar">
-              <span class="search-icon">🔍</span>
-              <input type="text" id="searchInput" class="search-input" placeholder="Buscar serie…" autocomplete="off" spellcheck="false">
-              <button class="search-clear-btn" id="searchClearBtn" title="Limpiar">✕</button>
-          </div>
-          <div class="search-results-count" id="searchCount"></div>
+    <!-- Contenido principal -->
+    <div class="main-content">
+      <div class="max-w-4xl mx-auto">
+        <img src="logo.png" 
+             alt="MadSulu GO" 
+             class="brand-logo mx-auto mb-6 fade-in-up"
+             style="width: 220px; max-width: 50vw; filter: drop-shadow(0 10px 20px rgba(0,0,0,0.6));"
+             onerror="this.style.display='none';">
+        
+        <h1 class="text-5xl sm:text-7xl font-extrabold mb-6 leading-tight text-transparent bg-clip-text bg-gradient-to-r from-gray-200 to-white fade-in-up font-montserrat">
+          Descubre el Entretenimiento Countryballer
+        </h1>
+        
+        <p class="text-lg sm:text-2xl text-gray-300 mb-10 max-w-2xl mx-auto fade-in-up" style="transition-delay: 0.2s;">
+          La primera plataforma de streaming especializada en Countryballs. Series exclusivas, comunidad activa y funciones únicas. 100% gratis.
+        </p>
       </div>
 
-      <div class="series-grid" id="seriesGrid">
-          <div class="no-results-msg" id="noResultsMsg">No se encontraron series que coincidan con tu búsqueda.</div>
-          </div>
-
-  </div>
-
-  <div class="modal-overlay" id="seriesModal" onclick="closeModal(event)">
-      <div class="modal-content" onclick="event.stopPropagation()"> 
-          <button class="close-btn" onclick="closeModalForce()">×</button>
-          
-          <div class="modal-poster-container">
-              <div id="mPosterBg" class="modal-poster-bg"></div>
-          </div>
-          
-          <div class="modal-info-container">
-              <h2 class="modal-title" id="mTitle">Titulo</h2>
-              
-              <div class="modal-meta">
-                  <span class="age-badge" id="mRating">PG</span>
-                  <span id="mTagline" style="font-style:italic; color:var(--text-muted);">Tagline…</span>
-              </div>
-
-              <p class="modal-synopsis" id="mSynopsis">
-                  Descripción...
-              </p>
-
-              <div class="modal-credits" id="mCreditsContainer">
-                  <span><b>Creador:</b> <span id="mCreator">Nombre</span></span>
-                  <span id="mStudioWrapper"><b>Estudio:</b> <span id="mStudio">Estudio</span></span>
-              </div>
-
-              <div class="episodes-container">
-                  <div class="episodes-title-label">Episodios Disponibles</div>
-                  <div class="episodes-list" id="mEpisodesList">
-                      </div>
-              </div>
-
-          </div>
+      <!-- Botones CTA -->
+      <div id="hero-buttons" class="flex flex-col sm:flex-row justify-center items-center space-y-4 sm:space-y-0 sm:space-x-6 mt-12">
+        <a id="btn-android"
+           href="https://play.google.com/store/apps/details?id=flux.mandajoshua" 
+           class="bg-white hover:bg-gray-200 text-gray-900 font-bold py-3 px-8 rounded-xl shadow-xl transition duration-300 transform hover:scale-105 flex items-center justify-center space-x-2 fade-in-up" 
+           style="transition-delay: 0.4s;">
+          <i data-lucide="download"></i>
+          <span>Descargar en Android</span>
+        </a>
+            
+        <a id="btn-online"
+           href="https://madsulugo.github.io/madsulu-go-web/" 
+           class="bg-transparent border-2 border-gray-500 text-white hover:bg-gray-700 font-semibold py-3 px-8 rounded-xl transition duration-300 transform hover:scale-105 flex items-center justify-center space-x-2 fade-in-up" 
+           style="transition-delay: 0.6s;">
+          <i data-lucide="monitor"></i>
+          <span>Usar MadSulu GO Online</span>
+        </a>
       </div>
-  </div>
+    </div>
+  </section>
 
-  <footer>
-      <span class="copyright">© 2026 MadZalMedia Incorporated</span>
-      <div class="footer-links">
-          <a href="/cdn-cgi/l/email-protection#0f626e6b7c7a637a6860217c607f607d7b6a4f68626e6663216c6062">Soporte</a>
-          <a href="https://discord.gg/HQTBK8xsyn" target="_blank">Discord</a>
-          <a href="terms.html">Términos</a>
+  <!-- SECCIÓN CARACTERÍSTICAS -->
+  <section id="caracteristicas" class="py-20" style="background-color: var(--accent-blue); transition: background-color 10s ease;">
+    <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+      <h2 class="text-4xl font-bold text-center mb-12 fade-in-up font-montserrat">¿Por qué MadSulu GO?</h2>
+
+      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl mx-auto">
+        <div class="feature-card fade-in-up">
+          <span class="feature-icon">📺</span>
+          <div class="feature-title">Contenido Exclusivo</div>
+          <div class="feature-desc">Contamos con más de 10 series, algunas de Countrytubers conocidos como Pilas y Coñaco; como también otras de countrytubers pequeños como Apocalipsis Universal y Pancho La serie.</div>
+        </div>
+
+        <div class="feature-card fade-in-up">
+          <span class="feature-icon">⭐</span>
+          <div class="feature-title">Funciones Interactivas</div>
+          <div class="feature-desc">Contamos con funciones para satisfacer a la comunidad que ninguna otra plataforma tiene, como la interacción de comunidad Dimox y más de 35 TEMAS para toda la aplicación.</div>
+        </div>
+
+        <div class="feature-card fade-in-up">
+          <span class="feature-icon">🇵🇱</span>
+          <div class="feature-title">Especialidad: Countryballs</div>
+          <div class="feature-desc">Countryballs (Polandball) es nuestra pasión. Globalizamos este meme para que la comunidad hispana comparta sus proyectos audiovisuales como unos cracks en nuestra aplicación.</div>
+        </div>
+
+        <div class="feature-card fade-in-up">
+          <span class="feature-icon">🆓</span>
+          <div class="feature-title">100% Gratis</div>
+          <div class="feature-desc">La aplicación es completamente gratuita, hecha con pasión y con DEMASIADOS POCOS anuncios para una experiencia fluida.</div>
+        </div>
+
+        <div class="feature-card fade-in-up">
+          <span class="feature-icon">🚀</span>
+          <div class="feature-title">Actualizaciones Constantes</div>
+          <div class="feature-desc">A diferencia de otras aplicaciones, MadSulu GO se actualiza constantemente añadiendo funciones nuevas siempre.</div>
+        </div>
+
+        <div class="feature-card fade-in-up">
+          <span class="feature-icon">🎨</span>
+          <div class="feature-title">Temas Personalizables</div>
+          <div class="feature-desc">Más de 40 temas visuales diferentes para personalizar tu experiencia. Cambia colores, fondos y más según tu estilo.</div>
+        </div>
       </div>
+    </div>
+  </section>
+
+  <!-- SECCIÓN OPINIONES -->
+  <section id="opiniones" class="py-20">
+    <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center mb-12">
+        <div class="rating-badge fade-in-up">
+          <div class="rating-header">4.6 ★</div>
+          <span class="rating-label">Basado en reseñas de usuarios</span>
+        </div>
+      </div>
+
+      <div class="grid md:grid-cols-3 gap-8 max-w-6xl mx-auto">
+        <div class="review-card fade-in-up">
+          <img src="avatar_yan.webp" alt="Yan" class="reviewer-avatar" onerror="this.src='https://ui-avatars.com/api/?name=Yan&background=e50914&color=fff&size=80'">
+          <div class="reviewer-name">Yan Jueguea</div>
+          <div class="review-stars">★★★★★</div>
+          <div class="review-text">"App god, 1000000/10 MadSulu GO >> N******. Ya enserio, tiene buenas series."</div>
+        </div>
+
+        <div class="review-card fade-in-up">
+          <img src="avatar_franco.webp" alt="Franco" class="reviewer-avatar" onerror="this.src='https://ui-avatars.com/api/?name=Franco&background=e50914&color=fff&size=80'">
+          <div class="reviewer-name">Franco (Chileno Ball)</div>
+          <div class="review-stars">★★★★★</div>
+          <div class="review-text">"La forma en como se organizan las series y la variedad que tienen hace que sea una app muy buena: 10/10"</div>
+        </div>
+
+        <div class="review-card fade-in-up">
+          <img src="avatar_amongzuela.webp" alt="Amongzuela" class="reviewer-avatar" onerror="this.src='https://ui-avatars.com/api/?name=Amongzuela&background=e50914&color=fff&size=80'">
+          <div class="reviewer-name">Amongzuela</div>
+          <div class="review-stars">★★★★★</div>
+          <div class="review-text">"¡Aplicación muy buena y bien hecha!"</div>
+        </div>
+      </div>
+
+      <div class="text-center mt-12">
+        <a href="series.html" class="inline-block bg-white hover:bg-gray-200 text-gray-900 font-bold py-4 px-10 rounded-xl shadow-xl transition duration-300 transform hover:scale-105 fade-in-up">
+          Ver catálogo completo
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer id="comunidad">
+    <span class="copyright">© 2026 MadZalMedia Incorporated</span>
+    <div class="footer-links">
+      <a href="mailto:soporte@madsulu.com">Contactar Soporte</a>
+      <a href="https://discord.gg/HQTBK8xsyn" target="_blank">Comunidad Discord</a>
+      <a href="terms.html">Términos y Condiciones</a>
+    </div>
   </footer>
 
-  <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
-    /* --- DATOS COMPLETOS DE LAS SERIES Y EPISODIOS (ARCHIVOS LOCALES) --- */
-    const seriesData = [
-      {
-        id: 1,
-        title: "Apocalipsis Universal",
-        synopsis: "Un rey, obsesionado con reunir los cristales universales, destruye universos en su búsqueda; un grupo de guerreros countryball buscará detenerlo.",
-        tagline: "Un rey busca los cristales, un grupo de guerreros busca salvar los universos.",
-        rating: "Restringido",
-        creator: "NET",
-        producer: "NET",
-        episodes: ["1. Peace", "2. Hope"],
-        posterMedia: "thumb_apocalipsis.jpg",
-        posterVertical: "poster_12.png"
-      },
-      {
-        id: 2,
-        title: "Batalla Countrytuber",
-        synopsis: "Una competencia organizada por Calamardo donde distintos countrytubers forman equipos y superan retos decididos por la comunidad; el último equipo en pie gana.",
-        tagline: "Calamardo pone las reglas, la comunidad decide quién sobrevive.",
-        rating: "Adolescentes",
-        creator: "Mateo el dormilon",
-        producer: "Mateo el dormilon",
-        episodes: ["1. Un nuevo hogar", "2. El suelo es lava", "3. El garaje gallego"],
-        posterMedia: "thumb_batalla.jpg",
-        posterVertical: "poster_batalla.png"
-      },
-      {
-        id: 3,
-        title: "Las CaliFornias",
-        synopsis: "3 hermanos separados por fronteras y por guerras han decidido reconciliarse pero se van a atravesar con muchos problemas, revelaciones y una horrible pesadilla.",
-        tagline: "Tres hermanos separados por fronteras intentan reconciliarse entre pesadillas y problemas.",
-        rating: "+10",
-        creator: "Mr. Chulin",
-        producer: "Sulu Studios Corporation",
-        episodes: ["1. Un nuevo plan", "2. Una mala relación", "3. El despertar de una pesadilla"],
-        posterMedia: "thumb_californias.png",
-        posterVertical: "poster_02.png"
-      },
-      {
-        id: 4,
-        title: "CountrYearly",
-        synopsis: "Evento virtual que da reconocimiento a los countryballers infravalorados y poco conocidos en un resumen anual de la comunidad.",
-        tagline: "Celebrando la historia y el talento oculto de la comunidad Countryball.",
-        rating: "Evento",
-        creator: "Geométricos Sammy",
-        producer: "Geometric Studios",
-        episodes: ["Edición 2026 (Showcase)", "Countryawards 2025", "Countryawards 2024", "Countryawards 2023"],
-        posterMedia: "thumb_countryearly.png",
-        posterVertical: "poster_countryearly.png"
-      },
-      {
-        id: 5,
-        title: "Countryverso",
-        synopsis: "Un dios decidido a conquistar todos los universos recorre el COUNTRYVERSO en busca de su hermano traidor; los guardianes y héroes de distintos mundos deben unirse.",
-        tagline: "Un dios conquista mundos, los guardianes de distintos universos deben unirse para detenerlo.",
-        rating: "Todos",
-        creator: "Red-Ball",
-        producer: "Red-Ball",
-        episodes: ["1. El inicio del fin", "2. La recluta", "3. La infección"],
-        posterMedia: "thumb_countryverso.png",
-        posterVertical: "poster_15.png"
-      },
-      {
-        id: 6,
-        title: "Coñaco",
-        synopsis: "Marlon, un ex trabajador con una gran deuda, acepta entrar a un concurso por 100 millones de pesos con juegos mortales.",
-        tagline: "Juegos infantiles, deudas millonarias y un concurso mortal.",
-        rating: "Adolescentes",
-        creator: "MarlonHD",
-        producer: "Sur Studios LTD",
-        episodes: ["1. Muñeca del Coñaco", "2. Sangre azucarada"],
-        posterMedia: "thumb_conaco.png",
-        posterVertical: "poster_03.png"
-      },
-      {
-        id: 7,
-        title: "Demonic Legends Religion Island",
-        synopsis: "Cinco héroes llegan a una isla en guerra entre religiones y demonios. Enfrentarán traiciones, secretos y al peligroso ThugMan.",
-        tagline: "Cinco héroes, una isla en guerra y poderes místicos contra demonios.",
-        rating: "Adolescentes",
-        creator: "Don Oroxico",
-        producer: "Don Oroxico",
-        episodes: ["1. El misterio de los portales", "2. Un demonio histórico"],
-        posterMedia: "thumb_demonic.png",
-        posterVertical: "poster_11.png"
-      },
-      {
-        id: 8,
-        title: "El bebé dinosaurio",
-        synopsis: "Un grupo de preadolescentes con una hora libre en la escuela, un juguete y una gomaboli deciden traer el contenido más random de todo MadSulu GO.",
-        tagline: "El contenido más random creado en una hora libre escolar.",
-        rating: "Todos",
-        creator: "MmManda, Tobi-Tobillo",
-        producer: "Papas Fritas con Huevo",
-        episodes: ["1. Secretitis", "2. El bebé ataca"],
-        posterMedia: "thumb_bebe.png",
-        posterVertical: "poster_06.png"
-      },
-      {
-        id: 9,
-        title: "Guerra Universal",
-        synopsis: "Unos amigos combaten por su mundo para no ser esclavizado por RegnaD, uno de los dioses más peligrosos que quiere liberar su ira contra el universo.",
-        tagline: "Un grupo de amigos defiende su mundo de la ira de un dios con un pasado oscuro.",
-        rating: "Adolescentes",
-        creator: "Magic Paraguay",
-        producer: "Magic Productions",
-        episodes: ["1. El invento chino"],
-        posterMedia: "thumb_guerra.png",
-        posterVertical: "poster_17.png"
-      },
-      {
-        id: 10,
-        title: "La Fortuna De Bután",
-        synopsis: "Bután, Birmania y sus amigos encuentran un amuleto que cumple deseos, pero tendrán que enfrentar el precio de sus consecuencias.",
-        tagline: "Un amuleto cumple deseos, pero el precio a pagar puede ser terrible.",
-        rating: "+7 Años",
-        creator: "Countryballs E",
-        producer: "CBE Associations",
-        episodes: ["1. Artefacto Misterioso", "2. La Fiesta", "3. Un deseo no beneficio", "4. Consecuencias Inesperadas"],
-        posterMedia: "thumb_butan.png",
-        posterVertical: "poster_18.png"
-      },
-      {
-        id: 11,
-        title: "Las CaliFornias Classic",
-        synopsis: "La historia original de tres hermanos cuya misión es reconciliarse y volver a ser amigos; versión creada por su autor original.",
-        tagline: "La historia original de tres hermanos buscando volver a ser amigos.",
-        rating: "Todos",
-        creator: "Mr. Chulin",
-        producer: "Mr. Chulin",
-        episodes: ["1. Presentando a las Californias", "2. Una tonta pelea", "3. Unas feas revelaciones", "4. El llegar de una pesadilla", "5. Revolución en el norte"],
-        posterMedia: "thumb_cali_classic.png",
-        posterVertical: "poster_04.png"
-      },
-      {
-        id: 12,
-        title: "Las Fumadas De Famil",
-        synopsis: "Famil muestra lugares random con humor junto a Incognita, Canadista y otros personajes.",
-        tagline: "Lugares random y humor absurdo con Famil.",
-        rating: "+10",
-        creator: "FamilOficial",
-        producer: "FamilStudios",
-        episodes: ["1. La casa funable", "2. Bala perdida"],
-        posterMedia: "thumb_famil.webp",
-        posterVertical: "poster_08.png"
-      },
-      {
-        id: 13,
-        title: "Luna y Sol",
-        synopsis: "Drama y comedia familiar sobre dos hermanas gato opuestas que deben aprender a convivir pese a sus diferencias y problemas económicos.",
-        tagline: "Dos hermanas opuestas aprendiendo a convivir entre desalojos y robos.",
-        rating: "Adolescentes",
-        creator: "TheGabriel2535",
-        producer: "TheGabriel2535",
-        episodes: ["1. Hechadas", "2. Gato Ladrón"],
-        posterMedia: "thumb_luna.png",
-        posterVertical: "poster_10.png"
-      },
-      {
-        id: 14,
-        title: "MJaja Series",
-        synopsis: "Cortos para pasar el rato con humor absurdo y situaciones cotidianas extrañas.",
-        tagline: "Cortos absurdos para pasar el rato.",
-        rating: "+10",
-        creator: "JoshuaPRO5",
-        producer: "MaJo Associations",
-        episodes: ["1. El aire que habla", "2. Detrás de cámaras"],
-        posterMedia: "thumb_mjaja.png",
-        posterVertical: "poster_07.png"
-      },
-      {
-        id: 15,
-        title: "Multiversus Ball",
-        synopsis: "Foxyneón crea una pistola de portales y viaja por universos distintos resolviendo problemas mientras un observador los vigila.",
-        tagline: "Viajes entre universos y problemas locales bajo la mirada de un observador misterioso.",
-        rating: "Adolescentes",
-        creator: "Foxyneón",
-        producer: "Foxyneón",
-        episodes: [
-            "1. Universo C.E", "2. Universo Escalope", "3. Universo Terraplanista", "4. Universo Geométrico", 
-            "5. Universo escuadronero", "6. Universo 1024", "7. Universo Sur", "8. Universo M.H",
-            "9. Universo redondo", "10. Universo B.C", "11. Universo C18", "12. Un universo cualquiera",
-            "13. Por fin en casa", "14. Universo C.R", "15. Universo Eutanasio", "16. Universo Ballero"
-        ],
-        posterMedia: "thumb_multiversus.webp",
-        posterVertical: "poster_14.png"
-      },
-      {
-        id: 16,
-        title: "Pancho: La serie",
-        synopsis: "Pancho es un hot dog vegetariano que vive una vida llena de glitches, mundos extraños y banderas rojas.",
-        tagline: "Un hot dog vegetariano en una aventura llena de glitches y mundos extraños.",
-        rating: "+7",
-        creator: "MmManda",
-        producer: "MaJo Associations",
-        episodes: ["1. Como jugar a Pancho", "2. ¿Más banderas?", "3. El verdadero inicio", "4. Multijugador", "5. ¿El nivel final?"],
-        posterMedia: "thumb_pancho.png",
-        posterVertical: "poster_01.png"
-      },
-      {
-        id: 17,
-        title: "Pilas: La serie",
-        synopsis: "Un grupo de pelotudos debe escapar del gobierno en un viaje por carretera enfrentando a la mafia y a un nerd con poderes divinos.",
-        tagline: "Un viaje por carretera escapando de la mafia, el gobierno y poderes divinos.",
-        rating: "Adolescentes",
-        creator: "ConoSurYT",
-        producer: "Sur Studios LTD",
-        episodes: [
-            "1. La tienda de pilas", "2. Misión de rescate", "3. Prisión", "4. El motín", "5. Masacre", 
-            "6. Terra Nulius", "7. Cambiocalipsis", "E1. Salvando la Navidad", "S. Swap: Cables", "R. Necesitamos Pilas"
-        ],
-        posterMedia: "thumb_pilas.webp",
-        posterVertical: "poster_13.png"
-      },
-      {
-        id: 18,
-        title: "SkibidiBalls",
-        synopsis: "Recreación Countryball de la serie Skibidi Toilet donde CameraBalls luchan contra la amenaza Skibidi.",
-        tagline: "La recreación Countryball de la guerra entre Cámaras y Skibidis.",
-        rating: "7+",
-        creator: "Mr. West Macedonia",
-        producer: "Mr. West Macedonia",
-        episodes: [
-            "1. La amenaza en África", "2. Skibidi colosal", "3. Gigantes en Norteamérica", "4. Tecnología al rescate",
-            "5. Trampa mortal", "6. Oscuridad total", "7. El grito que salvó al mundo"
-        ],
-        posterMedia: "thumb_skibidi.png",
-        posterVertical: "poster_09.png"
-      },
-      {
-        id: 19,
-        title: "Pilas: Temporada 2",
-        synopsis: "Los Pilas se mudan a Verdeluz para vivir una vida tranquila, excepto que no. Diferentes adversidades hacen que la vida se complique, y lleguen a un punto bajo. Adicciones a las apuestas, una mafia que les viene comiendo los talones desde hace rato, e incluso un reto tan fácil como pagar el alquiler.",
-        tagline: "Buscaban una vida tranquila en Verdeluz, pero encontraron mafias, apuestas y el terror de pagar el alquiler.",
-        rating: "Adolescentes",
-        creator: "ConoSurYT",
-        producer: "Sur Studios LTD",
-        episodes: [
-            "1. Terror de Alquiler"
-        ],
-        posterMedia: "thumb_pilas.webp",
-        posterVertical: "poster_19.png"
-      }
-    ];
+  <script>
+    // Inicializa Lucide Icons
+    lucide.createIcons();
 
-    /* --- RENDERIZAR CATALOGO --- */
-    const grid = document.getElementById('seriesGrid');
-    
-    seriesData.forEach(serie => {
-        const card = document.createElement('div');
-        card.className = 'series-card';
-        card.onclick = () => openModal(serie);
-        
-        card.setAttribute('data-title', serie.title.toLowerCase());
-        card.innerHTML = `
-            <img src="${serie.posterMedia}" class="card-img" alt="${serie.title}" loading="lazy">
-            <div class="card-overlay">
-                <div class="card-title">${serie.title}</div>
-            </div>
-        `;
-        grid.appendChild(card);
+    /* === MENÚ MÓVIL === */
+    const menuButton = document.getElementById('menu-button');
+    const mobileMenu = document.getElementById('mobile-menu');
+    const mobileLinks = document.querySelectorAll('.mobile-link');
+    const iconClosed = document.getElementById('menu-icon-closed');
+    const iconOpen = document.getElementById('menu-icon-open');
+    const closeMobileMenuBtn = document.getElementById('close-menu-btn');
+
+    function closeMenu() {
+      mobileMenu.classList.add('hidden', 'opacity-0');
+      mobileMenu.classList.remove('opacity-100');
+      iconClosed.classList.remove('hidden');
+      iconOpen.classList.add('hidden');
+    }
+
+    menuButton.addEventListener('click', () => {
+      const isMenuHidden = mobileMenu.classList.contains('hidden');
+      if (isMenuHidden) {
+        mobileMenu.classList.remove('hidden', 'opacity-0');
+        mobileMenu.classList.add('opacity-100');
+        iconClosed.classList.add('hidden');
+        iconOpen.classList.remove('hidden');
+      } else {
+        closeMenu();
+      }
     });
 
-    /* --- LÓGICA DEL MODAL --- */
-    const modal = document.getElementById('seriesModal');
-    const mPosterBg = document.getElementById('mPosterBg');
-    const mTitle = document.getElementById('mTitle');
-    const mRating = document.getElementById('mRating');
-    const mTagline = document.getElementById('mTagline');
-    const mSynopsis = document.getElementById('mSynopsis');
-    const mCreator = document.getElementById('mCreator');
-    const mStudio = document.getElementById('mStudio');
-    const mStudioWrapper = document.getElementById('mStudioWrapper');
-    const mEpisodesList = document.getElementById('mEpisodesList');
+    mobileLinks.forEach(link => {
+      link.addEventListener('click', closeMenu);
+    });
 
-    function openModal(serie) {
-        mPosterBg.style.backgroundImage = `url('${serie.posterVertical}')`;
-        
-        mTitle.innerText = serie.title;
-        mRating.innerText = serie.rating;
-        mTagline.innerText = serie.tagline || '';
-        mSynopsis.innerText = serie.synopsis;
-        mCreator.innerText = serie.creator;
-
-        // Ocultar "Estudio:" si creador y productor son el mismo
-        if (serie.producer && serie.producer !== serie.creator) {
-            mStudio.innerText = serie.producer;
-            mStudioWrapper.style.display = 'block';
-        } else {
-            mStudio.innerText = '';
-            mStudioWrapper.style.display = 'none';
-        }
-
-        mEpisodesList.innerHTML = '';
-        if(serie.episodes && serie.episodes.length > 0) {
-            serie.episodes.forEach((epName) => {
-                const epDiv = document.createElement('div');
-                epDiv.className = 'episode-item';
-                // Añadir icono de play decorativo
-                epDiv.innerHTML = `<span class="play-icon">▶</span> <span class="ep-name">${epName}</span>`;
-                mEpisodesList.appendChild(epDiv);
-            });
-        } else {
-            mEpisodesList.innerHTML = '<div style="color:var(--text-muted); font-style:italic;">No hay información de episodios.</div>';
-        }
-
-        modal.classList.add('active');
-        document.body.style.overflow = 'hidden'; // Evitar scroll de fondo
-    }
-
-    function closeModalForce() {
-        modal.classList.remove('active');
-        document.body.style.overflow = 'auto';
-    }
-
-    function closeModal(event) {
-        if (event.target === modal) {
-            closeModalForce();
-        }
-    }
-
-    /* --- TEMA DINÁMICO (Sincronizado con index) --- */
+    /* === LISTA DE TEMAS === */
     const themes = [
-      { name: "MadSulu Dark", colors: ["#000000", "#141414", "#e50914", "#181818", "#ffffff", "#a3a3a3"] },
+      { name: "MadSulu Dark", colors: ["#000000", "#141414", "#e50914", "#181818", "#ffffff", "#808080"] },
       { name: "MadSulu LIGHT", colors: ["#020a1a", "#0540CE", "#7CE600", "#FF6D00", "#ffffff", "#94a3b8"] },
       { name: "Cyber Hub", colors: ["#0b0f19", "#00f0ff", "#ffee00", "#151a25", "#ffffff", "#a0aab5"] },
       { name: "Nature Legal", colors: ["#020b14", "#011408", "#00d4a3", "#00b388", "#f0f0f0", "#a0aec0"] },
@@ -962,91 +565,132 @@
       { name: "Aqua Citrine", colors: ["#041827", "#0081D5", "#A1E5F5", "#CAD823", "#FFFFFF", "#6AA7CF"] }
     ];
 
+    /* === LÓGICA DE CAMBIO DE TEMAS === */
     function applyTheme(theme) {
-        const root = document.documentElement;
-        if(theme && theme.colors) {
-            root.style.setProperty('--bg-dark', theme.colors[0]);
-            root.style.setProperty('--accent-blue', theme.colors[1]);
-            root.style.setProperty('--primary', theme.colors[2]);
-            root.style.setProperty('--bg-card', theme.colors[3]);
-            root.style.setProperty('--text-main', theme.colors[4]);
-            root.style.setProperty('--text-muted', theme.colors[5]);
-        }
+      const root = document.documentElement;
+      if(theme && theme.colors) {
+        root.style.setProperty('--bg-dark', theme.colors[0]);
+        root.style.setProperty('--accent-blue', theme.colors[1]);
+        root.style.setProperty('--primary', theme.colors[2]);
+        root.style.setProperty('--bg-card', theme.colors[3]);
+        root.style.setProperty('--text-main', theme.colors[4]);
+        root.style.setProperty('--text-muted', theme.colors[5]);
+        console.log("Tema aplicado:", theme.name);
+      }
+    }
+
+    function changeToRandomTheme() {
+      const randomTheme = themes[Math.floor(Math.random() * themes.length)];
+      applyTheme(randomTheme);
     }
 
     function initThemeLogic() {
-        const initialIndex = Math.random() > 0.5 ? 0 : 1;
-        applyTheme(themes[initialIndex]);
-        
+      const initialIndex = Math.random() > 0.5 ? 0 : 1;
+      applyTheme(themes[initialIndex]);
+
+      setTimeout(() => {
+        changeToRandomTheme();
         setInterval(() => {
-            const nextTheme = themes[Math.floor(Math.random() * themes.length)];
-            applyTheme(nextTheme);
-        }, 30000);
+          changeToRandomTheme();
+        }, 40000); 
+      }, 30000);
     }
 
-    initThemeLogic();
+    /* === CARRUSEL DE IMÁGENES === */
+    const posters = [
+      "poster_01.png", "poster_02.png", "poster_03.png", "poster_04.png", 
+      "poster_05.png", "poster_06.png", "poster_07.png", "poster_08.png", 
+      "poster_09.png", "poster_10.png", "poster_11.png", "poster_12.png", 
+      "poster_13.png", "poster_14.png", "poster_15.png", "poster_16.png", 
+      "poster_17.png", "poster_18.png"
+    ];
 
-    /* --- BÚSQUEDA DE SERIES --- */
-    const searchInput = document.getElementById('searchInput');
-    const searchClearBtn = document.getElementById('searchClearBtn');
-    const searchCount = document.getElementById('searchCount');
-    const allCards = document.querySelectorAll('.series-card');
-    const totalSeries = allCards.length;
+    let currentPosterIndex = 0;
 
-    function filterSeries() {
-        const query = searchInput.value.trim().toLowerCase();
-
-        // Botón limpiar: visible si hay texto
-        if (query.length > 0) {
-            searchClearBtn.classList.add('visible');
-        } else {
-            searchClearBtn.classList.remove('visible');
-        }
-
-        let visibleCount = 0;
-
-        allCards.forEach(card => {
-            const title = card.getAttribute('data-title') || '';
-            if (title.includes(query)) {
-                card.classList.remove('hidden');
-                visibleCount++;
-            } else {
-                card.classList.add('hidden');
-            }
-        });
-
-        // Contador de resultados
-        if (query.length > 0) {
-            searchCount.textContent = visibleCount + ' serie' + (visibleCount !== 1 ? 's' : '') + ' encontrada' + (visibleCount !== 1 ? 's' : '');
-            searchCount.classList.add('visible');
-        } else {
-            searchCount.textContent = '';
-            searchCount.classList.remove('visible');
-        }
-
-        // Mensaje sin resultados
-        const existing = document.getElementById('noResultsMsg');
-        if (visibleCount === 0 && query.length > 0) {
-            if (!existing) {
-                const msg = document.createElement('div');
-                msg.id = 'noResultsMsg';
-                msg.className = 'no-results-msg';
-                msg.textContent = 'No se encontraron series que coincidan con "' + searchInput.value.trim() + '"';
-                grid.appendChild(msg);
-            } else {
-                existing.textContent = 'No se encontraron series que coincidan con "' + searchInput.value.trim() + '"';
-            }
-        } else {
-            if (existing) existing.remove();
-        }
+    function startCarousel() {
+      const container = document.getElementById('carousel');
+      const divs = container.querySelectorAll('.series-poster');
+      
+      divs[0].style.backgroundImage = `url('${posters[0]}')`;
+      divs[0].classList.add('active');
+      
+      setInterval(() => {
+        const nextIndex = (currentPosterIndex + 1) % posters.length;
+        const activeDiv = container.querySelector('.series-poster.active');
+        const inactiveDiv = container.querySelector('.series-poster:not(.active)');
+        
+        inactiveDiv.style.backgroundImage = `url('${posters[nextIndex]}')`;
+        
+        activeDiv.classList.remove('active');
+        inactiveDiv.classList.add('active');
+        
+        currentPosterIndex = nextIndex;
+      }, 5000);
     }
 
-    searchInput.addEventListener('input', filterSeries);
+    /* === ANIMACIONES FADE-IN === */
+    const observerOptions = {
+      root: null,
+      rootMargin: '0px',
+      threshold: 0.1
+    };
 
-    searchClearBtn.addEventListener('click', () => {
-        searchInput.value = '';
-        filterSeries();
-        searchInput.focus();
+    const fadeInUpObserver = new IntersectionObserver((entries, observer) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, observerOptions);
+
+    document.querySelectorAll('.fade-in-up').forEach(element => {
+      fadeInUpObserver.observe(element);
+    });
+
+    /* === ADAPTACIÓN DE BOTONES PC/MÓVIL === */
+    function adaptHeroButtons() {
+      const userAgent = navigator.userAgent.toLowerCase();
+      const isDesktop = (
+        userAgent.includes('windows') || 
+        userAgent.includes('macintosh') || 
+        userAgent.includes('x11') || 
+        userAgent.includes('linux') && userAgent.includes('mozilla')
+      ) && !userAgent.includes('android') && !userAgent.includes('iphone') && !userAgent.includes('ipad');
+
+      const btnAndroid = document.getElementById('btn-android');
+      const btnOnline = document.getElementById('btn-online');
+      const buttonsContainer = document.getElementById('hero-buttons');
+
+      const baseStyle = 'font-bold py-3 px-8 rounded-xl shadow-xl transition duration-300 transform hover:scale-105 flex items-center justify-center space-x-2 fade-in-up';
+      const primaryStyle = 'bg-white hover:bg-gray-200 text-gray-900';
+      const secondaryStyle = 'bg-transparent border-2 border-gray-500 text-white hover:bg-gray-700 font-semibold';
+
+      if (!btnAndroid || !btnOnline || !buttonsContainer) return;
+
+      if (isDesktop) {
+        btnOnline.className = `${baseStyle} ${primaryStyle}`;
+        btnAndroid.className = `${baseStyle} ${secondaryStyle}`;
+        buttonsContainer.innerHTML = '';
+        buttonsContainer.appendChild(btnOnline);
+        buttonsContainer.appendChild(btnAndroid);
+      } else {
+        btnAndroid.className = `${baseStyle} ${primaryStyle}`;
+        btnOnline.className = `${baseStyle} ${secondaryStyle}`;
+        buttonsContainer.innerHTML = '';
+        buttonsContainer.appendChild(btnAndroid);
+        buttonsContainer.appendChild(btnOnline);
+      }
+      
+      btnOnline.classList.add('visible');
+      btnAndroid.classList.add('visible');
+    }
+
+    /* === INICIALIZACIÓN === */
+    window.addEventListener('DOMContentLoaded', () => {
+      initThemeLogic();
+      startCarousel();
+      adaptHeroButtons();
     });
   </script>
 </body>
