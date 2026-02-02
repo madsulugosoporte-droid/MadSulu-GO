@@ -1,697 +1,381 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  
-  <title>MadSulu GO - El Universo Countryballer en Streaming</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>MadSulu GO - Entretenimiento Countryballer</title>
 
-  <meta name="description" content="MadSulu GO: La primera plataforma de streaming de Countryballs y para Countrytubers. Mira series exclusivas, vota e interactúa totalmente gratis.">
-  <meta name="keywords" content="Countryballs, Polandball, Streaming, Series, Countrytubers, MadSulu, Gratis, Animación">
-  <meta name="author" content="MadZalMedia Incorporated">
-  <meta name="theme-color" content="#e50914">
+    <meta name="description" content="MadSulu GO: La primera plataforma de streaming de Countryballs y para Countrytubers. Mira series exclusivas, vota e interactúa totalmente gratis.">
+    <meta name="keywords" content="Countryballs, Polandball, Streaming, Series, Countrytubers, MadSulu, Gratis, Animación">
+    <meta name="author" content="MadZalMedia Incorporated">
+    <meta name="theme-color" content="#111827"> <meta property="og:site_name" content="MadSulu GO web">
+    <meta property="og:title" content="MadSulu GO">
+    <meta property="og:description" content="Descubre series de Countrytubers grandes y pequeños. Funciones interactivas y 100% gratis.">
+    <meta property="og:type" content="website">
 
-  <meta property="og:site_name" content="MadSulu GO web">
-  
-  <script type="application/ld+json">
-    {
-      "@context": "https://schema.org",
-      "@type": "WebSite",
-      "name": "MadSulu GO web",
-      "url": "https://madsulugosoporte-droid.github.io/MadSulu-GO/"
-    }
-  </script>
-
-  <meta property="og:image" content="madsulu_promo.png">
-  <meta property="og:title" content="MadSulu GO">
-  <meta property="og:description" content="Descubre series de Countrytubers grandes y pequeños. Funciones interactivas, temas personalizados y 100% gratis.">
-  <meta property="og:type" content="website">
-  <meta property="og:url" content="https://madsulugosoporte-droid.github.io/MadSulu-GO/"> 
-
-  <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="MadSulu GO">
-  <meta name="twitter:image" content="madsulu_promo.png">
-  <meta name="twitter:description" content="La app definitiva para fans de Polandball y Countrytubers.">
-
-  <!-- Tailwind CSS -->
-  <script src="https://cdn.tailwindcss.com"></script>
-  <!-- Lucide Icons -->
-  <script src="https://unpkg.com/lucide@latest"></script>
-
-<style>
-    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&family=Montserrat:wght@700;900&display=swap');
-
-    :root {
-      /* Variables de temas dinámicos (controladas por JS) */
-      --bg-dark: #000000;      
-      --accent-blue: #141414;  
-      --primary: #e50914;      
-      --bg-card: #181818;      
-      --text-main: #ffffff;    
-      --text-muted: #aaaaaa;   
-    }
-
-    * { box-sizing: border-box; }
-
-    body {
-      margin: 0;
-      padding: 0;
-      font-family: 'Inter', sans-serif;
-      background-color: var(--bg-dark); 
-      color: var(--text-main);
-      width: 100%;
-      overflow-x: hidden;
-      scroll-behavior: smooth;
-      /* Transición suave de temas */
-      transition: background-color 10s ease, color 5s ease;
-    }
-
-    h1, h2, h3, .font-montserrat {
-        font-family: 'Montserrat', sans-serif;
-    }
-
-    /* === HEADER FIJO === */
-    header {
-        background-color: rgba(0, 0, 0, 0.9);
-        backdrop-filter: blur(10px);
-        transition: background-color 0.3s ease;
-    }
-
-    /* === HERO CON CARRUSEL === */
-    .hero-wrapper {
-      position: relative;
-      width: 100%;
-      min-height: 100vh;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      overflow: hidden;
-      padding-top: 64px;
-    }
-
-    .carousel-container {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      z-index: 0;
-    }
-
-    .series-poster {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background-size: cover;
-      background-position: center;
-      opacity: 0;
-      transform: scale(1.1);
-      transition: opacity 2s ease-in-out, transform 10s ease;
-    }
-    .series-poster.active { 
-        opacity: 0.35; 
-        transform: scale(1);
-    }
-
-    .hero-overlay {
-      position: absolute;
-      inset: 0;
-      background: radial-gradient(circle at center, rgba(0,0,0,0) 0%, var(--bg-dark) 90%),
-                  linear-gradient(to bottom, var(--bg-dark) 0%, rgba(0,0,0,0.4) 50%, var(--bg-dark) 100%);
-      z-index: 1;
-      transition: background 10s ease;
-      pointer-events: none;
-    }
-
-    .main-content {
-      z-index: 10;
-      text-align: center;
-      padding: 20px;
-      max-width: 1200px;
-      width: 100%;
-      position: relative;
-    }
-
-    /* === ANIMACIONES === */
-    .fade-in-up {
-        opacity: 0;
-        transform: translateY(20px);
-        transition: opacity 0.6s ease-out, transform 0.6s ease-out;
-    }
-
-    .fade-in-up.visible {
-        opacity: 1;
-        transform: translateY(0);
-    }
-
-    @keyframes fadeInUp {
-      from { 
-        opacity: 0; 
-        transform: translateY(40px); 
-      }
-      to { 
-        opacity: 1; 
-        transform: translateY(0); 
-      }
-    }
-
-    /* === CARDS DE CARACTERÍSTICAS === */
-    .feature-card {
-      background: var(--bg-card);
-      border: 1px solid rgba(255, 255, 255, 0.1);
-      border-radius: 16px;
-      padding: 2rem;
-      text-align: center;
-      transition: all 0.3s ease;
-    }
-
-    .feature-card:hover {
-      transform: translateY(-8px);
-      border-color: var(--primary);
-      box-shadow: 0 10px 30px rgba(229, 9, 20, 0.3);
-    }
-
-    .feature-icon {
-      font-size: 3rem;
-      margin-bottom: 1rem;
-      display: block;
-    }
-
-    .feature-title {
-      font-family: 'Montserrat', sans-serif;
-      font-size: 1.25rem;
-      font-weight: 700;
-      margin-bottom: 0.75rem;
-      color: var(--text-main);
-    }
-
-    .feature-desc {
-      color: var(--text-muted);
-      line-height: 1.6;
-    }
-
-    /* === CARDS DE RESEÑAS === */
-    .review-card {
-      background: var(--bg-card);
-      border: 1px solid rgba(255, 255, 255, 0.1);
-      border-radius: 16px;
-      padding: 2rem;
-      text-align: center;
-      transition: all 0.3s ease;
-    }
-
-    .review-card:hover {
-      transform: translateY(-5px);
-      border-color: var(--primary);
-    }
-
-    .reviewer-avatar {
-      width: 80px;
-      height: 80px;
-      border-radius: 50%;
-      margin: 0 auto 1rem;
-      border: 3px solid var(--primary);
-    }
-
-    .reviewer-name {
-      font-weight: 700;
-      font-size: 1.1rem;
-      margin-bottom: 0.5rem;
-    }
-
-    .review-stars {
-      color: #fbbf24;
-      font-size: 1.25rem;
-      margin-bottom: 1rem;
-    }
-
-    .review-text {
-      color: var(--text-muted);
-      line-height: 1.6;
-      font-style: italic;
-    }
-
-    /* === RATING BADGE === */
-    .rating-badge {
-      display: inline-flex;
-      flex-direction: column;
-      align-items: center;
-      background: var(--bg-card);
-      border: 2px solid var(--primary);
-      border-radius: 20px;
-      padding: 1.5rem 2.5rem;
-      margin-bottom: 3rem;
-    }
-
-    .rating-header {
-      font-size: 3rem;
-      font-weight: 900;
-      color: #fbbf24;
-      font-family: 'Montserrat', sans-serif;
-    }
-
-    .rating-label {
-      color: var(--text-muted);
-      font-size: 0.9rem;
-      margin-top: 0.5rem;
-    }
-
-    /* === FOOTER === */
-    footer {
-      background: var(--accent-blue);
-      padding: 3rem 1.5rem;
-      text-align: center;
-      border-top: 1px solid rgba(255, 255, 255, 0.1);
-      transition: background-color 10s ease;
-    }
-
-    footer a {
-      color: var(--text-muted);
-      text-decoration: none;
-      transition: color 0.3s ease;
-    }
-
-    footer a:hover {
-      color: var(--primary);
-    }
-
-    .footer-links {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      gap: 2rem;
-      margin-top: 1.5rem;
-    }
-
-    /* === RESPONSIVE === */
-    @media (max-width: 768px) {
-      .hero-wrapper {
-        min-height: auto;
-        padding-top: 80px;
-        padding-bottom: 40px;
-      }
-    }
-</style>
-</head>
-<body>
-
-  <!-- HEADER FIJO -->
-  <header class="fixed top-0 left-0 w-full shadow-lg z-40">
-    <div class="container mx-auto px-4 sm:px-6 lg:px-8">
-      <div class="flex items-center justify-between h-16">
-        
-        <a href="#hero" class="h-10 flex items-center" aria-label="MadSulu GO Inicio">
-          <img src="logo.png" 
-               alt="Logo de MadSulu GO" 
-               class="h-10 w-auto"
-               onerror="this.onerror=null;this.src='https://placehold.co/120x40/FFFFFF/000000?text=MadSulu+GO';">
-        </a>
-
-        <!-- Navegación Desktop -->
-        <nav class="hidden md:flex space-x-4 font-medium items-center">
-          <a href="#caracteristicas" class="hover:text-gray-300 transition duration-300">Características</a>
-          <a href="#series" class="hover:text-gray-300 transition duration-300">Series</a>
-          <a href="#opiniones" class="hover:text-gray-300 transition duration-300">Opiniones</a>
-          <a href="#comunidad" class="hover:text-gray-300 transition duration-300">Comunidad</a>
-          <a href="terms.html" class="hover:text-gray-300 transition duration-300">Términos</a>
-        </nav>
-
-        <!-- Botón menú móvil -->
-        <button id="menu-button" class="md:hidden text-white p-2 rounded-full hover:bg-gray-800 transition duration-200" aria-label="Abrir Menú">
-          <i id="menu-icon-closed" data-lucide="menu" class="w-6 h-6"></i>
-          <i id="menu-icon-open" data-lucide="x" class="w-6 h-6 hidden"></i>
-        </button>
-      </div>
-    </div>
-
-    <!-- Menú móvil -->
-    <div id="mobile-menu" class="hidden md:hidden fixed inset-0 bg-gray-900/95 backdrop-blur-lg z-30 pt-16 transition-opacity duration-300 ease-in-out opacity-0">
-      <div class="flex flex-col space-y-4 p-4 text-center">
-        <a href="#caracteristicas" class="text-2xl py-3 hover:text-gray-300 transition duration-300 mobile-link">Características</a>
-        <a href="#series" class="text-2xl py-3 hover:text-gray-300 transition duration-300 mobile-link">Series</a>
-        <a href="#opiniones" class="text-2xl py-3 hover:text-gray-300 transition duration-300 mobile-link">Opiniones</a>
-        <a href="#comunidad" class="text-2xl py-3 hover:text-gray-300 transition duration-300 mobile-link">Comunidad</a>
-        <a href="terms.html" class="text-2xl py-3 hover:text-gray-300 transition duration-300 mobile-link">Términos</a>
-        <button id="close-menu-btn" class="mt-6 px-6 py-4 text-xl bg-white hover:bg-gray-200 text-gray-900 font-bold rounded-lg transition duration-300 mobile-link transform hover:scale-105">Cerrar</button>
-      </div>
-    </div>
-  </header>
-
-  <!-- SECCIÓN HERO CON CARRUSEL -->
-  <section id="hero" class="hero-wrapper">
-    <!-- Carrusel de fondos -->
-    <div id="carousel" class="carousel-container">
-      <div class="series-poster active"></div>
-      <div class="series-poster"></div>
-    </div>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
     
-    <!-- Overlay degradado -->
-    <div class="hero-overlay"></div>
-
-    <!-- Contenido principal -->
-    <div class="main-content">
-      <div class="max-w-4xl mx-auto">
-        <img src="logo.png" 
-             alt="MadSulu GO" 
-             class="brand-logo mx-auto mb-6 fade-in-up"
-             style="width: 220px; max-width: 50vw; filter: drop-shadow(0 10px 20px rgba(0,0,0,0.6));"
-             onerror="this.style.display='none';">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700;900&family=Open+Sans:wght@400;600&display=swap');
         
-        <h1 class="text-5xl sm:text-7xl font-extrabold mb-6 leading-tight text-transparent bg-clip-text bg-gradient-to-r from-gray-200 to-white fade-in-up font-montserrat">
-          Descubre el Entretenimiento Countryballer
-        </h1>
-        
-        <p class="text-lg sm:text-2xl text-gray-300 mb-10 max-w-2xl mx-auto fade-in-up" style="transition-delay: 0.2s;">
-          La primera plataforma de streaming especializada en Countryballs. Series exclusivas, comunidad activa y funciones únicas. 100% gratis.
-        </p>
-      </div>
-
-      <!-- Botones CTA -->
-      <div id="hero-buttons" class="flex flex-col sm:flex-row justify-center items-center space-y-4 sm:space-y-0 sm:space-x-6 mt-12">
-        <a id="btn-android"
-           href="https://play.google.com/store/apps/details?id=flux.mandajoshua" 
-           class="bg-white hover:bg-gray-200 text-gray-900 font-bold py-3 px-8 rounded-xl shadow-xl transition duration-300 transform hover:scale-105 flex items-center justify-center space-x-2 fade-in-up" 
-           style="transition-delay: 0.4s;">
-          <i data-lucide="download"></i>
-          <span>Descargar en Android</span>
-        </a>
-            
-        <a id="btn-online"
-           href="https://madsulugo.github.io/madsulu-go-web/" 
-           class="bg-transparent border-2 border-gray-500 text-white hover:bg-gray-700 font-semibold py-3 px-8 rounded-xl transition duration-300 transform hover:scale-105 flex items-center justify-center space-x-2 fade-in-up" 
-           style="transition-delay: 0.6s;">
-          <i data-lucide="monitor"></i>
-          <span>Usar MadSulu GO Online</span>
-        </a>
-      </div>
-    </div>
-  </section>
-
-  <!-- SECCIÓN CARACTERÍSTICAS -->
-  <section id="caracteristicas" class="py-20" style="background-color: var(--accent-blue); transition: background-color 10s ease;">
-    <div class="container mx-auto px-4 sm:px-6 lg:px-8">
-      <h2 class="text-4xl font-bold text-center mb-12 fade-in-up font-montserrat">¿Por qué MadSulu GO?</h2>
-
-      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl mx-auto">
-        <div class="feature-card fade-in-up">
-          <span class="feature-icon">📺</span>
-          <div class="feature-title">Contenido Exclusivo</div>
-          <div class="feature-desc">Contamos con más de 10 series, algunas de Countrytubers conocidos como Pilas y Coñaco; como también otras de countrytubers pequeños como Apocalipsis Universal y Pancho La serie.</div>
-        </div>
-
-        <div class="feature-card fade-in-up">
-          <span class="feature-icon">⭐</span>
-          <div class="feature-title">Funciones Interactivas</div>
-          <div class="feature-desc">Contamos con funciones para satisfacer a la comunidad que ninguna otra plataforma tiene, como la interacción de comunidad Dimox y más de 35 TEMAS para toda la aplicación.</div>
-        </div>
-
-        <div class="feature-card fade-in-up">
-          <span class="feature-icon">🇵🇱</span>
-          <div class="feature-title">Especialidad: Countryballs</div>
-          <div class="feature-desc">Countryballs (Polandball) es nuestra pasión. Globalizamos este meme para que la comunidad hispana comparta sus proyectos audiovisuales como unos cracks en nuestra aplicación.</div>
-        </div>
-
-        <div class="feature-card fade-in-up">
-          <span class="feature-icon">🆓</span>
-          <div class="feature-title">100% Gratis</div>
-          <div class="feature-desc">La aplicación es completamente gratuita, hecha con pasión y con DEMASIADOS POCOS anuncios para una experiencia fluida.</div>
-        </div>
-
-        <div class="feature-card fade-in-up">
-          <span class="feature-icon">🚀</span>
-          <div class="feature-title">Actualizaciones Constantes</div>
-          <div class="feature-desc">A diferencia de otras aplicaciones, MadSulu GO se actualiza constantemente añadiendo funciones nuevas siempre.</div>
-        </div>
-
-        <div class="feature-card fade-in-up">
-          <span class="feature-icon">🎨</span>
-          <div class="feature-title">Temas Personalizables</div>
-          <div class="feature-desc">Más de 40 temas visuales diferentes para personalizar tu experiencia. Cambia colores, fondos y más según tu estilo.</div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- SECCIÓN OPINIONES -->
-  <section id="opiniones" class="py-20">
-    <div class="container mx-auto px-4 sm:px-6 lg:px-8">
-      <div class="text-center mb-12">
-        <div class="rating-badge fade-in-up">
-          <div class="rating-header">4.6 ★</div>
-          <span class="rating-label">Basado en reseñas de usuarios</span>
-        </div>
-      </div>
-
-      <div class="grid md:grid-cols-3 gap-8 max-w-6xl mx-auto">
-        <div class="review-card fade-in-up">
-          <img src="avatar_yan.webp" alt="Yan" class="reviewer-avatar" onerror="this.src='https://ui-avatars.com/api/?name=Yan&background=e50914&color=fff&size=80'">
-          <div class="reviewer-name">Yan Jueguea</div>
-          <div class="review-stars">★★★★★</div>
-          <div class="review-text">"App god, 1000000/10 MadSulu GO >> N******. Ya enserio, tiene buenas series."</div>
-        </div>
-
-        <div class="review-card fade-in-up">
-          <img src="avatar_franco.webp" alt="Franco" class="reviewer-avatar" onerror="this.src='https://ui-avatars.com/api/?name=Franco&background=e50914&color=fff&size=80'">
-          <div class="reviewer-name">Franco (Chileno Ball)</div>
-          <div class="review-stars">★★★★★</div>
-          <div class="review-text">"La forma en como se organizan las series y la variedad que tienen hace que sea una app muy buena: 10/10"</div>
-        </div>
-
-        <div class="review-card fade-in-up">
-          <img src="avatar_amongzuela.webp" alt="Amongzuela" class="reviewer-avatar" onerror="this.src='https://ui-avatars.com/api/?name=Amongzuela&background=e50914&color=fff&size=80'">
-          <div class="reviewer-name">Amongzuela</div>
-          <div class="review-stars">★★★★★</div>
-          <div class="review-text">"¡Aplicación muy buena y bien hecha!"</div>
-        </div>
-      </div>
-
-      <div class="text-center mt-12">
-        <a href="series.html" class="inline-block bg-white hover:bg-gray-200 text-gray-900 font-bold py-4 px-10 rounded-xl shadow-xl transition duration-300 transform hover:scale-105 fade-in-up">
-          Ver catálogo completo
-        </a>
-      </div>
-    </div>
-  </section>
-
-  <!-- FOOTER -->
-  <footer id="comunidad">
-    <span class="copyright">© 2026 MadZalMedia Incorporated</span>
-    <div class="footer-links">
-      <a href="mailto:soporte@madsulu.com">Contactar Soporte</a>
-      <a href="https://discord.gg/HQTBK8xsyn" target="_blank">Comunidad Discord</a>
-      <a href="terms.html">Términos y Condiciones</a>
-    </div>
-  </footer>
-
-  <script>
-    // Inicializa Lucide Icons
-    lucide.createIcons();
-
-    /* === MENÚ MÓVIL === */
-    const menuButton = document.getElementById('menu-button');
-    const mobileMenu = document.getElementById('mobile-menu');
-    const mobileLinks = document.querySelectorAll('.mobile-link');
-    const iconClosed = document.getElementById('menu-icon-closed');
-    const iconOpen = document.getElementById('menu-icon-open');
-    const closeMobileMenuBtn = document.getElementById('close-menu-btn');
-
-    function closeMenu() {
-      mobileMenu.classList.add('hidden', 'opacity-0');
-      mobileMenu.classList.remove('opacity-100');
-      iconClosed.classList.remove('hidden');
-      iconOpen.classList.add('hidden');
-    }
-
-    menuButton.addEventListener('click', () => {
-      const isMenuHidden = mobileMenu.classList.contains('hidden');
-      if (isMenuHidden) {
-        mobileMenu.classList.remove('hidden', 'opacity-0');
-        mobileMenu.classList.add('opacity-100');
-        iconClosed.classList.add('hidden');
-        iconOpen.classList.remove('hidden');
-      } else {
-        closeMenu();
-      }
-    });
-
-    mobileLinks.forEach(link => {
-      link.addEventListener('click', closeMenu);
-    });
-
-    /* === LISTA DE TEMAS === */
-    const themes = [
-      { name: "MadSulu Dark", colors: ["#000000", "#141414", "#e50914", "#181818", "#ffffff", "#808080"] },
-      { name: "MadSulu LIGHT", colors: ["#020a1a", "#0540CE", "#7CE600", "#FF6D00", "#ffffff", "#94a3b8"] },
-      { name: "Cyber Hub", colors: ["#0b0f19", "#00f0ff", "#ffee00", "#151a25", "#ffffff", "#a0aab5"] },
-      { name: "Nature Legal", colors: ["#020b14", "#011408", "#00d4a3", "#00b388", "#f0f0f0", "#a0aec0"] },
-      { name: "Steel Sky", colors: ["#121212", "#0072FF", "#606060", "#2a2a2a", "#f5f5f5", "#00c6ff"] },
-      { name: "Aqua Marine", colors: ["#001a1d", "#00FFAA", "#00848F", "#004d55", "#ffffff", "#546e7a"] },
-      { name: "Electric Ocean", colors: ["#0d1b2a", "#03FC8E", "#2578B4", "#1b263b", "#e0e1dd", "#778da9"] },
-      { name: "Cyberpunk Night", colors: ["#0a0a0a", "#ff00ff", "#00ffff", "#1a1a1a", "#ffffff", "#3d003d"] },
-      { name: "Sunset Gold", colors: ["#1a0f00", "#ffcc00", "#ff6600", "#2b1d0e", "#fff5e6", "#8b4513"] },
-      { name: "Royal Amethyst", colors: ["#0f001a", "#9933ff", "#e0b3ff", "#1d0a2d", "#f2e6ff", "#4b0082"] },
-      { name: "Blood Moon", colors: ["#0f0505", "#880808", "#ff4d4d", "#1a0d0d", "#f5f5f5", "#4a0000"] },
-      { name: "Forest Mist", colors: ["#0b120b", "#2d5a27", "#a8dadc", "#162416", "#f1faee", "#457b9d"] },
-      { name: "Space Nebula", colors: ["#02010a", "#5d2e8c", "#ff79c6", "#120e26", "#f8f8f2", "#bd93f9"] },
-      { name: "Desert Sand", colors: ["#1c1917", "#d97706", "#fcd34d", "#292524", "#fffbeb", "#78350f"] },
-      { name: "Ice Castle", colors: ["#0a192f", "#0ea5e9", "#38bdf8", "#112240", "#e0f2fe", "#7dd3fc"] },
-      { name: "Vintage Retro", colors: ["#2b2d42", "#ef233c", "#d90429", "#8d99ae", "#edf2f4", "#1a1c2c"] },
-      { name: "Emerald Peak", colors: ["#061a12", "#10b981", "#34d399", "#064e3b", "#ecfdf5", "#065f46"] },
-      { name: "Vivid Violet", colors: ["#1e1b4b", "#6366f1", "#818cf8", "#312e81", "#eef2ff", "#4338ca"] },
-      { name: "Toxic Waste", colors: ["#050505", "#adff2f", "#32cd32", "#1a1a1a", "#ffffff", "#006400"] },
-      { name: "Luxury Slate", colors: ["#0f172a", "#94a3b8", "#cbd5e1", "#1e293b", "#f8fafc", "#334155"] },
-      { name: "Golden Dusk", colors: ["#000014", "#0B0B1A", "#FDDB08", "#FCEAA8", "#FFFFFF", "#8A8A8A"] },
-      { name: "Neo Harbor", colors: ["#000000", "#0F1722", "#6A94BE", "#B72756", "#FFFFFF", "#9BB1C8"] },
-      { name: "Solar Sail", colors: ["#081229", "#0158FF", "#F9E731", "#F1C297", "#FFFFFF", "#807F8A"] },
-      { name: "Tidal Pulse", colors: ["#001428", "#002BFF", "#0084FF", "#00FFA1", "#FFFFFF", "#7FBFFF"] },
-      { name: "Regal Ember", colors: ["#0B0314", "#3C0A90", "#832412", "#C68521", "#F7EFE6", "#9E7B4A"] },
-      { name: "Arcade Breeze", colors: ["#081028", "#558EFF", "#54FFA1", "#FFFF55", "#FFFFFF", "#9DB7EF"] },
-      { name: "Marmalade Drive", colors: ["#120600", "#D36800", "#FF9152", "#FFB814", "#FFFFFF", "#8C4B20"] },
-      { name: "Voltage Sunset", colors: ["#0B0016", "#FF4D03", "#3200FF", "#1A0819", "#FFFFFF", "#A97C6A"] },
-      { name: "Crimson Orange", colors: ["#0F0300", "#FF5A01", "#FE8503", "#E91210", "#FFFFFF", "#B8B8B8"] },
-      { name: "Mariner Teal", colors: ["#021426", "#0076DA", "#0064CE", "#20914E", "#F9FFFF", "#7FB6D9"] },
-      { name: "Riot Orchard", colors: ["#120000", "#FF1100", "#734100", "#227300", "#FFFFFF", "#B76A4A"] },
-      { name: "Neon Lemonade", colors: ["#001219", "#00F6FF", "#FFFFFF", "#FFEE00", "#06262A", "#8BDFE6"] },
-      { name: "Tri-Flash", colors: ["#0B0010", "#00D4FF", "#FFDD00", "#FF0000", "#FFFFFF", "#BDB7A3"] },
-      { name: "Carnival Flame", colors: ["#12090A", "#CD112B", "#FFCA00", "#2B0F0F", "#FFF5E6", "#8A3B3B"] },
-      { name: "Atomic Signal", colors: ["#120000", "#FF0800", "#FFFFFF", "#2B0B0B", "#FFDCE0", "#B2342A"] },
-      { name: "Harvest Signal", colors: ["#0F0B08", "#C5332B", "#FFC300", "#48A800", "#F7F7F7", "#8D5A4F"] },
-      { name: "Flagship", colors: ["#031526", "#CF1127", "#003C71", "#EDF1F5", "#FFFFFF", "#7A98B0"] },
-      { name: "Sail Blue", colors: ["#021726", "#0081D5", "#005F9A", "#FFFFFF", "#8FBFE8", "#0B2A3F"] },
-      { name: "Royal Claret", colors: ["#0B0710", "#484779", "#B72A3D", "#1B1830", "#FFFFFF", "#8B8398"] },
-      { name: "Aqua Citrine", colors: ["#041827", "#0081D5", "#A1E5F5", "#CAD823", "#FFFFFF", "#6AA7CF"] }
-    ];
-
-    /* === LÓGICA DE CAMBIO DE TEMAS === */
-    function applyTheme(theme) {
-      const root = document.documentElement;
-      if(theme && theme.colors) {
-        root.style.setProperty('--bg-dark', theme.colors[0]);
-        root.style.setProperty('--accent-blue', theme.colors[1]);
-        root.style.setProperty('--primary', theme.colors[2]);
-        root.style.setProperty('--bg-card', theme.colors[3]);
-        root.style.setProperty('--text-main', theme.colors[4]);
-        root.style.setProperty('--text-muted', theme.colors[5]);
-        console.log("Tema aplicado:", theme.name);
-      }
-    }
-
-    function changeToRandomTheme() {
-      const randomTheme = themes[Math.floor(Math.random() * themes.length)];
-      applyTheme(randomTheme);
-    }
-
-    function initThemeLogic() {
-      const initialIndex = Math.random() > 0.5 ? 0 : 1;
-      applyTheme(themes[initialIndex]);
-
-      setTimeout(() => {
-        changeToRandomTheme();
-        setInterval(() => {
-          changeToRandomTheme();
-        }, 40000); 
-      }, 30000);
-    }
-
-    /* === CARRUSEL DE IMÁGENES === */
-    const posters = [
-      "poster_01.png", "poster_02.png", "poster_03.png", "poster_04.png", 
-      "poster_05.png", "poster_06.png", "poster_07.png", "poster_08.png", 
-      "poster_09.png", "poster_10.png", "poster_11.png", "poster_12.png", 
-      "poster_13.png", "poster_14.png", "poster_15.png", "poster_16.png", 
-      "poster_17.png", "poster_18.png"
-    ];
-
-    let currentPosterIndex = 0;
-
-    function startCarousel() {
-      const container = document.getElementById('carousel');
-      const divs = container.querySelectorAll('.series-poster');
-      
-      divs[0].style.backgroundImage = `url('${posters[0]}')`;
-      divs[0].classList.add('active');
-      
-      setInterval(() => {
-        const nextIndex = (currentPosterIndex + 1) % posters.length;
-        const activeDiv = container.querySelector('.series-poster.active');
-        const inactiveDiv = container.querySelector('.series-poster:not(.active)');
-        
-        inactiveDiv.style.backgroundImage = `url('${posters[nextIndex]}')`;
-        
-        activeDiv.classList.remove('active');
-        inactiveDiv.classList.add('active');
-        
-        currentPosterIndex = nextIndex;
-      }, 5000);
-    }
-
-    /* === ANIMACIONES FADE-IN === */
-    const observerOptions = {
-      root: null,
-      rootMargin: '0px',
-      threshold: 0.1
-    };
-
-    const fadeInUpObserver = new IntersectionObserver((entries, observer) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('visible');
-          observer.unobserve(entry.target);
+        body {
+            font-family: 'Open Sans', sans-serif;
+            scroll-behavior: smooth;
         }
-      });
-    }, observerOptions);
 
-    document.querySelectorAll('.fade-in-up').forEach(element => {
-      fadeInUpObserver.observe(element);
-    });
+        h1, h2, h3, .font-heading {
+            font-family: 'Montserrat', sans-serif;
+        }
 
-    /* === ADAPTACIÓN DE BOTONES PC/MÓVIL === */
-    function adaptHeroButtons() {
-      const userAgent = navigator.userAgent.toLowerCase();
-      const isDesktop = (
-        userAgent.includes('windows') || 
-        userAgent.includes('macintosh') || 
-        userAgent.includes('x11') || 
-        userAgent.includes('linux') && userAgent.includes('mozilla')
-      ) && !userAgent.includes('android') && !userAgent.includes('iphone') && !userAgent.includes('ipad');
+        /* Hero Background con transición suave para el carrusel */
+        #hero-background {
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            position: absolute;
+            inset: 0;
+            z-index: 0;
+            transition: background-image 1s ease-in-out;
+            /* Fallback inicial mientras carga JS */
+            background-image: url('https://files.catbox.moe/6ql4b0.gif'); 
+        }
 
-      const btnAndroid = document.getElementById('btn-android');
-      const btnOnline = document.getElementById('btn-online');
-      const buttonsContainer = document.getElementById('hero-buttons');
+        .hero-overlay {
+            position: absolute;
+            inset: 0;
+            /* Gradiente cinematográfico del HTML 1 adaptado */
+            background: radial-gradient(circle at center, rgba(17, 24, 39, 0.4) 0%, rgba(17, 24, 39, 1) 90%),
+                        linear-gradient(to bottom, rgba(17, 24, 39, 0.3) 0%, rgba(17, 24, 39, 0.8) 100%);
+            z-index: 1;
+            pointer-events: none;
+        }
 
-      const baseStyle = 'font-bold py-3 px-8 rounded-xl shadow-xl transition duration-300 transform hover:scale-105 flex items-center justify-center space-x-2 fade-in-up';
-      const primaryStyle = 'bg-white hover:bg-gray-200 text-gray-900';
-      const secondaryStyle = 'bg-transparent border-2 border-gray-500 text-white hover:bg-gray-700 font-semibold';
+        .fade-in-up {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+        }
 
-      if (!btnAndroid || !btnOnline || !buttonsContainer) return;
+        .fade-in-up.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
+</head>
+<body class="bg-gray-900 text-white min-h-screen flex flex-col">
 
-      if (isDesktop) {
-        btnOnline.className = `${baseStyle} ${primaryStyle}`;
-        btnAndroid.className = `${baseStyle} ${secondaryStyle}`;
-        buttonsContainer.innerHTML = '';
-        buttonsContainer.appendChild(btnOnline);
-        buttonsContainer.appendChild(btnAndroid);
-      } else {
-        btnAndroid.className = `${baseStyle} ${primaryStyle}`;
-        btnOnline.className = `${baseStyle} ${secondaryStyle}`;
-        buttonsContainer.innerHTML = '';
-        buttonsContainer.appendChild(btnAndroid);
-        buttonsContainer.appendChild(btnOnline);
-      }
-      
-      btnOnline.classList.add('visible');
-      btnAndroid.classList.add('visible');
-    }
+    <header class="fixed top-0 left-0 w-full bg-gray-900/90 backdrop-blur-md shadow-lg z-50 border-b border-gray-800">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-20">
+                
+                <a href="#" class="h-12 flex items-center gap-3">
+                    <img src="logo_madsulu.png" alt="MadSulu GO" class="h-full w-auto object-contain" onerror="this.style.display='none'; document.getElementById('logo-text').style.display='block'">
+                    <span id="logo-text" class="hidden font-heading font-black text-xl text-white tracking-tighter">MADSULU<span class="text-red-600">GO</span></span>
+                </a>
 
-    /* === INICIALIZACIÓN === */
-    window.addEventListener('DOMContentLoaded', () => {
-      initThemeLogic();
-      startCarousel();
-      adaptHeroButtons();
-    });
-  </script>
+                <nav class="hidden md:flex space-x-6 font-semibold items-center text-sm uppercase tracking-wide">
+                    <a href="#hero" class="hover:text-red-500 transition duration-300">Inicio</a>
+                    <a href="#features" class="hover:text-red-500 transition duration-300">Características</a>
+                    <a href="#series" class="hover:text-red-500 transition duration-300">Catálogo</a>
+                    <a href="#reviews" class="hover:text-red-500 transition duration-300">Reseñas</a>
+                    <a href="https://discord.gg/HQTBK8xsyn" target="_blank" class="px-5 py-2 bg-indigo-600 hover:bg-indigo-700 text-white rounded-full transition duration-300 shadow-lg transform hover:scale-105 flex items-center gap-2">
+                        <i data-lucide="message-circle" class="w-4 h-4"></i> Discord
+                    </a>
+                </nav>
+
+                <button id="menu-button" class="md:hidden text-white p-2 rounded-full hover:bg-gray-800 transition duration-200">
+                    <i id="menu-icon-closed" data-lucide="menu" class="w-7 h-7"></i>
+                    <i id="menu-icon-open" data-lucide="x" class="w-7 h-7 hidden"></i>
+                </button>
+            </div>
+        </div>
+
+        <div id="mobile-menu" class="hidden md:hidden fixed inset-0 bg-gray-900 z-40 pt-24 px-6 transition-opacity duration-300">
+            <div class="flex flex-col space-y-6 text-center text-xl font-heading font-bold">
+                <a href="#hero" class="mobile-link hover:text-red-500">Inicio</a>
+                <a href="#features" class="mobile-link hover:text-red-500">Características</a>
+                <a href="#series" class="mobile-link hover:text-red-500">Catálogo</a>
+                <a href="#reviews" class="mobile-link hover:text-red-500">Reseñas</a>
+                <a href="https://discord.gg/HQTBK8xsyn" target="_blank" class="mobile-link text-indigo-400">Comunidad Discord</a>
+            </div>
+        </div>
+    </header>
+
+    <section id="hero" class="relative min-h-screen flex items-center justify-center pt-20 overflow-hidden">
+        <div id="hero-background"></div>
+        <div class="hero-overlay"></div>
+        
+        <div class="container mx-auto px-4 text-center relative z-20">
+            <div class="max-w-4xl mx-auto">
+                <h1 class="font-heading text-4xl sm:text-6xl md:text-7xl font-black mb-6 leading-none text-transparent bg-clip-text bg-gradient-to-r from-white via-gray-200 to-red-600 drop-shadow-lg fade-in-up">
+                    DESCUBRE EL ENTRETENIMIENTO COUNTRYBALLER
+                </h1>
+                
+                <p class="text-base sm:text-lg md:text-xl text-gray-300 mb-8 max-w-3xl mx-auto leading-relaxed fade-in-up" style="transition-delay: 0.2s;">
+                    MadZalMedia Incorporated presenta <strong>MadSulu GO</strong>, la primera plataforma de streaming dedicada a <strong>Countryballs</strong> y <strong>Countrytubers</strong>. Disfruta de series exclusivas, vinculadas a estudios como Sur Studios LTD, totalmente gratis.
+                </p>
+
+                <div class="flex flex-col sm:flex-row justify-center items-center gap-4 mt-8 fade-in-up" style="transition-delay: 0.4s;">
+                    <a href="https://play.google.com/store/apps/details?id=flux.mandajoshua" target="_blank"
+                        class="w-full sm:w-auto bg-gradient-to-r from-green-500 to-green-600 hover:from-green-400 hover:to-green-500 text-white font-bold py-4 px-8 rounded-full shadow-lg transition duration-300 transform hover:scale-105 flex items-center justify-center gap-3">
+                        <i data-lucide="play" class="fill-current"></i>
+                        <span>Google Play</span>
+                    </a>
+                    
+                    <a href="https://mandajoshua.itch.io/madsulugo" target="_blank"
+                        class="w-full sm:w-auto bg-gradient-to-r from-red-500 to-orange-500 hover:from-red-400 hover:to-orange-400 text-white font-bold py-4 px-8 rounded-full shadow-lg transition duration-300 transform hover:scale-105 flex items-center justify-center gap-3">
+                        <i data-lucide="zap" class="fill-current"></i>
+                        <span>Itch.io</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="features" class="py-24 bg-gray-900">
+        <div class="container mx-auto px-4 sm:px-6">
+            <h2 class="font-heading text-3xl sm:text-4xl font-bold text-center mb-16 text-white fade-in-up">¿Por qué MadSulu GO?</h2>
+
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-7xl mx-auto">
+                
+                <div class="bg-gray-800/50 p-8 rounded-2xl border border-gray-700 hover:border-red-500/50 transition duration-300 transform hover:-translate-y-2 fade-in-up">
+                    <div class="bg-gray-900 w-14 h-14 rounded-xl flex items-center justify-center mb-6 text-red-500">
+                        <i data-lucide="tv-2" class="w-8 h-8"></i>
+                    </div>
+                    <h3 class="font-heading text-xl font-bold mb-3">Series de Countrytubers</h3>
+                    <p class="text-gray-400 leading-relaxed">Más de 10 series disponibles. Desde grandes éxitos de Pilas y Coñaco, hasta joyas de creadores emergentes como Apocalipsis Universal y Pancho.</p>
+                </div>
+
+                <div class="bg-gray-800/50 p-8 rounded-2xl border border-gray-700 hover:border-red-500/50 transition duration-300 transform hover:-translate-y-2 fade-in-up delay-100">
+                    <div class="bg-gray-900 w-14 h-14 rounded-xl flex items-center justify-center mb-6 text-yellow-500">
+                        <i data-lucide="mouse-pointer-click" class="w-8 h-8"></i>
+                    </div>
+                    <h3 class="font-heading text-xl font-bold mb-3">Interacción Total</h3>
+                    <p class="text-gray-400 leading-relaxed">Funciones únicas para la comunidad Dimox y personalización extrema con más de 35 temas visuales dentro de la app.</p>
+                </div>
+
+                <div class="bg-gray-800/50 p-8 rounded-2xl border border-gray-700 hover:border-red-500/50 transition duration-300 transform hover:-translate-y-2 fade-in-up delay-200">
+                    <div class="bg-gray-900 w-14 h-14 rounded-xl flex items-center justify-center mb-6 text-blue-400">
+                        <i data-lucide="globe" class="w-8 h-8"></i>
+                    </div>
+                    <h3 class="font-heading text-xl font-bold mb-3">Especialidad: Countryballs</h3>
+                    <p class="text-gray-400 leading-relaxed">Globalizamos el meme Polandball. La plataforma definitiva para que la comunidad hispana comparta sus proyectos audiovisuales.</p>
+                </div>
+
+                <div class="bg-gray-800/50 p-8 rounded-2xl border border-gray-700 hover:border-red-500/50 transition duration-300 transform hover:-translate-y-2 fade-in-up">
+                    <div class="bg-gray-900 w-14 h-14 rounded-xl flex items-center justify-center mb-6 text-green-500">
+                        <i data-lucide="gift" class="w-8 h-8"></i>
+                    </div>
+                    <h3 class="font-heading text-xl font-bold mb-3">100% Gratis</h3>
+                    <p class="text-gray-400 leading-relaxed">La aplicación es completamente gratuita, hecha con pasión y con muy pocos anuncios para garantizar una experiencia fluida.</p>
+                </div>
+
+                <div class="bg-gray-800/50 p-8 rounded-2xl border border-gray-700 hover:border-red-500/50 transition duration-300 transform hover:-translate-y-2 fade-in-up delay-100">
+                    <div class="bg-gray-900 w-14 h-14 rounded-xl flex items-center justify-center mb-6 text-purple-500">
+                        <i data-lucide="rocket" class="w-8 h-8"></i>
+                    </div>
+                    <h3 class="font-heading text-xl font-bold mb-3">Actualizaciones Constantes</h3>
+                    <p class="text-gray-400 leading-relaxed">A diferencia de otras apps abandonadas, MadSulu GO se actualiza constantemente añadiendo funciones nuevas siempre.</p>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <section id="series" class="py-20 bg-gray-900 border-t border-gray-800">
+        <div class="container mx-auto px-4 sm:px-6">
+            <h2 class="font-heading text-3xl sm:text-4xl font-bold text-center mb-12 text-white fade-in-up">Catálogo Destacado</h2>
+
+            <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                <div class="group relative rounded-xl overflow-hidden shadow-xl aspect-[3/4] fade-in-up">
+                    <img src="https://placehold.co/400x600/e0c655/3a3a3a?text=Pancho+La+Serie" alt="Pancho La Serie" class="object-cover w-full h-full transition duration-500 group-hover:scale-110">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent opacity-90"></div>
+                    <div class="absolute bottom-0 p-4">
+                        <h3 class="font-heading text-lg font-bold text-white">Pancho: La Serie</h3>
+                        <p class="text-xs text-gray-300 mt-1">Aventuras surrealistas</p>
+                    </div>
+                </div>
+
+                <div class="group relative rounded-xl overflow-hidden shadow-xl aspect-[3/4] fade-in-up delay-100">
+                    <img src="https://placehold.co/400x600/aa4a4a/3a3a3a?text=Coñaco" alt="Coñaco" class="object-cover w-full h-full transition duration-500 group-hover:scale-110">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent opacity-90"></div>
+                    <div class="absolute bottom-0 p-4">
+                        <h3 class="font-heading text-lg font-bold text-white">Coñaco</h3>
+                        <p class="text-xs text-gray-300 mt-1">Acción y suspenso</p>
+                    </div>
+                </div>
+
+                <div class="group relative rounded-xl overflow-hidden shadow-xl aspect-[3/4] fade-in-up delay-200">
+                    <img src="https://placehold.co/400x600/2a2a2a/7a7a7a?text=Apocalipsis" alt="Apocalipsis Universal" class="object-cover w-full h-full transition duration-500 group-hover:scale-110">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent opacity-90"></div>
+                    <div class="absolute bottom-0 p-4">
+                        <h3 class="font-heading text-lg font-bold text-white">Apocalipsis Universal</h3>
+                        <p class="text-xs text-gray-300 mt-1">Ciencia Ficción</p>
+                    </div>
+                </div>
+
+                <div class="group relative rounded-xl overflow-hidden shadow-xl aspect-[3/4] fade-in-up delay-300">
+                    <img src="https://placehold.co/400x600/4a74a5/3a3a3a?text=Pilas" alt="Pilas" class="object-cover w-full h-full transition duration-500 group-hover:scale-110">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent opacity-90"></div>
+                    <div class="absolute bottom-0 p-4">
+                        <h3 class="font-heading text-lg font-bold text-white">Pilas</h3>
+                        <p class="text-xs text-gray-300 mt-1">Clásico de la comunidad</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="text-center mt-12 fade-in-up">
+                <a href="series.html" class="inline-block px-8 py-3 border border-gray-500 hover:border-white hover:bg-gray-800 text-white font-bold rounded-full transition duration-300 tracking-wider uppercase text-sm">
+                    Ver Catálogo Completo
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <section id="reviews" class="py-24 bg-gray-800 relative overflow-hidden">
+        <div class="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-gray-500 to-transparent opacity-30"></div>
+
+        <div class="container mx-auto px-4 sm:px-6">
+            <div class="text-center mb-16 fade-in-up">
+                <div class="inline-flex items-center gap-2 bg-yellow-500/10 border border-yellow-500/30 px-4 py-1 rounded-full text-yellow-500 font-bold mb-4">
+                    <i data-lucide="star" class="w-4 h-4 fill-current"></i> 4.6 Puntuación Media
+                </div>
+                <h2 class="font-heading text-3xl sm:text-4xl font-bold text-white">Lo que dicen los usuarios</h2>
+            </div>
+
+            <div class="grid md:grid-cols-3 gap-8 max-w-6xl mx-auto">
+                
+                <div class="bg-gray-900 p-8 rounded-2xl shadow-xl border border-gray-700 fade-in-up">
+                    <div class="flex items-center gap-4 mb-6">
+                        <img src="avatar_yan.webp" alt="Yan" class="w-12 h-12 rounded-full object-cover border-2 border-red-500" onerror="this.src='https://placehold.co/50x50/333/FFF?text=Y'">
+                        <div>
+                            <p class="font-bold text-white">Yan Jueguea</p>
+                            <div class="flex text-yellow-500 text-xs">★★★★★</div>
+                        </div>
+                    </div>
+                    <p class="text-gray-300 italic">"App god, 1000000/10 MadSulu GO >> N******. Ya enserio, tiene buenas series."</p>
+                </div>
+
+                <div class="bg-gray-900 p-8 rounded-2xl shadow-xl border border-gray-700 fade-in-up delay-100">
+                    <div class="flex items-center gap-4 mb-6">
+                        <img src="avatar_franco.webp" alt="Franco" class="w-12 h-12 rounded-full object-cover border-2 border-red-500" onerror="this.src='https://placehold.co/50x50/333/FFF?text=F'">
+                        <div>
+                            <p class="font-bold text-white">Franco (Chileno Ball)</p>
+                            <div class="flex text-yellow-500 text-xs">★★★★★</div>
+                        </div>
+                    </div>
+                    <p class="text-gray-300 italic">"La forma en como se organizan las series y la variedad que tienen hace que sea una app muy buena: 10/10"</p>
+                </div>
+
+                <div class="bg-gray-900 p-8 rounded-2xl shadow-xl border border-gray-700 fade-in-up delay-200">
+                    <div class="flex items-center gap-4 mb-6">
+                        <img src="avatar_amongzuela.webp" alt="Amongzuela" class="w-12 h-12 rounded-full object-cover border-2 border-red-500" onerror="this.src='https://placehold.co/50x50/333/FFF?text=A'">
+                        <div>
+                            <p class="font-bold text-white">Amongzuela</p>
+                            <div class="flex text-yellow-500 text-xs">★★★★★</div>
+                        </div>
+                    </div>
+                    <p class="text-gray-300 italic">"¡Aplicación muy buena y bien hecha! Funciona excelente."</p>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <footer class="bg-gray-900 pt-16 pb-8 border-t border-gray-800 mt-auto">
+        <div class="container mx-auto px-4 text-center">
+            <div class="flex flex-col items-center mb-8">
+                <img src="logo_madsulu.png" alt="Logo" class="h-12 w-auto mb-4 opacity-80" onerror="this.style.display='none'">
+                <p class="text-gray-500 text-sm max-w-md">La plataforma definitiva para la comunidad Countryball. Hecha por fans, para fans.</p>
+            </div>
+            
+            <div class="flex flex-wrap justify-center gap-6 mb-10 text-sm font-medium text-gray-400">
+                <a href="mailto:madsulugo.soporte@gmail.com" class="hover:text-white transition">Soporte</a>
+                <a href="https://discord.gg/HQTBK8xsyn" target="_blank" class="hover:text-white transition">Discord</a>
+                <a href="terms.html" class="hover:text-white transition">Términos y Condiciones</a>
+            </div>
+
+            <p class="text-xs text-gray-600">
+                © 2026 MadZalMedia Incorporated (Sulu Studios, MadZal Corporation y MaJo Associations).
+            </p>
+        </div>
+    </footer>
+
+    <script>
+        // Inicializar Iconos
+        lucide.createIcons();
+
+        // 1. Lógica del Menú Móvil
+        const menuButton = document.getElementById('menu-button');
+        const mobileMenu = document.getElementById('mobile-menu');
+        const iconClosed = document.getElementById('menu-icon-closed');
+        const iconOpen = document.getElementById('menu-icon-open');
+        const mobileLinks = document.querySelectorAll('.mobile-link');
+
+        function toggleMenu() {
+            const isHidden = mobileMenu.classList.contains('hidden');
+            if (isHidden) {
+                mobileMenu.classList.remove('hidden');
+                setTimeout(() => mobileMenu.classList.remove('opacity-0'), 10); // Fade in
+                iconClosed.classList.add('hidden');
+                iconOpen.classList.remove('hidden');
+            } else {
+                mobileMenu.classList.add('opacity-0');
+                setTimeout(() => mobileMenu.classList.add('hidden'), 300); // Wait for transition
+                iconClosed.classList.remove('hidden');
+                iconOpen.classList.add('hidden');
+            }
+        }
+
+        menuButton.addEventListener('click', toggleMenu);
+        mobileLinks.forEach(link => link.addEventListener('click', toggleMenu));
+
+        // 2. Animaciones Fade-In al hacer scroll
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.1 });
+
+        document.querySelectorAll('.fade-in-up').forEach(el => observer.observe(el));
+
+        // 3. Adaptación del Carrusel del HTML 1 para el fondo del HTML 2
+        // Nota: Si las imágenes locales (poster_01.png, etc) no existen, 
+        // mostrará el fondo por defecto definido en CSS.
+        const posters = [
+            "poster_01.png", "poster_02.png", "poster_03.png", "poster_04.png", 
+            "poster_05.png", "poster_06.png", "poster_07.png", "poster_08.png", 
+            "poster_09.png", "poster_10.png", "poster_11.png", "poster_12.png", 
+            "poster_13.png", "poster_14.png", "poster_15.png", "poster_16.png", 
+            "poster_17.png", "poster_18.png"
+        ];
+        
+        let currentPosterIndex = 0;
+        const heroBg = document.getElementById('hero-background');
+
+        function updateBackground() {
+            // Intentamos cargar la imagen local
+            const img = new Image();
+            img.onload = function() {
+                heroBg.style.backgroundImage = `url('${posters[currentPosterIndex]}')`;
+            };
+            img.onerror = function() {
+                // Si falla (no existe el archivo local), no hace nada y mantiene el GIF por defecto o la anterior
+                console.log("No se encontró imagen local, usando fallback.");
+            };
+            img.src = posters[currentPosterIndex];
+
+            currentPosterIndex = (currentPosterIndex + 1) % posters.length;
+        }
+
+        // Iniciar carrusel
+        setInterval(updateBackground, 5000);
+        updateBackground(); // Primera carga
+
+    </script>
 </body>
 </html>
